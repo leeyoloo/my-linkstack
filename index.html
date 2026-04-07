@@ -1,350 +1,306 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的链接页</title>
+  <title>LeeYolo · Links</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      padding: 20px;
-    }
-    
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    .container {
-      width: 100%;
-      max-width: 420px;
-    }
-    
-    .profile {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      border: 3px solid rgba(255,255,255,0.2);
-      margin: 0 auto 16px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      color: white;
-      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .avatar:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
-    }
-    
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    
-    .name {
-      color: #fff;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
-    }
-    
-    .bio {
-      color: rgba(255,255,255,0.6);
-      font-size: 14px;
-      line-height: 1.6;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-    
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    
-    .link-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .link-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .link-card:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    }
-    
-    .link-card:hover::before {
-      opacity: 1;
-    }
-    
-    .link-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-    
-    .link-info {
-      flex: 1;
-      min-width: 0;
-    }
-    
-    .link-title {
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 2px;
-    }
-    
-    .link-desc {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-    }
-    
-    .link-arrow {
-      color: rgba(255,255,255,0.3);
-      font-size: 18px;
-      transition: transform 0.3s ease;
-    }
-    
-    .link-card:hover .link-arrow {
-      transform: translateX(4px);
-      color: rgba(255,255,255,0.7);
-    }
-    
-    /* Icon colors */
-    .icon-github { background: #24292e; }
-    .icon-twitter { background: #1da1f2; }
-    .icon-bilibili { background: #00a1d6; }
-    .icon-email { background: #ea4335; }
-    .icon-blog { background: #ff6b35; }
-    .icon-wechat { background: #07c160; }
-    .icon-zhihu { background: #0084ff; }
-    .icon-juejin { background: #1e80ff; }
-    .icon-telegram { background: #0088cc; }
-    .icon-discord { background: #5865f2; }
-    .icon-youtube { background: #ff0000; }
-    .icon-linkedin { background: #0077b5; }
-    .icon-resume { background: #8b5cf6; }
-    .icon-project { background: #10b981; }
-    .icon-default { background: #6b7280; }
-    
-    .footer {
-      text-align: center;
-      margin-top: 32px;
-      color: rgba(255,255,255,0.3);
-      font-size: 12px;
-    }
-    
-    .footer a {
-      color: rgba(255,255,255,0.4);
-      text-decoration: none;
-    }
-    
-    .footer a:hover {
-      color: rgba(255,255,255,0.7);
-    }
-    
-    /* Social icons row */
-    .social-row {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 24px;
-    }
-    
-    .social-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-    
-    .social-icon:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-    
-    /* Entrance animation */
-    .link-card {
-      opacity: 0;
-      animation: slideUp 0.5s ease forwards;
-    }
-    
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .link-card:nth-child(1) { animation-delay: 0.1s; }
-    .link-card:nth-child(2) { animation-delay: 0.15s; }
-    .link-card:nth-child(3) { animation-delay: 0.2s; }
-    .link-card:nth-child(4) { animation-delay: 0.25s; }
-    .link-card:nth-child(5) { animation-delay: 0.3s; }
-    .link-card:nth-child(6) { animation-delay: 0.35s; }
-    .link-card:nth-child(7) { animation-delay: 0.4s; }
-    .link-card:nth-child(8) { animation-delay: 0.45s; }
-    
-    .profile {
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards;
-    }
-    
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  --bg-primary:#050714;--bg-glass:rgba(10,15,46,0.65);--bg-glass-hover:rgba(15,25,70,0.78);
+  --border-glass:rgba(99,179,237,0.12);--border-glass-hover:rgba(99,179,237,0.3);
+  --text-primary:#e2e8f0;--text-secondary:rgba(148,163,184,0.85);--text-muted:rgba(148,163,184,0.5);
+  --accent:#63b3ed;--accent-glow:rgba(99,179,237,0.35);--accent2:#76e4f7;
+  --counter-bg:rgba(99,179,237,0.08);--counter-border:rgba(99,179,237,0.2);
+  --card-shadow:0 8px 32px rgba(0,0,0,0.4),0 0 0 1px rgba(99,179,237,0.08);
+  --card-shadow-hover:0 16px 48px rgba(0,0,0,0.6),0 0 0 1px rgba(99,179,237,0.2);
+  --music-bg:rgba(10,15,46,0.92);
+}
+[data-theme="light"] {
+  --bg-primary:#f0f4ff;--bg-glass:rgba(255,255,255,0.72);--bg-glass-hover:rgba(255,255,255,0.9);
+  --border-glass:rgba(99,179,237,0.2);--border-glass-hover:rgba(99,179,237,0.45);
+  --text-primary:#1a202c;--text-secondary:rgba(74,85,104,0.85);--text-muted:rgba(113,128,150,0.6);
+  --accent:#3182ce;--accent-glow:rgba(49,130,206,0.3);--accent2:#00b5d8;
+  --counter-bg:rgba(49,130,206,0.06);--counter-border:rgba(49,130,206,0.2);
+  --card-shadow:0 8px 32px rgba(49,130,206,0.1),0 0 0 1px rgba(49,130,206,0.08);
+  --card-shadow-hover:0 16px 48px rgba(49,130,206,0.18),0 0 0 1px rgba(49,130,206,0.2);
+  --music-bg:rgba(255,255,255,0.92);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 140px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.bg-orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:orbFloat 20s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,#63b3ed,transparent 70%);top:-150px;left:-100px}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,#76e4f7,transparent 70%);bottom:-100px;right:-80px;animation-delay:-7s}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,#9f7aea,transparent 70%);top:40%;left:60%;animation-delay:-14s}
+[data-theme="light"] .orb{opacity:0.08}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-30px) scale(1.05)}50%{transform:translate(-20px,40px) scale(0.95)}75%{transform:translate(30px,20px) scale(1.02)}}
+.main-container{position:relative;z-index:10;width:100%;max-width:440px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeSlideDown .6s ease forwards}
+@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+.theme-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.toggle-label{font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;transition:color .3s}
+.toggle-switch{width:52px;height:28px;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:14px;position:relative;backdrop-filter:blur(16px);transition:all .3s;cursor:pointer}
+.toggle-switch:hover{border-color:var(--border-glass-hover)}
+.toggle-knob{width:20px;height:20px;background:var(--accent);border-radius:50%;position:absolute;top:3px;left:4px;transition:all .35s cubic-bezier(.68,-.55,.27,1.55);box-shadow:0 0 8px var(--accent-glow)}
+[data-theme="light"] .toggle-knob{left:calc(100% - 24px)}
+.page-views-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:20px;backdrop-filter:blur(16px);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);transition:all .3s}
+.page-views-badge svg{width:12px;height:12px;flex-shrink:0}
+.profile-card{background:var(--bg-glass);backdrop-filter:blur(40px);border:1px solid var(--border-glass);border-radius:28px;padding:40px 32px 36px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:all .4s;animation:cardReveal .7s ease forwards}
+@keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.profile-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(99,179,237,.4),transparent)}
+.profile-card::after{content:"";position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:180px;height:180px;background:radial-gradient(circle,var(--accent-glow),transparent 70%);pointer-events:none;opacity:.6}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:20px}
+.avatar-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;background:linear-gradient(var(--bg-primary),var(--bg-primary)) padding-box,linear-gradient(135deg,var(--accent),var(--accent2)) border-box;animation:ringRotate 8s linear infinite}
+@keyframes ringRotate{to{transform:rotate(360deg)}}
+.avatar{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;position:relative;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;box-shadow:0 4px 24px var(--accent-glow);overflow:hidden}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:1}
+.avatar:hover{transform:scale(1.08) rotate(2deg);box-shadow:0 8px 40px var(--accent-glow)}
+.name{font-size:26px;font-weight:700;color:var(--text-primary);margin-bottom:10px;letter-spacing:-.5px;line-height:1.2}
+.bio{font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:280px;margin:0 auto}
+.tags{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--accent);letter-spacing:.2px;transition:all .3s}
+.links{display:flex;flex-direction:column;gap:12px}
+.link-card{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg-glass);backdrop-filter:blur(24px);border:1px solid var(--border-glass);border-radius:18px;text-decoration:none;color:var(--text-primary);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;box-shadow:var(--card-shadow);opacity:0;animation:linkReveal .5s ease forwards}
+.link-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent);opacity:0;transition:opacity .3s}
+.link-card::after{content:"";position:absolute;top:0;left:-100%;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transition:left .5s}
+.link-card:hover{transform:translateY(-3px);background:var(--bg-glass-hover);border-color:var(--border-glass-hover);box-shadow:var(--card-shadow-hover)}
+.link-card:hover::before{opacity:1}
+.link-card:hover::after{left:200%}
+@keyframes linkReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.link-card:nth-child(1){animation-delay:.15s}.link-card:nth-child(2){animation-delay:.22s}.link-card:nth-child(3){animation-delay:.29s}.link-card:nth-child(4){animation-delay:.36s}.link-card:nth-child(5){animation-delay:.43s}.link-card:nth-child(6){animation-delay:.50s}.link-card:nth-child(7){animation-delay:.57s}.link-card:nth-child(8){animation-delay:.64s}
+.link-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;z-index:1;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.link-card:hover .link-icon{transform:scale(1.12) rotate(-5deg)}
+.link-info{flex:1;min-width:0;position:relative;z-index:1}
+.link-title{font-weight:600;font-size:15px;margin-bottom:2px;color:var(--text-primary)}
+.link-desc{font-size:12px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-arrow{color:var(--text-muted);font-size:18px;position:relative;z-index:1;transition:all .3s;flex-shrink:0}
+.link-card:hover .link-arrow{transform:translateX(5px);color:var(--accent)}
+.icon-github{background:#24292e}.icon-twitter{background:#1da1f2}.icon-bilibili{background:linear-gradient(135deg,#00a1d6,#fb7299)}.icon-email{background:#ea4335}.icon-blog{background:linear-gradient(135deg,#ff6b35,#f7c000)}.icon-wechat{background:linear-gradient(135deg,#07c160,#4cd964)}.icon-telegram{background:linear-gradient(135deg,#0088cc,#0080ff)}.icon-discord{background:#5865f2}.icon-youtube{background:linear-gradient(135deg,#ff0000,#cc0000)}.icon-linkedin{background:#0077b5}.icon-default{background:#6b7280}.icon-music{background:linear-gradient(135deg,#1db954,#1ed760)}.icon-resume{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}.icon-project{background:linear-gradient(135deg,#10b981,#059669)}
+.music-player{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--music-bg);backdrop-filter:blur(40px) saturate(1.8);border-top:1px solid var(--border-glass);padding:0 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.music-player.visible{transform:translateY(0)}
+.music-player-inner{max-width:440px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px}
+.music-cover{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#63b3ed,#76e4f7);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;overflow:hidden;transition:transform .3s}
+.music-cover.playing{animation:coverPulse 2s ease-in-out infinite}
+@keyframes coverPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.music-cover img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.music-info{flex:1;min-width:0}
+.music-title{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-progress-bar{width:100%;height:3px;background:var(--counter-border);border-radius:2px;margin-top:4px;overflow:hidden;cursor:pointer}
+.music-progress-fill{height:100%;background:linear-gradient(90deg,#63b3ed,#76e4f7);border-radius:2px;width:0;transition:width .2s linear}
+.music-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.music-btn{width:36px;height:36px;border:none;border-radius:50%;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--text-primary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:14px}
+.music-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.music-btn.play-btn{width:40px;height:40px;background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
+.music-btn.play-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px var(--accent-glow)}
+.music-toggle-btn{position:fixed;bottom:80px;right:20px;z-index:99;width:48px;height:48px;border-radius:50%;background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-glass);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:all .3s cubic-bezier(.4,0,.2,1);animation:btnPop .6s .8s ease forwards;opacity:0;transform:scale(.8)}
+@keyframes btnPop{to{opacity:1;transform:scale(1)}}
+.music-toggle-btn:hover{transform:scale(1.1);border-color:var(--border-glass-hover);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 20px var(--accent-glow)}
+.music-toggle-btn.playing{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 24px var(--accent-glow)}
+.music-toggle-btn.hidden{display:none}
+.footer{text-align:center;margin-top:32px;font-size:12px;color:var(--text-muted);animation:fadeSlideUp .7s .5s ease forwards;opacity:0}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.footer a{color:var(--accent);text-decoration:none;font-weight:500;transition:color .2s}
+.footer a:hover{color:var(--accent2);text-decoration:underline}
+@media(max-width:480px){body{padding:16px 12px 140px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+::selection{background:var(--accent-glow);color:var(--text-primary)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- 头像和简介 -->
-    <div class="profile">
-      <div class="avatar">
-        <!-- 👇 把这里换成你的真实头像 URL -->
-        <!-- <img src="https://github.com/your-username.png" alt="avatar"> -->
-        🧑‍💻
-      </div>
-      <h1 class="name">你的名字</h1>
-      <p class="bio">在这里写一段自我介绍 ✨<br>Developer · Creator · Dreamer</p>
+<canvas id="particles"></canvas>
+<div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+<div class="main-container">
+  <div class="top-bar">
+    <div class="theme-toggle" id="themeToggle" title="切换明暗主题" role="button" aria-label="切换主题">
+      <span class="toggle-label" id="themeLabel">暗色</span>
+      <div class="toggle-switch"><div class="toggle-knob"></div></div>
     </div>
-    
-    <!-- 链接列表 -->
-    <div class="links">
-      <!-- 👇 按需修改：href 是链接地址，icon 是图标类名 -->
-      <a href="https://github.com/your-username" target="_blank" class="link-card">
-        <div class="link-icon icon-github">🐙</div>
-        <div class="link-info">
-          <div class="link-title">GitHub</div>
-          <div class="link-desc">我的开源项目和代码</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="https://your-blog.com" target="_blank" class="link-card">
-        <div class="link-icon icon-blog">📝</div>
-        <div class="link-info">
-          <div class="link-title">博客</div>
-          <div class="link-desc">技术分享与生活记录</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="https://twitter.com/your-username" target="_blank" class="link-card">
-        <div class="link-icon icon-twitter">🐦</div>
-        <div class="link-info">
-          <div class="link-title">Twitter / X</div>
-          <div class="link-desc">日常碎碎念</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="https://space.bilibili.com/xxx" target="_blank" class="link-card">
-        <div class="link-icon icon-bilibili">📺</div>
-        <div class="link-info">
-          <div class="link-title">B 站</div>
-          <div class="link-desc">视频内容</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="https://t.me/your-username" target="_blank" class="link-card">
-        <div class="link-icon icon-telegram">✈️</div>
-        <div class="link-info">
-          <div class="link-title">Telegram</div>
-          <div class="link-desc">即时联系</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="mailto:you@example.com" target="_blank" class="link-card">
-        <div class="link-icon icon-email">📧</div>
-        <div class="link-info">
-          <div class="link-title">邮箱</div>
-          <div class="link-desc">商务合作 / 联系我</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <a href="https://your-project.com" target="_blank" class="link-card">
-        <div class="link-icon icon-project">🚀</div>
-        <div class="link-info">
-          <div class="link-title">我的项目</div>
-          <div class="link-desc">最近在做的东西</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      
-      <!-- 需要更多链接？复制上面的 a 块，改 icon 类名即可 -->
-    </div>
-    
-    <!-- 底部 -->
-    <div class="footer">
-      <p>Made with ❤️ · <a href="https://github.com/your-username" target="_blank">@your-username</a></p>
+    <div class="page-views-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span id="viewCount">--</span> 次浏览
     </div>
   </div>
+  <div class="profile-card">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar" id="avatar">&#128187;</div>
+    </div>
+    <h1 class="name">LeeYolo</h1>
+    <p class="bio">在这里记录我的成长 &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
+    <div class="tags">
+      <span class="tag">前端开发</span>
+      <span class="tag">开源爱好者</span>
+      <span class="tag">持续学习</span>
+    </div>
+  </div>
+  <div class="links">
+    <a href="https://github.com/leeyoloo" target="_blank" class="link-card">
+      <div class="link-icon icon-github">&#128021;</div>
+      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; 开源项目与代码</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://space.bilibili.com/your-id" target="_blank" class="link-card">
+      <div class="link-icon icon-bilibili">&#128250;</div>
+      <div class="link-info"><div class="link-title">B &#31449;</div><div class="link-desc">技术视频与日常分享</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://twitter.com/your-handle" target="_blank" class="link-card">
+      <div class="link-icon icon-twitter">&#128038;</div>
+      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">日常碎碎念</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://t.me/your-handle" target="_blank" class="link-card">
+      <div class="link-icon icon-telegram">&#9992;</div>
+      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">即时联系 &middot; &#38394;&#32842;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="mailto:your@email.com" target="_blank" class="link-card">
+      <div class="link-icon icon-email">&#128231;</div>
+      <div class="link-info"><div class="link-title">&#37038;&#31665;</div><div class="link-desc">&#21830;&#21153;&#21512;&#20304; &middot; &#32852;&#31995;&#25105;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+  </div>
+  <div class="footer">
+    <p>Made with &#10084;&#65039; &middot; <a href="https://github.com/leeyoloo" target="_blank">@leeyoloo</a></p>
+  </div>
+</div>
+<button class="music-toggle-btn" id="musicToggleBtn" title="&#38899;&#20048;&#25773;&#25918;&#22120;">&#127925;</button>
+<div class="music-player" id="musicPlayer">
+  <div class="music-player-inner">
+    <div class="music-cover" id="musicCover">&#127925;</div>
+    <div class="music-info">
+      <div class="music-title" id="musicTitle">&#38899;&#20048;&#25773;&#25918;&#22120;</div>
+      <div class="music-artist" id="musicArtist">&#28857;&#20987;&#28155;&#21152;&#38899;&#20048;</div>
+      <div class="music-progress-bar" id="musicProgressBar">
+        <div class="music-progress-fill" id="musicProgressFill"></div>
+      </div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="musicPrevBtn">&#9198;</button>
+      <button class="music-btn play-btn" id="musicPlayBtn">&#9654;</button>
+      <button class="music-btn" id="musicNextBtn">&#9197;</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var canvas=document.getElementById('particles');
+  var ctx=canvas.getContext('2d');
+  var W,H,particles=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  function createParticles(){
+    particles=[];
+    var count=Math.min(Math.floor(W*H/12000),120);
+    for(var i=0;i<count;i++){
+      particles.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.5,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,alpha:Math.random()*0.5+0.2});
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var color=document.documentElement.dataset.theme==='dark'?'99,179,237':'49,130,206';
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<140){ctx.beginPath();ctx.strokeStyle='rgba('+color+','+(0.15*(1-dist/140))+')';ctx.lineWidth=0.5;ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();}
+      }
+    }
+    particles.forEach(function(p){
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba('+color+','+p.alpha+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();createParticles();draw();
+  window.addEventListener('resize',function(){resize();createParticles();});
+})();
+(function(){
+  var toggle=document.getElementById('themeToggle');
+  var label=document.getElementById('themeLabel');
+  toggle.addEventListener('click',function(){
+    var html=document.documentElement;
+    var isDark=html.dataset.theme==='dark';
+    html.dataset.theme=isDark?'light':'dark';
+    label.textContent=isDark?'&#20064;&#33394;':'&#26263;&#33394;';
+    localStorage.setItem('theme',html.dataset.theme);
+  });
+  var saved=localStorage.getItem('theme');
+  if(saved){document.documentElement.dataset.theme=saved;label.textContent=saved==='light'?'&#20064;&#33394;':'&#26263;&#33394;';}
+})();
+(function(){
+  var el=document.getElementById('viewCount');
+  var key='leeyolo_views_v2';
+  var today=new Date().toDateString();
+  var count=parseInt(localStorage.getItem(key)||'0');
+  if(!localStorage.getItem(key+'_'+today)){count=count+1;localStorage.setItem(key,count);localStorage.setItem(key+'_'+today,'1');}
+  el.textContent=count;
+})();
+(function(){
+  var btn=document.getElementById('musicToggleBtn');
+  var panel=document.getElementById('musicPlayer');
+  var playBtn=document.getElementById('musicPlayBtn');
+  var prevBtn=document.getElementById('musicPrevBtn');
+  var nextBtn=document.getElementById('musicNextBtn');
+  var cover=document.getElementById('musicCover');
+  var title=document.getElementById('musicTitle');
+  var artist=document.getElementById('musicArtist');
+  var progressFill=document.getElementById('musicProgressFill');
+  var progressBar=document.getElementById('musicProgressBar');
+  var isPlaying=false;
+  var currentSongIndex=0;
+  // &#38750;&#24120;&#37325;&#35201;&#65306;&#35797;&#23558; playlist &#25968;&#32452;&#20013;&#30340; url &#25913;&#20026;&#20320;&#30340;&#38899;&#20048;&#22320;&#22336;&#65292;&#20351;&#29992;&#22320;&#22336;&#24314;&#35758;&#25991;&#20214;&#25110;&#20844;&#24320;&#38142;&#25509;
+  var playlist=[
+    {title:'&#22312;&#22799;&#22825;',artist:'&#40060;&#19969;&#32597;',coverEmoji:'&#127807;',url:''},
+    {title:'&#22812;&#26354;',artist:'&#21608;&#26480;&#20262;',coverEmoji:'&#127769;',url:''},
+    {title:'&#26228;&#22825;',artist:'&#21608;&#26480;&#20262;',coverEmoji:'&#9788;',url:''},
+  ];
+  var currentAudio=new Audio();
+  function showPlayer(){panel.classList.add('visible');btn.classList.add('hidden');}
+  function hidePlayer(){panel.classList.remove('visible');btn.classList.remove('hidden');if(currentAudio)currentAudio.pause();isPlaying=false;playBtn.textContent='▶';cover.classList.remove('playing');}
+  btn.addEventListener('click',function(){showPlayer();if(playlist[currentSongIndex].url){loadSong(currentSongIndex);if(!isPlaying)togglePlay();}});
+  progressBar.addEventListener('dblclick',function(){hidePlayer();});
+  function loadSong(index){
+    var song=playlist[index];
+    title.textContent=song.title;
+    artist.textContent=song.artist;
+    cover.textContent=song.coverEmoji;
+    if(song.url){currentAudio.src=song.url;currentAudio.load();}
+  }
+  function togglePlay(){
+    if(!playlist[currentSongIndex].url){title.textContent='点;&#20987;&#32534;&#36753;&#38899;&#20048;&#21015;&#34920;';artist.textContent='在 HTML &#20013;&#20462;&#25913; playlist &#25968;&#32452;';return;}
+    if(isPlaying){currentAudio.pause();playBtn.textContent='▶';cover.classList.remove('playing');btn.classList.remove('playing');}
+    else{currentAudio.play().catch(function(){});playBtn.textContent='⏸';cover.classList.add('playing');btn.classList.add('playing');}
+    isPlaying=!isPlaying;
+  }
+  currentAudio.addEventListener('timeupdate',function(){
+    if(currentAudio.duration){progressFill.style.width=((currentAudio.currentTime/currentAudio.duration)*100)+'%';}
+  });
+  currentAudio.addEventListener('ended',function(){
+    currentSongIndex=(currentSongIndex+1)%playlist.length;loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  playBtn.addEventListener('click',togglePlay);
+  prevBtn.addEventListener('click',function(){
+    currentSongIndex=(currentSongIndex-1+playlist.length)%playlist.length;loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  nextBtn.addEventListener('click',function(){
+    currentSongIndex=(currentSongIndex+1)%playlist.length;loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  progressBar.addEventListener('click',function(e){
+    if(!playlist[currentSongIndex].url)return;
+    var rect=progressBar.getBoundingClientRect();
+    var pct=(e.clientX-rect.left)/rect.width;
+    currentAudio.currentTime=pct*currentAudio.duration;
+  });
+})();
+</script>
 </body>
 </html>
-
