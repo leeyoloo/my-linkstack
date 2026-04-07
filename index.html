@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeeYolo · Links</title>
+  <title>leeyolo · links</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 :root {
@@ -116,7 +116,7 @@ body{font-family:"DM Sans",sans-serif;min-height:100vh;background:var(--bg-prima
 <div class="main-container">
   <div class="top-bar">
     <div class="theme-toggle" id="themeToggle" title="切换明暗主题" role="button" aria-label="切换主题">
-      <span class="toggle-label" id="themeLabel">暗色</span>
+      <span class="toggle-label" id="themeLabel">亮色</span>
       <div class="toggle-switch"><div class="toggle-knob"></div></div>
     </div>
     <div class="page-views-badge">
@@ -223,15 +223,19 @@ body{font-family:"DM Sans",sans-serif;min-height:100vh;background:var(--bg-prima
 (function(){
   var toggle=document.getElementById('themeToggle');
   var label=document.getElementById('themeLabel');
+  function syncLabel(){
+    var isDark=document.documentElement.dataset.theme==='dark';
+    label.textContent=isDark?'亮色':'暗色';
+  }
   toggle.addEventListener('click',function(){
-    var html=document.documentElement;
-    var isDark=html.dataset.theme==='dark';
-    html.dataset.theme=isDark?'light':'dark';
-    label.textContent=isDark?'&#20064;&#33394;':'&#26263;&#33394;';
-    localStorage.setItem('theme',html.dataset.theme);
+    var isDark=document.documentElement.dataset.theme==='dark';
+    document.documentElement.dataset.theme=isDark?'light':'dark';
+    syncLabel();
+    localStorage.setItem('theme',document.documentElement.dataset.theme);
   });
   var saved=localStorage.getItem('theme');
-  if(saved){document.documentElement.dataset.theme=saved;label.textContent=saved==='light'?'&#20064;&#33394;':'&#26263;&#33394;';}
+  if(saved){document.documentElement.dataset.theme=saved;}
+  syncLabel();
 })();
 (function(){
   var el=document.getElementById('viewCount');
