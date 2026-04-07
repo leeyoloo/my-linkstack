@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+const fs = require('fs');
+
+// Read current HTML
+const c = fs.readFileSync('C:/Users/24215/.qclaw/workspace/repo/index.html', 'utf8');
+console.log('Read', c.length, 'chars');
+
+const html = `<!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -28,14 +34,23 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased}
-body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 140px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
+body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 120px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
+
+/* MUSIC MODE: split layout */
+body.music-mode{display:flex;flex-direction:row;padding:40px;gap:60px;align-items:flex-start;justify-content:center}
+body.music-mode .main-container{width:420px;flex-shrink:0}
+body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
+
+/* COVER BACKGROUND */
 #coverBg{position:fixed;inset:0;z-index:0;opacity:0;transition:opacity 1.2s ease;pointer-events:none;overflow:hidden}
 #coverBg.active{opacity:1}
 #coverBgImg{position:absolute;inset:-15%;width:130%;height:130%;object-fit:cover;filter:blur(60px) brightness(0.4) saturate(1.4);transform:scale(1.1)}
 #coverGlow1,#coverGlow2{position:absolute;inset:0;transition:background 2s ease}
 #coverOverlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,20,0.15) 0%,rgba(5,7,20,0.8) 100%)}
+
+/* PARTICLES */
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity .8s}
-#particles.dimmed{opacity:.1}
+#particles.dimmed{opacity:.12}
 .bg-orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:orbFloat 20s ease-in-out infinite}
 .orb-1{width:500px;height:500px;background:radial-gradient(circle,#63b3ed,transparent 70%);top:-150px;left:-100px}
@@ -43,20 +58,106 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .orb-3{width:300px;height:300px;background:radial-gradient(circle,#9f7aea,transparent 70%);top:40%;left:60%;animation-delay:-14s}
 [data-theme="dark"] .orb{opacity:0.15}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-30px) scale(1.05)}50%{transform:translate(-20px,40px) scale(0.95)}75%{transform:translate(30px,20px) scale(1.02)}}
-#lyricsOverlay{position:fixed;inset:0;z-index:50;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;opacity:0;transition:opacity .8s}
-#lyricsOverlay.active{opacity:1}
-#lyricsContainer{text-align:center;max-width:600px;width:100%}
-.lyric-line{font-size:clamp(14px,3vw,22px);font-weight:400;color:rgba(255,255,255,0.28);line-height:2.5;letter-spacing:.5px;transition:all .6s cubic-bezier(.4,0,.2,1);white-space:pre-line;min-height:2.5em}
-.lyric-line.active{font-size:clamp(18px,4vw,30px);font-weight:700;color:#ffffff;text-shadow:0 0 40px rgba(255,255,255,0.5),0 2px 20px rgba(0,0,0,0.5)}
-.lyric-word{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
-.lyric-word.done{opacity:1;transform:translateY(0)}
+
+/* LYRICS + COVER RIGHT PANEL */
+.music-panel{
+  position:fixed;right:60px;top:50%;transform:translateY(-50%);
+  width:360px;max-width:calc(100vw - 40px);
+  display:flex;flex-direction:column;align-items:center;gap:28px;
+  z-index:60;opacity:0;transform:translateY(-50%) translateX(30px);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.music-panel-inner{
+  display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;
+}
+
+/* Large album cover */
+.panel-cover-wrap{position:relative;flex-shrink:0}
+.panel-cover-ring{
+  position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);
+  animation:panelRingSpin 12s linear infinite;
+}
+@keyframes panelRingSpin{to{transform:rotate(360deg)}}
+.panel-cover{
+  width:200px;height:200px;border-radius:50%;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.1);
+  position:relative;display:flex;align-items:center;justify-content:center;
+  font-size:64px;background:linear-gradient(135deg,#63b3ed,#76e4f7);
+  transition:transform .3s;
+}
+.panel-cover.playing{animation:panelCoverPulse 3s ease-in-out infinite}
+@keyframes panelCoverPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.panel-cover img{width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0}
+.panel-cover .cover-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 70%);
+  animation:coverGlowPulse 3s ease-in-out infinite;
+}
+@keyframes coverGlowPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+
+/* Song info */
+.panel-song-info{text-align:center}
+.panel-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px;text-shadow:0 2px 12px rgba(0,0,0,0.4)}
+.panel-artist{font-size:14px;color:rgba(255,255,255,0.6);letter-spacing:.5px}
+
+/* Lyrics in panel */
+.panel-lyrics-container{
+  width:100%;max-height:200px;overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;
+  padding:0 10px;
+}
+.panel-lyrics-container::-webkit-scrollbar{display:none}
+.panel-lyric-line{
+  font-size:16px;font-weight:400;color:rgba(255,255,255,0.3);
+  line-height:2.4;letter-spacing:.3px;text-align:center;
+  transition:all .5s cubic-bezier(.4,0,.2,1);padding:2px 8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.panel-lyric-line.active{
+  font-size:20px;font-weight:700;color:#fff;
+  text-shadow:0 0 30px rgba(255,255,255,0.5),0 2px 12px rgba(0,0,0,0.4);
+  letter-spacing:.5px;
+}
+
+/* Color bar animation on lyrics panel */
+.panel-lyrics-glow{
+  width:100%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  border-radius:1px;margin-top:4px;position:relative;overflow:hidden;
+}
+.panel-lyrics-glow::after{
+  content:'';position:absolute;top:0;left:0;height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent2,#76e4f7),#fff,var(--accent2,#76e4f7));
+  border-radius:1px;
+  transition:width .5s linear;
+}
+.panel-lyrics-glow.playing::after{width:100%;transition:width .5s linear}
+
+/* Progress in panel */
+.panel-progress-wrap{width:100%;padding:0 4px}
+.panel-progress-bar{width:100%;height:3px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;cursor:pointer}
+.panel-progress-fill{height:100%;background:linear-gradient(90deg,rgba(255,255,255,0.5),#fff);border-radius:2px;width:0;transition:width .2s linear}
+.panel-time{font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;display:flex;justify-content:space-between}
+
+/* Mini controls */
+.panel-controls{display:flex;align-items:center;gap:12px}
+.panel-btn{width:40px;height:40px;border:none;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:16px}
+.panel-btn:hover{background:rgba(255,255,255,0.25);transform:scale(1.05)}
+.panel-btn.play{width:52px;height:52px;background:rgba(255,255,255,0.9);color:#111;font-size:20px}
+.panel-btn.play:hover{background:#fff;transform:scale(1.08)}
+
+/* PAGE ENTRANCE */
 .page-entrance{position:fixed;inset:0;z-index:9999;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s}
 .page-entrance.done{opacity:0;visibility:hidden;pointer-events:none}
 .page-entrance-logo{font-size:48px;font-weight:700;color:var(--accent);opacity:0;transform:scale(0.5);animation:entranceLogo 1s .3s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes entranceLogo{to{opacity:1;transform:scale(1)}}
 .page-entrance-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;animation:entranceBar 1.5s .5s ease forwards}
 @keyframes entranceBar{to{width:100%}}
+
+/* MAIN */
 .main-container{position:relative;z-index:10;width:100%;max-width:440px}
+
+/* TOP BAR */
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeSlideDown .6s 1.6s ease both}
 @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
 .theme-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;position:relative}
@@ -69,6 +170,8 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .toggle-key{position:absolute;right:-32px;top:50%;transform:translateY(-50%);background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:4px;padding:1px 5px;font-size:10px;font-family:"JetBrains Mono",monospace;color:var(--text-muted);opacity:.6}
 .page-views-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:20px;backdrop-filter:blur(16px);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);transition:all .3s;animation:fadeSlideDown .6s 1.8s ease both}
 .page-views-badge svg{width:12px;height:12px;flex-shrink:0}
+
+/* PROFILE CARD */
 .profile-card{background:var(--bg-glass);backdrop-filter:blur(40px);border:1px solid var(--border-glass);border-radius:28px;padding:40px 32px 36px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:all .4s;animation:cardReveal .7s 1.9s ease both}
 @keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .profile-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-glow),transparent)}
@@ -87,6 +190,8 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .bio{font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:280px;margin:0 auto}
 .tags{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
 .tag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--accent);letter-spacing:.2px;transition:all .3s}
+
+/* LINKS */
 .links{display:flex;flex-direction:column;gap:12px}
 .link-card{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg-glass);backdrop-filter:blur(24px);border:1px solid var(--border-glass);border-radius:18px;text-decoration:none;color:var(--text-primary);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;box-shadow:var(--card-shadow);opacity:0;animation:linkReveal .5s ease forwards;cursor:pointer}
 @keyframes linkReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -109,6 +214,8 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .keyboard-hint{text-align:center;margin-top:20px;font-size:11px;color:var(--text-muted);letter-spacing:.5px;animation:fadeSlideUp .7s 2.5s ease both;opacity:0}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border-radius:4px;background:var(--counter-bg);border:1px solid var(--counter-border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--accent);margin:0 2px}
+
+/* MUSIC PLAYER BAR */
 .music-player{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--music-bg);backdrop-filter:blur(40px) saturate(1.8);border-top:1px solid var(--border-glass);padding:0 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
 .music-player.visible{transform:translateY(0)}
 .music-player-inner{max-width:440px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px}
@@ -135,18 +242,29 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .music-toggle-btn.playing{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 24px var(--accent-glow)}
 .music-toggle-btn.hidden{display:none}
 .music-toggle-btn .kbd-hint{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text-muted);white-space:nowrap;font-family:"JetBrains Mono",monospace}
+
+/* FOOTER & TOAST */
 .footer{text-align:center;margin-top:32px;font-size:12px;color:var(--text-muted);animation:fadeSlideUp .7s 2.6s ease both;opacity:0}
 .footer a{color:var(--accent);text-decoration:none;font-weight:500;transition:color .2s}
 .footer a:hover{color:var(--accent2);text-decoration:underline}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-glass);border-radius:12px;padding:10px 20px;font-size:13px;color:var(--text-primary);opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:480px){body{padding:16px 12px 140px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}.lyric-line{font-size:13px!important}.lyric-line.active{font-size:17px!important}}
+
+@media(max-width:768px){
+  body.music-mode{flex-direction:column;padding:20px 16px 120px;gap:0;align-items:center}
+  body.music-mode .music-panel{position:static;transform:none;width:100%;max-width:440px;opacity:1;pointer-events:auto;margin-bottom:20px}
+  body.music-mode .main-container{width:100%;max-width:440px}
+  body.music-mode{justify-content:flex-start;padding-top:20px}
+  .panel-cover{width:160px;height:160px;font-size:48px}
+}
+@media(max-width:480px){body{padding:16px 12px 120px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 ::selection{background:var(--accent-glow);color:var(--text-primary)}
   </style>
 </head>
 <body>
 
+<!-- Cover background -->
 <div id="coverBg">
   <img id="coverBgImg" src="" alt="" crossorigin="anonymous">
   <div id="coverGlow1"></div>
@@ -154,22 +272,61 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   <div id="coverOverlay"></div>
 </div>
 
-<div id="lyricsOverlay">
-  <div id="lyricsContainer"></div>
-</div>
-
+<!-- Page entrance -->
 <div class="page-entrance" id="pageEntrance">
   <div class="page-entrance-logo">&#10022;</div>
   <div class="page-entrance-bar"></div>
 </div>
 
+<!-- Particles -->
 <canvas id="particles"></canvas>
 <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
 
+<!-- Music panel (right side, shown when music plays) -->
+<div class="music-panel" id="musicPanel">
+  <div class="music-panel-inner">
+    <!-- Album cover -->
+    <div class="panel-cover-wrap">
+      <div class="panel-cover-ring"></div>
+      <div class="panel-cover" id="panelCover">
+        <div class="cover-glow"></div>
+        <span id="panelCoverEmoji">&#127925;</span>
+        <img id="panelCoverImg" src="" alt="" style="display:none">
+      </div>
+    </div>
+    <!-- Song info -->
+    <div class="panel-song-info">
+      <div class="panel-title" id="panelTitle">等待播放</div>
+      <div class="panel-artist" id="panelArtist">点击播放音乐</div>
+    </div>
+    <!-- Progress -->
+    <div class="panel-progress-wrap">
+      <div class="panel-progress-bar" id="panelProgressBar">
+        <div class="panel-progress-fill" id="panelProgressFill"></div>
+      </div>
+      <div class="panel-time">
+        <span id="panelTimeCurrent">0:00</span>
+        <span id="panelTimeTotal">0:00</span>
+      </div>
+    </div>
+    <!-- Lyrics -->
+    <div class="panel-lyrics-container" id="panelLyrics">
+    </div>
+    <div class="panel-lyrics-glow" id="panelLyricsGlow"></div>
+    <!-- Controls -->
+    <div class="panel-controls">
+      <button class="panel-btn" id="panelPrevBtn" title="上一首">&#9198;</button>
+      <button class="panel-btn play" id="panelPlayBtn" title="播放">&#9654;</button>
+      <button class="panel-btn" id="panelNextBtn" title="下一首">&#9197;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main content (left side) -->
 <div class="main-container">
   <div class="top-bar">
-    <div class="theme-toggle" id="themeToggle" title="切换明暗主题 (D)" role="button" aria-label="切换主题">
-      <span class="toggle-label" id="themeLabel">亮色</span>
+    <div class="theme-toggle" id="themeToggle" title="&#20999;&#25442;&#26126;&#26263;&#20027;&#39064; (D)" role="button" aria-label="&#20999;&#25442;&#20027;&#39064;">
+      <span class="toggle-label" id="themeLabel">&#20142;&#33394;</span>
       <div class="toggle-switch"><div class="toggle-knob"></div></div>
       <span class="toggle-key">D</span>
     </div>
@@ -182,50 +339,49 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   <div class="profile-card">
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
-      <div class="avatar" id="avatar">
-        <img src="https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
-        <span class="avatar-emoji">&#128187;</span>
-      </div>
+      <div class="avatar"
+      <img src="https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
+      <span class="avatar-emoji">&#128187;</span>
     </div>
     <h1 class="name">leeyolo</h1>
-    <p class="bio">在这里记录我的成长 &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
+    <p class="bio">&#22312;&#36825;&#37324;&#35760;&#24453;&#25105;&#30340;&#25104;&#38271; &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
     <div class="tags">
-      <span class="tag">前端开发</span>
-      <span class="tag">开源爱好者</span>
-      <span class="tag">持续学习</span>
+      <span class="tag">&#21069;&#31471;&#24320;&#21457;</span>
+      <span class="tag">&#24320;&#28304;&#29233;&#22909;&#32773;</span>
+      <span class="tag">&#25345;&#32493;&#23398;&#20064;</span>
     </div>
   </div>
 
   <div class="links">
     <a href="https://github.com/leeyoloo" target="_blank" class="link-card">
       <div class="link-icon icon-github">&#128021;</div>
-      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; 开源项目与代码</div></div>
+      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; &#24320;&#28304;&#39033;&#30446;&#19982;&#20195;&#30721;</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://space.bilibili.com/your-id" target="_blank" class="link-card">
       <div class="link-icon icon-bilibili">&#128250;</div>
-      <div class="link-info"><div class="link-title">B站</div><div class="link-desc">技术视频与日常分享</div></div>
+      <div class="link-info"><div class="link-title">B站</div><div class="link-desc">&#25216;&#26415;&#35270;&#39057;&#19982;&#26085;&#24120;&#20998;&#20139;</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://twitter.com/your-handle" target="_blank" class="link-card">
       <div class="link-icon icon-twitter">&#128038;</div>
-      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">日常碎碎念</div></div>
+      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">&#26085;&#24120;&#30862;&#30862;&#24565;</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://t.me/your-handle" target="_blank" class="link-card">
       <div class="link-icon icon-telegram">&#9992;</div>
-      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">即时联系 &middot; 闲聊</div></div>
+      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">&#21363;&#26102;&#32852;&#31995; &middot; &#38394;&#32842;</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="mailto:your@email.com" target="_blank" class="link-card">
       <div class="link-icon icon-email">&#128231;</div>
-      <div class="link-info"><div class="link-title">邮箱</div><div class="link-desc">商务合作 &middot; 联系我</div></div>
+      <div class="link-info"><div class="link-title">&#37038;&#31665;</div><div class="link-desc">&#21830;&#21153;&#21512;&#20304; &middot; &#32852;&#31995;&#25105;</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
   </div>
 
   <div class="keyboard-hint">
-    <span class="kbd">D</span> 切换主题 &nbsp;&middot;&nbsp; <span class="kbd">M</span> 音乐
+    <span class="kbd">D</span> &#20999;&#25442;&#20027;&#39064; &nbsp;&middot;&nbsp; <span class="kbd">M</span> &#38899;&#20048;
   </div>
 
   <div class="footer">
@@ -233,14 +389,14 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   </div>
 </div>
 
-<button class="music-toggle-btn" id="musicToggleBtn" title="音乐播放器 (M)">&#127925;<span class="kbd-hint">M</span></button>
+<button class="music-toggle-btn" id="musicToggleBtn" title="&#38899;&#20048;&#25773;&#25918;&#22120; (M)">&#127925;<span class="kbd-hint">M</span></button>
 <div class="music-player" id="musicPlayer">
-  <button class="music-close" id="musicCloseBtn" title="关闭">&#10006;</button>
+  <button class="music-close" id="musicCloseBtn" title="&#20851;&#38381;">&#10006;</button>
   <div class="music-player-inner">
     <div class="music-cover" id="musicCover">&#127925;</div>
     <div class="music-info">
-      <div class="music-title" id="musicTitle">等待播放</div>
-      <div class="music-artist" id="musicArtist">点击播放音乐</div>
+      <div class="music-title" id="musicTitle">&#31561;&#24453;&#25773;&#25918;</div>
+      <div class="music-artist" id="musicArtist">&#28857;&#20987;&#25773;&#25918;&#38899;&#20048;</div>
       <div class="music-progress-bar" id="musicProgressBar"><div class="music-progress-fill" id="musicProgressFill"></div></div>
     </div>
     <div class="music-controls">
@@ -304,7 +460,7 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   syncLabel();
 
   var el=document.getElementById("viewCount");
-  var key="leeyolo_views_v6";
+  var key="leeyolo_views_v7";
   var today=new Date().toDateString();
   var count=parseInt(localStorage.getItem(key)||"0");
   if(!localStorage.getItem(key+"_"+today)){count=count+1;localStorage.setItem(key,count);localStorage.setItem(key+"_"+today,"1");}
@@ -328,14 +484,27 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     });
   });
 
-  /* MUSIC + LYRICS + COVER BG */
+  /* ===== MUSIC + SPLIT LAYOUT ===== */
   var coverBg=document.getElementById("coverBg");
   var coverBgImg=document.getElementById("coverBgImg");
   var coverGlow1=document.getElementById("coverGlow1");
   var coverGlow2=document.getElementById("coverGlow2");
-  var lyricsOverlay=document.getElementById("lyricsOverlay");
-  var lyricsContainer=document.getElementById("lyricsContainer");
   var particlesEl=document.getElementById("particles");
+  var musicPanel=document.getElementById("musicPanel");
+  var panelCover=document.getElementById("panelCover");
+  var panelCoverEmoji=document.getElementById("panelCoverEmoji");
+  var panelCoverImg=document.getElementById("panelCoverImg");
+  var panelTitle=document.getElementById("panelTitle");
+  var panelArtist=document.getElementById("panelArtist");
+  var panelProgressFill=document.getElementById("panelProgressFill");
+  var panelProgressBar=document.getElementById("panelProgressBar");
+  var panelLyrics=document.getElementById("panelLyrics");
+  var panelLyricsGlow=document.getElementById("panelLyricsGlow");
+  var panelPlayBtn=document.getElementById("panelPlayBtn");
+  var panelPrevBtn=document.getElementById("panelPrevBtn");
+  var panelNextBtn=document.getElementById("panelNextBtn");
+  var panelTimeCurrent=document.getElementById("panelTimeCurrent");
+  var panelTimeTotal=document.getElementById("panelTimeTotal");
 
   var LYRICS=[
     [0.0,"\u90a3\u5929\u4e0b\u96e8\u4e86"],
@@ -384,22 +553,13 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   ];
 
   function renderLyrics(){
-    lyricsContainer.innerHTML="";
+    panelLyrics.innerHTML="";
     LYRICS.forEach(function(item){
       var div=document.createElement("div");
-      div.className="lyric-line";
+      div.className="panel-lyric-line";
+      div.textContent=item[1]||"\u00a0";
       div.dataset.time=item[0];
-      if(item[1]){
-        item[1].split("").forEach(function(w){
-          var span=document.createElement("span");
-          span.className="lyric-word";
-          span.textContent=w;
-          div.appendChild(span);
-        });
-      } else {
-        div.style.height="20px";
-      }
-      lyricsContainer.appendChild(div);
+      panelLyrics.appendChild(div);
     });
   }
   renderLyrics();
@@ -420,9 +580,18 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   var currentLyricIdx=-1;
   var lyricsVisible=false;
 
-  function showCoverBg(){
+  function formatTime(s){
+    if(!s||isNaN(s))return"0:00";
+    var m=Math.floor(s/60);
+    var sec=Math.floor(s%60);
+    return m+":"+(sec<10?"0":"")+sec;
+  }
+
+  function showMusicMode(){
     coverBg.classList.add("active");
     particlesEl.classList.add("dimmed");
+    musicPanel.classList.add("active");
+    document.body.classList.add("music-mode");
     if(!coverImgLoaded){
       coverBgImg.onload=function(){extractColor(coverBgImg);coverImgLoaded=true;};
       coverBgImg.onerror=function(){
@@ -431,9 +600,14 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
       };
     }
   }
-  function hideCoverBg(){
+
+  function hideMusicMode(){
     coverBg.classList.remove("active");
     particlesEl.classList.remove("dimmed");
+    musicPanel.classList.remove("active");
+    document.body.classList.remove("music-mode");
+    currentLyricIdx=-1;
+    renderLyrics();
   }
 
   function updateLyrics(currentTime){
@@ -441,38 +615,17 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     for(var i=0;i<LYRICS.length;i++){if(currentTime>=LYRICS[i][0])idx=i;}
     if(idx!==currentLyricIdx){
       currentLyricIdx=idx;
-      var lines=lyricsContainer.querySelectorAll(".lyric-line");
+      var lines=panelLyrics.querySelectorAll(".panel-lyric-line");
       lines.forEach(function(line,i){
         if(i===idx){
           line.classList.add("active");
           setTimeout(function(){line.scrollIntoView({behavior:"smooth",block:"center"});},50);
-          var words=line.querySelectorAll(".lyric-word");
-          words.forEach(function(w,wi){
-            w.classList.remove("done");
-            setTimeout(function(){w.style.opacity="1";w.style.transform="translateY(0)";w.classList.add("done");},wi*55);
-          });
         } else {
           line.classList.remove("active");
-          line.querySelectorAll(".lyric-word").forEach(function(w){w.classList.remove("done");w.style.opacity="0";w.style.transform="translateY(8px)";});
         }
       });
     }
   }
-
-  var btn=document.getElementById("musicToggleBtn");
-  var panel=document.getElementById("musicPlayer");
-  var closeBtn=document.getElementById("musicCloseBtn");
-  var playBtn=document.getElementById("musicPlayBtn");
-  var prevBtn=document.getElementById("musicPrevBtn");
-  var nextBtn=document.getElementById("musicNextBtn");
-  var cover=document.getElementById("musicCover");
-  var title=document.getElementById("musicTitle");
-  var artist=document.getElementById("musicArtist");
-  var progressFill=document.getElementById("musicProgressFill");
-  var progressBar=document.getElementById("musicProgressBar");
-
-  var isPlaying=false;
-  var currentSongIndex=0;
 
   var PLAYLIST=[
     {
@@ -485,67 +638,111 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   ];
 
   var currentAudio=new Audio();
+  var isPlaying=false;
+  var currentSongIndex=0;
 
-  function showPlayer(){panel.classList.add("visible");btn.classList.add("hidden");}
-  function hidePlayer(){
+  /* Bottom bar elements */
+  var btn=document.getElementById("musicToggleBtn");
+  var panel=document.getElementById("musicPlayer");
+  var closeBtn=document.getElementById("musicCloseBtn");
+  var playBtn=document.getElementById("musicPlayBtn");
+  var prevBtn=document.getElementById("musicPrevBtn");
+  var nextBtn=document.getElementById("musicNextBtn");
+  var miniCover=document.getElementById("musicCover");
+  var miniTitle=document.getElementById("musicTitle");
+  var miniArtist=document.getElementById("musicArtist");
+  var miniProgressFill=document.getElementById("musicProgressFill");
+  var miniProgressBar=document.getElementById("musicProgressBar");
+
+  function showPanel(){panel.classList.add("visible");btn.classList.add("hidden");}
+  function hidePanel(){
     panel.classList.remove("visible");btn.classList.remove("hidden");
     if(currentAudio){currentAudio.pause();}
     isPlaying=false;
     playBtn.innerHTML="\u25b6";
-    cover.classList.remove("playing");btn.classList.remove("playing");
-    hideCoverBg();
-    lyricsOverlay.classList.remove("active");
-    lyricsVisible=false;
-    currentLyricIdx=-1;
-    renderLyrics();
-    progressFill.style.width="0%";
+    panelPlayBtn.innerHTML="\u25b6";
+    miniCover.classList.remove("playing");btn.classList.remove("playing");
+    panelCover.classList.remove("playing");
+    panelLyricsGlow.classList.remove("playing");
+    hideMusicMode();
   }
 
   function loadSong(index){
     var song=PLAYLIST[index];
-    title.textContent=song.title;
-    artist.textContent=song.artist;
-    cover.textContent=song.coverEmoji;
-    var coverImg=document.createElement("img");
-    coverImg.src=song.coverImg;
-    coverImg.style.cssText="width:100%;height:100%;object-fit:cover;border-radius:10px;position:absolute;inset:0;opacity:0";
-    coverImg.onload=function(){cover.textContent="";cover.appendChild(coverImg);setTimeout(function(){coverImg.style.opacity="1";},10);};
-    coverImg.onerror=function(){cover.textContent=song.coverEmoji;};
+    miniTitle.textContent=song.title;
+    miniArtist.textContent=song.artist;
+    panelTitle.textContent=song.title;
+    panelArtist.textContent=song.artist;
+    panelCoverEmoji.textContent=song.coverEmoji;
+    panelCoverEmoji.style.display="block";
+    panelCoverImg.style.display="none";
+    var img=new Image();
+    img.crossOrigin="anonymous";
+    img.src=song.coverImg;
+    img.onload=function(){
+      panelCoverEmoji.style.display="none";
+      panelCoverImg.src=song.coverImg;
+      panelCoverImg.style.display="block";
+      extractColor(img);
+      coverBgImg.src=song.coverImg;
+      coverImgLoaded=true;
+    };
+    img.onerror=function(){
+      panelCoverEmoji.style.display="block";
+      panelCoverImg.style.display="none";
+    };
     coverBgImg.src=song.coverImg;
     coverImgLoaded=false;
+    miniCover.textContent=song.coverEmoji;
     if(song.url){currentAudio.src=song.url;currentAudio.load();}
     currentLyricIdx=-1;
     renderLyrics();
-    progressFill.style.width="0%";
+    miniProgressFill.style.width="0%";
+    panelProgressFill.style.width="0%";
+    panelTimeCurrent.textContent="0:00";
+    panelTimeTotal.textContent="0:00";
   }
 
   function togglePlay(){
     if(isPlaying){
       currentAudio.pause();
       playBtn.innerHTML="\u25b6";
-      cover.classList.remove("playing");btn.classList.remove("playing");
+      panelPlayBtn.innerHTML="\u25b6";
+      miniCover.classList.remove("playing");
+      panelCover.classList.remove("playing");
+      panelLyricsGlow.classList.remove("playing");
     } else {
       currentAudio.play().catch(function(){});
       playBtn.innerHTML="\u23f8";
-      cover.classList.add("playing");btn.classList.add("playing");
-      showCoverBg();
-      lyricsOverlay.classList.add("active");
+      panelPlayBtn.innerHTML="\u23f8";
+      miniCover.classList.add("playing");
+      panelCover.classList.add("playing");
+      panelLyricsGlow.classList.add("playing");
+      btn.classList.add("playing");
+      showMusicMode();
       lyricsVisible=true;
     }
     isPlaying=!isPlaying;
   }
 
   btn.addEventListener("click",function(){
-    showPlayer();
+    showPanel();
     loadSong(currentSongIndex);
     if(!isPlaying)togglePlay();
   });
-  closeBtn.addEventListener("click",hidePlayer);
+  closeBtn.addEventListener("click",hidePanel);
+  playBtn.addEventListener("click",togglePlay);
+  panelPlayBtn.addEventListener("click",togglePlay);
 
   currentAudio.addEventListener("timeupdate",function(){
-    var pct=currentAudio.duration?((currentAudio.currentTime/currentAudio.duration)*100):0;
-    progressFill.style.width=pct+"%";
-    if(lyricsVisible){updateLyrics(currentAudio.currentTime);}
+    var dur=currentAudio.duration||0;
+    var cur=currentAudio.currentTime||0;
+    var pct=dur?((cur/dur)*100):0;
+    miniProgressFill.style.width=pct+"%";
+    panelProgressFill.style.width=pct+"%";
+    panelTimeCurrent.textContent=formatTime(cur);
+    panelTimeTotal.textContent=formatTime(dur);
+    if(lyricsVisible){updateLyrics(cur);}
   });
 
   currentAudio.addEventListener("ended",function(){
@@ -554,7 +751,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     if(isPlaying)currentAudio.play().catch(function(){});
   });
 
-  playBtn.addEventListener("click",togglePlay);
   prevBtn.addEventListener("click",function(){
     currentSongIndex=(currentSongIndex-1+PLAYLIST.length)%PLAYLIST.length;
     loadSong(currentSongIndex);
@@ -565,13 +761,25 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     loadSong(currentSongIndex);
     if(isPlaying)currentAudio.play().catch(function(){});
   });
+  panelPrevBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex-1+PLAYLIST.length)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  panelNextBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex+1)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
 
-  progressBar.addEventListener("click",function(e){
+  function seekAudio(e,bar,fill){
     if(!currentAudio.src)return;
-    var rect=progressBar.getBoundingClientRect();
+    var rect=bar.getBoundingClientRect();
     var pct=(e.clientX-rect.left)/rect.width;
     currentAudio.currentTime=pct*currentAudio.duration;
-  });
+  }
+  miniProgressBar.addEventListener("click",function(e){seekAudio(e,this,miniProgressFill);});
+  panelProgressBar.addEventListener("click",function(e){seekAudio(e,this,panelProgressFill);});
 
   document.addEventListener("keydown",function(e){
     var tag=e.target.tagName;
@@ -582,7 +790,7 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
       showToast(document.documentElement.dataset.theme==="dark"?"\u5df2\u5207\u6362\u4e3a\u6697\u8272":"\u5df2\u5207\u6362\u4e3a\u4eae\u8272",1500);
     }
     if(key==="M"){
-      if(panel.classList.contains("visible")){hidePlayer();}else{btn.click();}
+      if(panel.classList.contains("visible")){hidePanel();}else{btn.click();}
     }
   });
 
