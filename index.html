@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>leeyolo · links</title>
-  <meta name="description" content="leeyolo 的个人链接页">
   <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 :root{
@@ -28,17 +27,13 @@
 --music-bg:rgba(10,15,46,0.94);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html{-webkit-font-smoothing:antialiased}
 body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 140px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
-
-/* ========= COVER BACKGROUND ========= */
 #coverBg{position:fixed;inset:0;z-index:0;opacity:0;transition:opacity 1.2s ease;pointer-events:none;overflow:hidden}
 #coverBg.active{opacity:1}
 #coverBgImg{position:absolute;inset:-15%;width:130%;height:130%;object-fit:cover;filter:blur(60px) brightness(0.4) saturate(1.4);transform:scale(1.1)}
 #coverGlow1,#coverGlow2{position:absolute;inset:0;transition:background 2s ease}
 #coverOverlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,20,0.15) 0%,rgba(5,7,20,0.8) 100%)}
-
-/* ========= PARTICLES ========= */
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity .8s}
 #particles.dimmed{opacity:.1}
 .bg-orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
@@ -48,8 +43,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .orb-3{width:300px;height:300px;background:radial-gradient(circle,#9f7aea,transparent 70%);top:40%;left:60%;animation-delay:-14s}
 [data-theme="dark"] .orb{opacity:0.15}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-30px) scale(1.05)}50%{transform:translate(-20px,40px) scale(0.95)}75%{transform:translate(30px,20px) scale(1.02)}}
-
-/* ========= LYRICS OVERLAY ========= */
 #lyricsOverlay{position:fixed;inset:0;z-index:50;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;opacity:0;transition:opacity .8s}
 #lyricsOverlay.active{opacity:1}
 #lyricsContainer{text-align:center;max-width:600px;width:100%}
@@ -57,19 +50,13 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .lyric-line.active{font-size:clamp(18px,4vw,30px);font-weight:700;color:#ffffff;text-shadow:0 0 40px rgba(255,255,255,0.5),0 2px 20px rgba(0,0,0,0.5)}
 .lyric-word{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
 .lyric-word.done{opacity:1;transform:translateY(0)}
-
-/* ========= PAGE ENTRANCE ========= */
 .page-entrance{position:fixed;inset:0;z-index:9999;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s}
 .page-entrance.done{opacity:0;visibility:hidden;pointer-events:none}
 .page-entrance-logo{font-size:48px;font-weight:700;color:var(--accent);opacity:0;transform:scale(0.5);animation:entranceLogo 1s .3s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes entranceLogo{to{opacity:1;transform:scale(1)}}
 .page-entrance-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;animation:entranceBar 1.5s .5s ease forwards}
 @keyframes entranceBar{to{width:100%}}
-
-/* ========= MAIN ========= */
 .main-container{position:relative;z-index:10;width:100%;max-width:440px}
-
-/* ========= TOP BAR ========= */
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeSlideDown .6s 1.6s ease both}
 @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
 .theme-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;position:relative}
@@ -82,8 +69,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .toggle-key{position:absolute;right:-32px;top:50%;transform:translateY(-50%);background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:4px;padding:1px 5px;font-size:10px;font-family:"JetBrains Mono",monospace;color:var(--text-muted);opacity:.6}
 .page-views-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:20px;backdrop-filter:blur(16px);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);transition:all .3s;animation:fadeSlideDown .6s 1.8s ease both}
 .page-views-badge svg{width:12px;height:12px;flex-shrink:0}
-
-/* ========= PROFILE CARD ========= */
 .profile-card{background:var(--bg-glass);backdrop-filter:blur(40px);border:1px solid var(--border-glass);border-radius:28px;padding:40px 32px 36px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:all .4s;animation:cardReveal .7s 1.9s ease both}
 @keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .profile-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-glow),transparent)}
@@ -102,8 +87,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .bio{font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:280px;margin:0 auto}
 .tags{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
 .tag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--accent);letter-spacing:.2px;transition:all .3s}
-
-/* ========= LINKS ========= */
 .links{display:flex;flex-direction:column;gap:12px}
 .link-card{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg-glass);backdrop-filter:blur(24px);border:1px solid var(--border-glass);border-radius:18px;text-decoration:none;color:var(--text-primary);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;box-shadow:var(--card-shadow);opacity:0;animation:linkReveal .5s ease forwards;cursor:pointer}
 @keyframes linkReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -123,13 +106,9 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .link-arrow{color:var(--text-muted);font-size:18px;position:relative;z-index:1;transition:all .3s;flex-shrink:0;display:flex;align-items:center}
 .link-card:hover .link-arrow{transform:translateX(5px);color:var(--accent)}
 .icon-github{background:#24292e}.icon-twitter{background:#1da1f2}.icon-bilibili{background:linear-gradient(135deg,#00a1d6,#fb7299)}.icon-email{background:#ea4335}.icon-blog{background:linear-gradient(135deg,#ff6b35,#f7c000)}.icon-telegram{background:linear-gradient(135deg,#0088cc,#0080ff)}.icon-discord{background:#5865f2}.icon-default{background:#6b7280}.icon-music{background:linear-gradient(135deg,#1db954,#1ed760)}.icon-project{background:linear-gradient(135deg,#10b981,#059669)}
-
-/* ========= KEYBOARD HINT ========= */
 .keyboard-hint{text-align:center;margin-top:20px;font-size:11px;color:var(--text-muted);letter-spacing:.5px;animation:fadeSlideUp .7s 2.5s ease both;opacity:0}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border-radius:4px;background:var(--counter-bg);border:1px solid var(--counter-border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--accent);margin:0 2px}
-
-/* ========= MUSIC PLAYER ========= */
 .music-player{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--music-bg);backdrop-filter:blur(40px) saturate(1.8);border-top:1px solid var(--border-glass);padding:0 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
 .music-player.visible{transform:translateY(0)}
 .music-player-inner{max-width:440px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px}
@@ -156,14 +135,11 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 .music-toggle-btn.playing{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 24px var(--accent-glow)}
 .music-toggle-btn.hidden{display:none}
 .music-toggle-btn .kbd-hint{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text-muted);white-space:nowrap;font-family:"JetBrains Mono",monospace}
-
-/* ========= FOOTER & TOAST ========= */
 .footer{text-align:center;margin-top:32px;font-size:12px;color:var(--text-muted);animation:fadeSlideUp .7s 2.6s ease both;opacity:0}
 .footer a{color:var(--accent);text-decoration:none;font-weight:500;transition:color .2s}
 .footer a:hover{color:var(--accent2);text-decoration:underline}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-glass);border-radius:12px;padding:10px 20px;font-size:13px;color:var(--text-primary);opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 @media(max-width:480px){body{padding:16px 12px 140px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}.lyric-line{font-size:13px!important}.lyric-line.active{font-size:17px!important}}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 ::selection{background:var(--accent-glow);color:var(--text-primary)}
@@ -171,7 +147,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 </head>
 <body>
 
-<!-- Cover background (activated when music plays) -->
 <div id="coverBg">
   <img id="coverBgImg" src="" alt="" crossorigin="anonymous">
   <div id="coverGlow1"></div>
@@ -179,26 +154,22 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   <div id="coverOverlay"></div>
 </div>
 
-<!-- Lyrics overlay -->
 <div id="lyricsOverlay">
   <div id="lyricsContainer"></div>
 </div>
 
-<!-- Page entrance animation -->
 <div class="page-entrance" id="pageEntrance">
   <div class="page-entrance-logo">&#10022;</div>
   <div class="page-entrance-bar"></div>
 </div>
 
-<!-- Particles -->
 <canvas id="particles"></canvas>
 <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
 
-<!-- Main content -->
 <div class="main-container">
   <div class="top-bar">
-    <div class="theme-toggle" id="themeToggle" title="&#20999;&#25442;&#26126;&#26263;&#20027;&#39064; (D)" role="button" aria-label="&#20999;&#25442;&#20027;&#39064;">
-      <span class="toggle-label" id="themeLabel">&#20142;&#33394;</span>
+    <div class="theme-toggle" id="themeToggle" title="切换明暗主题 (D)" role="button" aria-label="切换主题">
+      <span class="toggle-label" id="themeLabel">亮色</span>
       <div class="toggle-switch"><div class="toggle-knob"></div></div>
       <span class="toggle-key">D</span>
     </div>
@@ -212,49 +183,49 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
       <div class="avatar" id="avatar">
-        <img src="https://avatars.githubusercontent.com/u/98264492?v=4" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
+        <img src="https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
         <span class="avatar-emoji">&#128187;</span>
       </div>
     </div>
     <h1 class="name">leeyolo</h1>
-    <p class="bio">&#22312;&#36825;&#37324;&#35760;&#24453;&#25105;&#30340;&#25104;&#38271; &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
+    <p class="bio">在这里记录我的成长 &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
     <div class="tags">
-      <span class="tag">&#21069;&#31471;&#24320;&#21457;</span>
-      <span class="tag">&#24320;&#28304;&#29233;&#22909;&#32773;</span>
-      <span class="tag">&#25345;&#32493;&#23398;&#20064;</span>
+      <span class="tag">前端开发</span>
+      <span class="tag">开源爱好者</span>
+      <span class="tag">持续学习</span>
     </div>
   </div>
 
   <div class="links">
     <a href="https://github.com/leeyoloo" target="_blank" class="link-card">
       <div class="link-icon icon-github">&#128021;</div>
-      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; &#24320;&#28304;&#39033;&#30446;&#19982;&#20195;&#30721;</div></div>
+      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; 开源项目与代码</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://space.bilibili.com/your-id" target="_blank" class="link-card">
       <div class="link-icon icon-bilibili">&#128250;</div>
-      <div class="link-info"><div class="link-title">B &#31449;</div><div class="link-desc">&#25216;&#26415;&#35270;&#39057;&#19982;&#26085;&#24120;&#20998;&#20139;</div></div>
+      <div class="link-info"><div class="link-title">B站</div><div class="link-desc">技术视频与日常分享</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://twitter.com/your-handle" target="_blank" class="link-card">
       <div class="link-icon icon-twitter">&#128038;</div>
-      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">&#26085;&#24120;&#30862;&#30862;&#24565;</div></div>
+      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">日常碎碎念</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="https://t.me/your-handle" target="_blank" class="link-card">
       <div class="link-icon icon-telegram">&#9992;</div>
-      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">&#21363;&#26102;&#32852;&#31995; &middot; &#38394;&#32842;</div></div>
+      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">即时联系 &middot; 闲聊</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
     <a href="mailto:your@email.com" target="_blank" class="link-card">
       <div class="link-icon icon-email">&#128231;</div>
-      <div class="link-info"><div class="link-title">&#37038;&#31665;</div><div class="link-desc">&#21830;&#21153;&#21512;&#20304; &middot; &#32852;&#31995;&#25105;</div></div>
+      <div class="link-info"><div class="link-title">邮箱</div><div class="link-desc">商务合作 &middot; 联系我</div></div>
       <span class="link-arrow">&#8594;</span>
     </a>
   </div>
 
   <div class="keyboard-hint">
-    <span class="kbd">D</span> &#20999;&#25442;&#20027;&#39064; &nbsp;&middot;&nbsp; <span class="kbd">M</span> &#38899;&#20048;
+    <span class="kbd">D</span> 切换主题 &nbsp;&middot;&nbsp; <span class="kbd">M</span> 音乐
   </div>
 
   <div class="footer">
@@ -262,15 +233,14 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   </div>
 </div>
 
-<!-- Music -->
-<button class="music-toggle-btn" id="musicToggleBtn" title="&#38899;&#20048;&#25773;&#25918;&#22120; (M)">&#127925;<span class="kbd-hint">M</span></button>
+<button class="music-toggle-btn" id="musicToggleBtn" title="音乐播放器 (M)">&#127925;<span class="kbd-hint">M</span></button>
 <div class="music-player" id="musicPlayer">
-  <button class="music-close" id="musicCloseBtn" title="&#20851;&#38381;">&#10006;</button>
+  <button class="music-close" id="musicCloseBtn" title="关闭">&#10006;</button>
   <div class="music-player-inner">
     <div class="music-cover" id="musicCover">&#127925;</div>
     <div class="music-info">
-      <div class="music-title" id="musicTitle">&#31561;&#24453;&#25773;&#25918;</div>
-      <div class="music-artist" id="musicArtist">&#28857;&#20987;&#25773;&#25918;&#38899;&#20048;</div>
+      <div class="music-title" id="musicTitle">等待播放</div>
+      <div class="music-artist" id="musicArtist">点击播放音乐</div>
       <div class="music-progress-bar" id="musicProgressBar"><div class="music-progress-fill" id="musicProgressFill"></div></div>
     </div>
     <div class="music-controls">
@@ -281,19 +251,16 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 (function(){
-  /* ---- Page entrance ---- */
-  var entrance=document.getElementById('pageEntrance');
-  setTimeout(function(){entrance.classList.add('done');},2200);
-  setTimeout(function(){entrance.style.display='none';},3000);
+  var entrance=document.getElementById("pageEntrance");
+  setTimeout(function(){entrance.classList.add("done");},2200);
+  setTimeout(function(){entrance.style.display="none";},3000);
 
-  /* ---- Particles ---- */
-  var canvas=document.getElementById('particles');
-  var ctx=canvas.getContext('2d');
+  var canvas=document.getElementById("particles");
+  var ctx=canvas.getContext("2d");
   var W,H,particles=[];
   function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
   function createParticles(){
@@ -304,8 +271,8 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   }
   function draw(){
     ctx.clearRect(0,0,W,H);
-    var isDark=document.documentElement.dataset.theme==='dark';
-    
+    var isDark=document.documentElement.dataset.theme==="dark";
+    var color=isDark?"99,179,237":"49,130,206";
     for(var i=0;i<particles.length;i++){
       for(var j=i+1;j<particles.length;j++){
         var dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
@@ -324,7 +291,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   resize();createParticles();draw();
   window.addEventListener("resize",function(){resize();createParticles();});
 
-  /* ---- Theme toggle ---- */
   var toggle=document.getElementById("themeToggle");
   var label=document.getElementById("themeLabel");
   function syncLabel(){label.textContent=document.documentElement.dataset.theme==="dark"?"\u6697\u8272":"\u4eae\u8272";}
@@ -337,25 +303,17 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   if(saved){document.documentElement.dataset.theme=saved;}
   syncLabel();
 
-  /* ---- Visitor counter ---- */
   var el=document.getElementById("viewCount");
-  var key="leeyolo_views_v5";
+  var key="leeyolo_views_v6";
   var today=new Date().toDateString();
   var count=parseInt(localStorage.getItem(key)||"0");
   if(!localStorage.getItem(key+"_"+today)){count=count+1;localStorage.setItem(key,count);localStorage.setItem(key+"_"+today,"1");}
   el.textContent=count;
 
-  /* ---- Toast ---- */
   var toast=document.getElementById("toast");
   var toastTimer;
-  window.showToast=function(msg,dur){
-    dur=dur||2000;
-    toast.textContent=msg;toast.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer=setTimeout(function(){toast.classList.remove("show");},dur);
-  };
+  window.showToast=function(msg,dur){dur=dur||2000;toast.textContent=msg;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){toast.classList.remove("show");},dur);};
 
-  /* ---- Ripple ---- */
   document.querySelectorAll(".link-card").forEach(function(card){
     card.addEventListener("click",function(e){
       var rect=card.getBoundingClientRect();
@@ -370,10 +328,7 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     });
   });
 
-  /* ====================
-     MUSIC + LYRICS + COVER BG
-  ==================== */
-
+  /* MUSIC + LYRICS + COVER BG */
   var coverBg=document.getElementById("coverBg");
   var coverBgImg=document.getElementById("coverBgImg");
   var coverGlow1=document.getElementById("coverGlow1");
@@ -382,7 +337,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   var lyricsContainer=document.getElementById("lyricsContainer");
   var particlesEl=document.getElementById("particles");
 
-  /* Lyrics: [seconds, "text"] */
   var LYRICS=[
     [0.0,"\u90a3\u5929\u4e0b\u96e8\u4e86"],
     [4.5,"\u4f60\u4f1a\u4e0d\u4f1a\u51fa\u73b0\u5728\u8857\u89d2\u7684\u5496\u5561\u5e97"],
@@ -429,7 +383,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     [172.0,"\u60f3\u8d77\u6211"],
   ];
 
-  /* Render lyrics lines */
   function renderLyrics(){
     lyricsContainer.innerHTML="";
     LYRICS.forEach(function(item){
@@ -451,7 +404,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   }
   renderLyrics();
 
-  /* Extract color from cover and set glows */
   function extractColor(img){
     try{
       var c=document.createElement("canvas");c.width=1;c.height=1;
@@ -494,24 +446,19 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
         if(i===idx){
           line.classList.add("active");
           setTimeout(function(){line.scrollIntoView({behavior:"smooth",block:"center"});},50);
-          /* Animate words one by one */
           var words=line.querySelectorAll(".lyric-word");
           words.forEach(function(w,wi){
             w.classList.remove("done");
-            setTimeout(function(){
-              w.style.opacity="1";w.style.transform="translateY(0)";w.classList.add("done");
-            },wi*55);
+            setTimeout(function(){w.style.opacity="1";w.style.transform="translateY(0)";w.classList.add("done");},wi*55);
           });
         } else {
           line.classList.remove("active");
-          var words=line.querySelectorAll(".lyric-word");
-          words.forEach(function(w){w.classList.remove("done");w.style.opacity="0";w.style.transform="translateY(8px)";});
+          line.querySelectorAll(".lyric-word").forEach(function(w){w.classList.remove("done");w.style.opacity="0";w.style.transform="translateY(8px)";});
         }
       });
     }
   }
 
-  /* ---- Player controls ---- */
   var btn=document.getElementById("musicToggleBtn");
   var panel=document.getElementById("musicPlayer");
   var closeBtn=document.getElementById("musicCloseBtn");
@@ -526,14 +473,13 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
 
   var isPlaying=false;
   var currentSongIndex=0;
-  var songImgLoaded=false;
 
   var PLAYLIST=[
     {
       title:"\u90a3\u5929\u4e0b\u96e8\u4e86",
       artist:"\u5468\u6770\u4f26",
-      coverEmoji:"\ud83c\udf27",
-      coverImg:"https://avatars.githubusercontent.com/u/98264492?v=4",
+      coverEmoji:"\u2614",
+      coverImg:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/cover.jpg",
       url:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/audio/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E9%82%A3%E5%A4%A9%E4%B8%8B%E9%9B%A8%E4%BA%86.mp3"
     }
   ];
@@ -545,13 +491,14 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     panel.classList.remove("visible");btn.classList.remove("hidden");
     if(currentAudio){currentAudio.pause();}
     isPlaying=false;
-    playBtn.textContent="\u25b6";
+    playBtn.innerHTML="\u25b6";
     cover.classList.remove("playing");btn.classList.remove("playing");
     hideCoverBg();
     lyricsOverlay.classList.remove("active");
     lyricsVisible=false;
     currentLyricIdx=-1;
     renderLyrics();
+    progressFill.style.width="0%";
   }
 
   function loadSong(index){
@@ -575,11 +522,11 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
   function togglePlay(){
     if(isPlaying){
       currentAudio.pause();
-      playBtn.textContent="\u25b6";
+      playBtn.innerHTML="\u25b6";
       cover.classList.remove("playing");btn.classList.remove("playing");
     } else {
       currentAudio.play().catch(function(){});
-      playBtn.textContent="\u23f8";
+      playBtn.innerHTML="\u23f8";
       cover.classList.add("playing");btn.classList.add("playing");
       showCoverBg();
       lyricsOverlay.classList.add("active");
@@ -626,7 +573,6 @@ body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background
     currentAudio.currentTime=pct*currentAudio.duration;
   });
 
-  /* ---- Keyboard shortcuts ---- */
   document.addEventListener("keydown",function(e){
     var tag=e.target.tagName;
     if(tag==="INPUT"||tag==="TEXTAREA")return;
