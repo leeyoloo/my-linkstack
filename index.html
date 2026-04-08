@@ -1,1718 +1,765 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>灵界 LingVerse - 修仙世界</title>
-    <style>
-        :root {
-            --bg-primary: #0a0f1c;
-            --bg-secondary: #12172a;
-            --bg-card: #1a2035;
-            --bg-input: #0d1220;
-            --text-primary: #e8e6e3;
-            --text-secondary: #9ca3af;
-            --text-muted: #6b7280;
-            --text-gold: #fbbf24;
-            --text-orange: #f97316;
-            --text-green: #22c55e;
-            --text-red: #ef4444;
-            --text-blue: #3b82f6;
-            --text-purple: #a855f7;
-            --text-cyan: #06b6d4;
-            --border-color: #2d3748;
-            --accent: #8b5cf6;
-            --accent2: #06b6d4;
-            --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
-            --gradient-purple: linear-gradient(135deg, #8b5cf6, #6366f1);
-            --success-color: #22c55e;
-        }
-
-        .theme-light {
-            --bg-primary: #f3f2f0;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --bg-input: #f9fafb;
-            --text-primary: #1f2937;
-            --text-secondary: #4b5563;
-            --text-muted: #9ca3af;
-            --border-color: #e5e7eb;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Login Screen */
-        .login-screen {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-primary);
-            z-index: 1000;
-        }
-
-        .login-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .login-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: var(--gradient-purple);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 14px; }
-
-        .login-input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 14px;
-            margin-bottom: 12px;
-            outline: none;
-        }
-
-        .login-input:focus { border-color: var(--accent); }
-
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: var(--gradient-purple);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        .login-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
-
-        .login-tab {
-            flex: 1;
-            padding: 8px;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-
-        .login-tab.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        /* Game Layout */
-        .game-wrapper {
-            display: none;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .game-wrapper.active { display: flex; }
-
-        /* Header */
-        .game-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            flex-shrink: 0;
-        }
-
-        .header-left, .header-right { display: flex; align-items: center; gap: 8px; }
-
-        .header-logo {
-            font-size: 18px;
-            font-weight: 700;
-            background: var(--gradient-purple);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-realm {
-            padding: 4px 10px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            font-size: 12px;
-            color: var(--text-gold);
-        }
-
-        .header-time {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .header-btn {
-            padding: 5px 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-secondary);
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .header-btn:hover { border-color: var(--accent); color: var(--text-primary); }
-        .btn-logout { color: var(--text-red); }
-
-        /* Game Body */
-        .game-body { display: flex; flex: 1; overflow: hidden; }
-
-        /* Player Panel */
-        .player-panel {
-            width: 240px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            padding: 12px;
-            overflow-y: auto;
-            flex-shrink: 0;
-            font-size: 12px;
-        }
-
-        .panel-section { margin-bottom: 16px; }
-
-        .panel-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            padding-bottom: 4px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-        }
-
-        .stat-label { color: var(--text-muted); }
-        .stat-value { font-weight: 500; }
-        .stat-value.hp { color: var(--text-red); }
-        .stat-value.mp { color: var(--text-blue); }
-        .stat-value.atk { color: var(--text-orange); }
-        .stat-value.def { color: var(--text-cyan); }
-        .stat-value.spirit { color: var(--text-purple); }
-
-        .progress-container {
-            position: relative;
-            height: 6px;
-            background: var(--bg-input);
-            border-radius: 3px;
-            margin-top: 4px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--gradient-purple);
-            border-radius: 3px;
-            transition: width 0.3s;
-        }
-
-        .progress-text {
-            position: absolute;
-            right: 4px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* Main Panel */
-        .main-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-        .log-area {
-            flex: 1;
-            padding: 12px;
-            overflow-y: auto;
-            background: var(--bg-primary);
-        }
-
-        .log-content { max-width: 900px; margin: 0 auto; }
-
-        .log-entry {
-            padding: 6px 10px;
-            margin-bottom: 6px;
-            background: var(--bg-card);
-            border-radius: 6px;
-            border-left: 3px solid var(--border-color);
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .log-entry.event { border-left-color: var(--text-cyan); }
-        .log-entry.combat { border-left-color: var(--text-red); }
-        .log-entry.loot { border-left-color: var(--text-gold); }
-        .log-entry.level { border-left-color: var(--text-purple); }
-        .log-entry.chat { border-left-color: var(--text-blue); }
-        .log-entry.sect { border-left-color: var(--text-green); }
-        .log-entry.error { border-left-color: var(--text-red); background: rgba(239,68,68,0.1); }
-
-        .log-time { font-size: 11px; color: var(--text-muted); margin-right: 6px; }
-
-        .log-welcome {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Action Bar */
-        .action-bar {
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-action {
-            padding: 8px 16px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-action:hover { border-color: var(--accent); }
-        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-action.primary { background: var(--gradient-purple); border: none; color: white; }
-        .btn-action.danger { border-color: var(--text-red); color: var(--text-red); }
-
-        .meditation-bar {
-            display: none;
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .meditation-bar.active { display: flex; }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .meditating { animation: pulse 2s infinite; }
-
-        /* Side Panel */
-        .side-panel {
-            width: 320px;
-            background: var(--bg-secondary);
-            border-left: 1px solid var(--border-color);
-            display: none;
-            flex-direction: column;
-        }
-
-        .side-panel.active { display: flex; }
-
-        .side-panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .side-panel-title { font-size: 14px; font-weight: 600; }
-
-        .btn-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .side-panel-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-        }
-
-        /* Panel Tabs */
-        .panel-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .panel-tab {
-            padding: 6px 12px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-secondary);
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .panel-tab.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        /* Inventory */
-        .inventory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 6px;
-        }
-
-        .inventory-slot {
-            aspect-ratio: 1;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            padding: 4px;
-            font-size: 10px;
-        }
-
-        .inventory-slot:hover { border-color: var(--accent); }
-        .inventory-slot.empty { color: var(--text-muted); }
-
-        .item-icon { font-size: 20px; }
-        .item-count { font-size: 10px; color: var(--text-muted); }
-
-        /* Map */
-        .map-region {
-            background: var(--bg-card);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .map-region-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-gold);
-            margin-bottom: 8px;
-        }
-
-        .map-area {
-            padding: 6px 10px;
-            margin: 4px 0;
-            background: var(--bg-input);
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-        }
-
-        .map-area:hover { background: var(--accent); color: white; }
-        .map-area.current { border: 1px solid var(--accent); }
-        .map-area-level { font-size: 10px; color: var(--text-muted); }
-
-        /* Chat */
-        .chat-messages {
-            height: 200px;
-            overflow-y: auto;
-            background: var(--bg-input);
-            border-radius: 6px;
-            padding: 8px;
-            margin-bottom: 8px;
-        }
-
-        .chat-msg {
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-
-        .chat-msg-name { color: var(--text-gold); font-weight: 600; }
-        .chat-msg-time { color: var(--text-muted); font-size: 10px; }
-        .chat-msg-text { color: var(--text-primary); }
-
-        .chat-input-bar {
-            display: flex;
-            gap: 6px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 8px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-primary);
-            font-size: 12px;
-        }
-
-        .btn-send {
-            padding: 8px 16px;
-            background: var(--accent);
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--text-red);
-            text-align: center;
-        }
-
-        .monster-info { text-align: center; margin-bottom: 16px; }
-        .monster-name { font-size: 16px; font-weight: 600; color: var(--text-orange); }
-        .monster-realm { font-size: 12px; color: var(--text-muted); margin: 4px 0 12px; }
-        .monster-stats { display: flex; justify-content: center; gap: 20px; }
-        .monster-stat { text-align: center; }
-        .monster-stat-value { font-size: 16px; font-weight: 600; }
-        .monster-stat-label { font-size: 10px; color: var(--text-muted); }
-
-        .combat-log {
-            max-height: 150px;
-            overflow-y: auto;
-            margin-bottom: 12px;
-            background: var(--bg-input);
-            border-radius: 6px;
-            padding: 8px;
-            font-size: 11px;
-        }
-
-        .modal-actions { display: flex; gap: 10px; justify-content: center; }
-
-        /* Dungeon */
-        .dungeon-list { display: flex; flex-direction: column; gap: 8px; }
-
-        .dungeon-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px;
-            cursor: pointer;
-        }
-
-        .dungeon-card:hover { border-color: var(--accent); }
-
-        .dungeon-name { font-size: 14px; font-weight: 600; color: var(--text-gold); }
-        .dungeon-level { font-size: 11px; color: var(--text-muted); }
-        .dungeon-rewards { font-size: 11px; color: var(--text-cyan); margin-top: 4px; }
-
-        /* Ranking */
-        .ranking-list { display: flex; flex-direction: column; gap: 4px; }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px;
-            background: var(--bg-input);
-            border-radius: 4px;
-        }
-
-        .ranking-pos {
-            width: 24px;
-            height: 24px;
-            background: var(--gradient-purple);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-        }
-
-        .ranking-pos.gold { background: var(--gradient-gold); color: #000; }
-        .ranking-name { flex: 1; font-size: 12px; }
-        .ranking-value { font-size: 12px; color: var(--text-gold); }
-
-        /* Market */
-        .market-listing {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: var(--bg-input);
-            border-radius: 4px;
-            margin-bottom: 6px;
-        }
-
-        .market-item-name { flex: 1; font-size: 12px; }
-        .market-item-price { font-size: 12px; color: var(--text-gold); }
-
-        .btn-buy {
-            padding: 4px 12px;
-            background: var(--success-color);
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        /* Sect */
-        .sect-info {
-            background: var(--bg-card);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-
-        .sect-name { font-size: 16px; font-weight: 600; color: var(--text-gold); }
-        .sect-level { font-size: 11px; color: var(--text-muted); }
-        .sect-bonus { font-size: 11px; color: var(--text-green); margin-top: 4px; }
-
-        /* Crafting */
-        .crafting-recipe {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            background: var(--bg-input);
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-
-        .craft-result { flex: 1; }
-        .craft-materials { font-size: 11px; color: var(--text-muted); }
-
-        .btn-craft {
-            padding: 6px 12px;
-            background: var(--accent);
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
-
-        /* Mobile */
-        @media (max-width: 900px) {
-            .player-panel { display: none; position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; width: 280px; }
-            .player-panel.mobile-active { display: block; }
-            .side-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 100%; z-index: 100; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>leeyolo · links</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{
+--bg-primary:#f0f4ff;--bg-glass:rgba(255,255,255,0.72);--bg-glass-hover:rgba(255,255,255,0.9);
+--border-glass:rgba(99,179,237,0.18);--border-glass-hover:rgba(99,179,237,0.4);
+--text-primary:#1a202c;--text-secondary:rgba(74,85,104,0.85);--text-muted:rgba(113,128,150,0.55);
+--accent:#3182ce;--accent-glow:rgba(49,130,206,0.28);--accent2:#00b5d8;
+--counter-bg:rgba(49,130,206,0.06);--counter-border:rgba(49,130,206,0.18);
+--card-shadow:0 8px 32px rgba(49,130,206,0.09),0 0 0 1px rgba(49,130,206,0.07);
+--card-shadow-hover:0 16px 48px rgba(49,130,206,0.15),0 0 0 1px rgba(49,130,206,0.18);
+--music-bg:rgba(255,255,255,0.94);
+}
+[data-theme="dark"]{
+--bg-primary:#050714;--bg-glass:rgba(10,15,46,0.65);--bg-glass-hover:rgba(15,25,70,0.78);
+--border-glass:rgba(99,179,237,0.12);--border-glass-hover:rgba(99,179,237,0.28);
+--text-primary:#e2e8f0;--text-secondary:rgba(148,163,184,0.85);--text-muted:rgba(148,163,184,0.5);
+--accent:#63b3ed;--accent-glow:rgba(99,179,237,0.32);--accent2:#76e4f7;
+--counter-bg:rgba(99,179,237,0.08);--counter-border:rgba(99,179,237,0.18);
+--card-shadow:0 8px 32px rgba(0,0,0,0.38),0 0 0 1px rgba(99,179,237,0.07);
+--card-shadow-hover:0 16px 48px rgba(0,0,0,0.55),0 0 0 1px rgba(99,179,237,0.2);
+--music-bg:rgba(10,15,46,0.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 120px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
+
+/* MUSIC MODE: split layout */
+body.music-mode{display:flex;flex-direction:row;padding:40px 60px;gap:60px;align-items:center;justify-content:center;min-height:100vh}
+body.music-mode .main-container{width:400px;max-width:45vw;flex-shrink:0;position:relative;z-index:10}
+body.music-mode .music-panel{
+  width:380px;max-width:50vw;
+  display:flex;flex-direction:column;align-items:center;gap:28px;
+  z-index:60;opacity:0;transform:translateX(30px);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;flex-shrink:0;
+}
+#coverBg.active{opacity:1}
+#coverBgImg{position:absolute;inset:-15%;width:130%;height:130%;object-fit:cover;filter:blur(60px) brightness(0.4) saturate(1.4);transform:scale(1.1)}
+#coverGlow1,#coverGlow2{position:absolute;inset:0;transition:background 2s ease}
+#coverOverlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,20,0.15) 0%,rgba(5,7,20,0.8) 100%)}
+
+/* PARTICLES */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity .8s}
+#particles.dimmed{opacity:.12}
+.bg-orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:orbFloat 20s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,#63b3ed,transparent 70%);top:-150px;left:-100px}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,#76e4f7,transparent 70%);bottom:-100px;right:-80px;animation-delay:-7s}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,#9f7aea,transparent 70%);top:40%;left:60%;animation-delay:-14s}
+[data-theme="dark"] .orb{opacity:0.15}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-30px) scale(1.05)}50%{transform:translate(-20px,40px) scale(0.95)}75%{transform:translate(30px,20px) scale(1.02)}}
+
+/* LYRICS + COVER RIGHT PANEL */
+.music-panel{
+  position:fixed;right:60px;top:50%;transform:translateY(-50%);
+  width:360px;max-width:calc(100vw - 40px);
+  display:flex;flex-direction:column;align-items:center;gap:28px;
+  z-index:60;opacity:0;transform:translateY(-50%) translateX(30px);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.music-panel-inner{
+  display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;
+}
+
+/* Large album cover */
+.panel-cover-wrap{position:relative;flex-shrink:0}
+.panel-cover-ring{
+  position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);
+  animation:panelRingSpin 12s linear infinite;
+}
+@keyframes panelRingSpin{to{transform:rotate(360deg)}}
+.panel-cover{
+  width:200px;height:200px;border-radius:50%;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.1);
+  position:relative;display:flex;align-items:center;justify-content:center;
+  font-size:64px;background:linear-gradient(135deg,#63b3ed,#76e4f7);
+  transition:transform .3s;
+}
+.panel-cover.playing{animation:panelCoverPulse 3s ease-in-out infinite}
+@keyframes panelCoverPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.panel-cover img{width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0}
+.panel-cover .cover-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 70%);
+  animation:coverGlowPulse 3s ease-in-out infinite;
+}
+@keyframes coverGlowPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+
+/* Song info */
+.panel-song-info{text-align:center}
+.panel-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px;text-shadow:0 2px 12px rgba(0,0,0,0.4)}
+.panel-artist{font-size:14px;color:rgba(255,255,255,0.6);letter-spacing:.5px}
+
+/* Lyrics in panel */
+.panel-lyrics-container{
+  width:100%;max-height:200px;overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;
+  padding:0 10px;
+}
+.panel-lyrics-container::-webkit-scrollbar{display:none}
+.panel-lyric-line{
+  font-size:16px;font-weight:400;color:rgba(255,255,255,0.3);
+  line-height:2.4;letter-spacing:.3px;text-align:center;
+  transition:all .5s cubic-bezier(.4,0,.2,1);padding:2px 8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.panel-lyric-line.active{
+  font-size:20px;font-weight:700;color:#fff;
+  text-shadow:0 0 30px rgba(255,255,255,0.5),0 2px 12px rgba(0,0,0,0.4);
+  letter-spacing:.5px;
+}
+
+/* Color bar animation on lyrics panel */
+.panel-lyrics-glow{
+  width:100%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  border-radius:1px;margin-top:4px;position:relative;overflow:hidden;
+}
+.panel-lyrics-glow::after{
+  content:'';position:absolute;top:0;left:0;height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent2,#76e4f7),#fff,var(--accent2,#76e4f7));
+  border-radius:1px;
+  transition:width .5s linear;
+}
+.panel-lyrics-glow.playing::after{width:100%;transition:width .5s linear}
+
+/* Progress in panel */
+.panel-progress-wrap{width:100%;padding:0 4px}
+.panel-progress-bar{width:100%;height:3px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;cursor:pointer}
+.panel-progress-fill{height:100%;background:linear-gradient(90deg,rgba(255,255,255,0.5),#fff);border-radius:2px;width:0;transition:width .2s linear}
+.panel-time{font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;display:flex;justify-content:space-between}
+
+/* Mini controls */
+.panel-controls{display:flex;align-items:center;gap:12px}
+.panel-btn{width:40px;height:40px;border:none;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:16px}
+.panel-btn:hover{background:rgba(255,255,255,0.25);transform:scale(1.05)}
+.panel-btn.play{width:52px;height:52px;background:rgba(255,255,255,0.9);color:#111;font-size:20px}
+.panel-btn.play:hover{background:#fff;transform:scale(1.08)}
+
+/* PAGE ENTRANCE */
+.page-entrance{position:fixed;inset:0;z-index:9999;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s}
+.page-entrance.done{opacity:0;visibility:hidden;pointer-events:none}
+.page-entrance-logo{font-size:48px;font-weight:700;color:var(--accent);opacity:0;transform:scale(0.5);animation:entranceLogo 1s .3s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes entranceLogo{to{opacity:1;transform:scale(1)}}
+.page-entrance-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;animation:entranceBar 1.5s .5s ease forwards}
+@keyframes entranceBar{to{width:100%}}
+
+/* MAIN */
+.main-container{position:relative;z-index:10;width:100%;max-width:440px}
+
+/* TOP BAR */
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeSlideDown .6s 1.6s ease both}
+@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+.theme-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;position:relative}
+.toggle-label{font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;transition:color .3s;min-width:28px}
+.toggle-switch{width:52px;height:28px;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:14px;position:relative;backdrop-filter:blur(16px);transition:all .3s;cursor:pointer}
+.toggle-switch:hover{border-color:var(--border-glass-hover)}
+.toggle-knob{width:20px;height:20px;background:var(--accent);border-radius:50%;position:absolute;top:3px;left:4px;transition:all .35s cubic-bezier(.68,-.55,.27,1.55);box-shadow:0 0 8px var(--accent-glow)}
+[data-theme="dark"] .toggle-knob{left:4px}
+[data-theme="light"] .toggle-knob{left:calc(100% - 24px)}
+.toggle-key{position:absolute;right:-32px;top:50%;transform:translateY(-50%);background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:4px;padding:1px 5px;font-size:10px;font-family:"JetBrains Mono",monospace;color:var(--text-muted);opacity:.6}
+.page-views-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--counter-bg);border:1px solid var(--counter-border);border-radius:20px;backdrop-filter:blur(16px);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);transition:all .3s;animation:fadeSlideDown .6s 1.8s ease both}
+.page-views-badge svg{width:12px;height:12px;flex-shrink:0}
+
+/* PROFILE CARD */
+.profile-card{background:var(--bg-glass);backdrop-filter:blur(40px);border:1px solid var(--border-glass);border-radius:28px;padding:40px 32px 36px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:all .4s;animation:cardReveal .7s 1.9s ease both}
+@keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.profile-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-glow),transparent)}
+.profile-card::after{content:"";position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:180px;height:180px;background:radial-gradient(circle,var(--accent-glow),transparent 70%);pointer-events:none;opacity:.5;transition:opacity .4s}
+.profile-card:hover::after{opacity:.8}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:20px}
+.avatar-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;background:linear-gradient(var(--bg-primary),var(--bg-primary)) padding-box,linear-gradient(135deg,var(--accent),var(--accent2)) border-box;animation:ringRotate 8s linear infinite}
+@keyframes ringRotate{to{transform:rotate(360deg)}}
+.avatar{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;position:relative;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;box-shadow:0 4px 24px var(--accent-glow);overflow:hidden;user-select:none}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;z-index:1;opacity:0;transition:opacity .4s}
+.avatar.ready img{opacity:1}
+.avatar-emoji{z-index:0;transition:opacity .4s}
+.avatar.ready .avatar-emoji{opacity:0}
+.avatar:hover{transform:scale(1.08) rotate(2deg);box-shadow:0 8px 40px var(--accent-glow)}
+.name{font-size:26px;font-weight:700;color:var(--text-primary);margin-bottom:10px;letter-spacing:-.5px;line-height:1.2}
+.bio{font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:280px;margin:0 auto}
+.tags{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--accent);letter-spacing:.2px;transition:all .3s}
+
+/* LINKS */
+.links{display:flex;flex-direction:column;gap:12px}
+.link-card{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg-glass);backdrop-filter:blur(24px);border:1px solid var(--border-glass);border-radius:18px;text-decoration:none;color:var(--text-primary);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;box-shadow:var(--card-shadow);opacity:0;animation:linkReveal .5s ease forwards;cursor:pointer}
+@keyframes linkReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.link-card:nth-child(1){animation-delay:2.0s}.link-card:nth-child(2){animation-delay:2.08s}.link-card:nth-child(3){animation-delay:2.16s}.link-card:nth-child(4){animation-delay:2.24s}.link-card:nth-child(5){animation-delay:2.32s}.link-card:nth-child(6){animation-delay:2.40s}
+.link-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent);opacity:0;transition:opacity .3s}
+.link-card:hover{transform:translateY(-3px);background:var(--bg-glass-hover);border-color:var(--border-glass-hover);box-shadow:var(--card-shadow-hover)}
+.link-card:hover::before{opacity:1}
+.link-card::after{content:"";position:absolute;top:0;left:-100%;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transition:left .5s}
+.link-card:hover::after{left:200%}
+.ripple{position:absolute;border-radius:50%;background:rgba(99,179,237,.3);transform:scale(0);animation:rippleAnim .6s ease-out forwards;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+.link-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;z-index:1;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.link-card:hover .link-icon{transform:scale(1.12) rotate(-5deg)}
+.link-info{flex:1;min-width:0;position:relative;z-index:1}
+.link-title{font-weight:600;font-size:15px;margin-bottom:2px;color:var(--text-primary)}
+.link-desc{font-size:12px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-arrow{color:var(--text-muted);font-size:18px;position:relative;z-index:1;transition:all .3s;flex-shrink:0;display:flex;align-items:center}
+.link-card:hover .link-arrow{transform:translateX(5px);color:var(--accent)}
+.icon-github{background:#24292e}.icon-twitter{background:#1da1f2}.icon-bilibili{background:linear-gradient(135deg,#00a1d6,#fb7299)}.icon-email{background:#ea4335}.icon-blog{background:linear-gradient(135deg,#ff6b35,#f7c000)}.icon-telegram{background:linear-gradient(135deg,#0088cc,#0080ff)}.icon-discord{background:#5865f2}.icon-default{background:#6b7280}.icon-music{background:linear-gradient(135deg,#1db954,#1ed760)}.icon-project{background:linear-gradient(135deg,#10b981,#059669)}
+.keyboard-hint{text-align:center;margin-top:20px;font-size:11px;color:var(--text-muted);letter-spacing:.5px;animation:fadeSlideUp .7s 2.5s ease both;opacity:0}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border-radius:4px;background:var(--counter-bg);border:1px solid var(--counter-border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--accent);margin:0 2px}
+
+/* MUSIC PLAYER BAR */
+.music-player{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--music-bg);backdrop-filter:blur(40px) saturate(1.8);border-top:1px solid var(--border-glass);padding:0 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.music-player.visible{transform:translateY(0)}
+.music-player-inner{max-width:440px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px}
+.music-cover{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#63b3ed,#76e4f7);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;overflow:hidden;transition:transform .3s;position:relative}
+.music-cover.playing{animation:coverPulse 2s ease-in-out infinite}
+@keyframes coverPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.music-cover img{width:100%;height:100%;object-fit:cover;border-radius:10px;position:absolute;inset:0}
+.music-info{flex:1;min-width:0}
+.music-title{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.music-progress-bar{width:100%;height:3px;background:var(--counter-border);border-radius:2px;margin-top:6px;overflow:hidden;cursor:pointer}
+.music-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;width:0;transition:width .2s linear}
+.music-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.music-btn{width:36px;height:36px;border:none;border-radius:50%;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--text-primary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:14px}
+.music-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.music-btn.play-btn{width:40px;height:40px;background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
+.music-btn.play-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px var(--accent-glow)}
+.music-close{position:absolute;top:-14px;right:0;width:24px;height:24px;border-radius:50%;background:var(--counter-bg);border:1px solid var(--counter-border);color:var(--text-muted);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:12px;transition:all .2s}
+.music-player.visible .music-close{display:flex}
+.music-close:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.music-toggle-btn{position:fixed;bottom:80px;right:20px;z-index:99;width:48px;height:48px;border-radius:50%;background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-glass);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;box-shadow:0 4px 24px rgba(0,0,0,.25);transition:all .3s cubic-bezier(.4,0,.2,1);animation:btnPop .6s 2.6s ease forwards;opacity:0;transform:scale(.8)}
+@keyframes btnPop{to{opacity:1;transform:scale(1)}}
+.music-toggle-btn:hover{transform:scale(1.1);border-color:var(--border-glass-hover);box-shadow:0 8px 32px rgba(0,0,0,.3),0 0 20px var(--accent-glow)}
+.music-toggle-btn.playing{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 24px var(--accent-glow)}
+.music-toggle-btn.hidden{display:none}
+.music-toggle-btn .kbd-hint{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text-muted);white-space:nowrap;font-family:"JetBrains Mono",monospace}
+
+/* FOOTER & TOAST */
+.footer{text-align:center;margin-top:32px;font-size:12px;color:var(--text-muted);animation:fadeSlideUp .7s 2.6s ease both;opacity:0}
+.footer a{color:var(--accent);text-decoration:none;font-weight:500;transition:color .2s}
+.footer a:hover{color:var(--accent2);text-decoration:underline}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-glass);border-radius:12px;padding:10px 20px;font-size:13px;color:var(--text-primary);opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:768px){
+  body.music-mode{flex-direction:column;padding:20px 16px 120px;gap:0;align-items:center}
+  body.music-mode .music-panel{position:static;transform:none;width:100%;max-width:440px;opacity:1;pointer-events:auto;margin-bottom:20px}
+  body.music-mode .main-container{width:100%;max-width:440px}
+  body.music-mode{justify-content:flex-start;padding-top:20px}
+  .panel-cover{width:160px;height:160px;font-size:48px}
+}
+@media(max-width:480px){body{padding:16px 12px 120px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+::selection{background:var(--accent-glow);color:var(--text-primary)}
+  
+/* Content wrapper for split layout */
+.content-wrapper{display:flex;flex-direction:row;align-items:flex-start;justify-content:center;gap:60px;width:100%;max-width:1100px;margin:0 auto;position:relative;z-index:10}
+body:not(.music-mode) .content-wrapper{flex-direction:column;align-items:center;gap:0}
+body:not(.music-mode) .music-panel{display:none!important}
+</style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-card">
-            <h1 class="login-title">灵界</h1>
-            <p class="login-subtitle">修仙之路，由此开始</p>
-            
-            <div class="login-tabs">
-                <button class="login-tab active" onclick="switchLoginTab('login')">登录</button>
-                <button class="login-tab" onclick="switchLoginTab('register')">创建角色</button>
-            </div>
 
-            <div id="loginForm">
-                <input type="text" class="login-input" id="loginName" placeholder="道号">
-                <input type="password" class="login-input" id="loginPassword" placeholder="密码">
-                <button class="btn-login" onclick="handleLogin()">进入灵界</button>
-            </div>
+<!-- Cover background -->
+<div id="coverBg">
+  <img id="coverBgImg" src="" alt="" crossorigin="anonymous">
+  <div id="coverGlow1"></div>
+  <div id="coverGlow2"></div>
+  <div id="coverOverlay"></div>
+</div>
 
-            <div id="registerForm" style="display: none;">
-                <input type="text" class="login-input" id="regName" placeholder="道号 (2-8字)">
-                <input type="password" class="login-input" id="regPassword" placeholder="密码 (至少6位)">
-                <select class="login-input" id="regRoot">
-                    <option value="金">金灵根 - 攻击加成10%</option>
-                    <option value="木">木灵根 - 修炼加成15%</option>
-                    <option value="水">水灵根 - 灵力加成20%</option>
-                    <option value="火">火灵根 - 攻击加成15%</option>
-                    <option value="土">土灵根 - 防御加成15%</option>
-                </select>
-                <button class="btn-login" onclick="handleRegister()">踏入仙途</button>
-            </div>
-        </div>
+<!-- Page entrance -->
+<div class="page-entrance" id="pageEntrance">
+  <div class="page-entrance-logo">&#10022;</div>
+  <div class="page-entrance-bar"></div>
+</div>
+
+<!-- Particles -->
+<canvas id="particles"></canvas>
+<div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+
+
+<!-- Content wrapper for split layout -->
+<div class="content-wrapper">
+<!-- Right panel: Music player -->
+<div class="music-panel" id="musicPanel">
+  <div class="music-panel-inner">
+    <!-- Album cover -->
+    <div class="panel-cover-wrap">
+      <div class="panel-cover-ring"></div>
+      <div class="panel-cover" id="panelCover">
+        <div class="cover-glow"></div>
+        <span id="panelCoverEmoji">&#127925;</span>
+        <img id="panelCoverImg" src="" alt="" style="display:none">
+      </div>
     </div>
-
-    <!-- Game Screen -->
-    <div class="game-wrapper" id="gameWrapper">
-        <header class="game-header">
-            <div class="header-left">
-                <button class="header-btn" onclick="togglePlayerPanel()">角色</button>
-                <span class="header-logo">灵界</span>
-                <span class="header-realm" id="headerRealm">锻体期一重</span>
-                <span class="header-time" id="headerTime"></span>
-            </div>
-            <div class="header-right">
-                <span id="headerPlayerName">--</span>
-                <button class="header-btn" onclick="togglePanel('map')">地图</button>
-                <button class="header-btn" onclick="togglePanel('dungeon')">秘境</button>
-                <button class="header-btn" onclick="togglePanel('ranking')">排行</button>
-                <button class="header-btn" onclick="togglePanel('chat')">聊天</button>
-                <button class="header-btn" onclick="togglePanel('market')">坊市</button>
-                <button class="header-btn" onclick="togglePanel('sect')">宗门</button>
-                <button class="header-btn" onclick="togglePanel('crafting')">炼造</button>
-                <button class="header-btn" onclick="togglePanel('inventory')">储物</button>
-                <button class="header-btn" onclick="togglePanel('guide')">说明</button>
-                <button class="header-btn btn-logout" onclick="handleLogout()">退出</button>
-            </div>
-        </header>
-
-        <div class="game-body">
-            <aside class="player-panel" id="playerPanel">
-                <div class="panel-section">
-                    <h3 class="panel-title">角色信息</h3>
-                    <div class="stat-row"><span class="stat-label">道号</span><span class="stat-value" id="statName">--</span></div>
-                    <div class="stat-row"><span class="stat-label">境界</span><span class="stat-value" id="statRealm">--</span></div>
-                    <div class="stat-row"><span class="stat-label">灵根</span><span class="stat-value" id="statRoot">--</span></div>
-                    <div class="stat-row"><span class="stat-label">修为</span><span class="stat-value" id="statCultivation">--</span></div>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="cultivationProgress" style="width: 0%"></div>
-                        <span class="progress-text" id="cultivationProgressText">0%</span>
-                    </div>
-                    <div id="breakthroughArea" style="margin-top: 8px;"></div>
-                </div>
-
-                <div class="panel-section">
-                    <h3 class="panel-title">属性</h3>
-                    <div class="stat-row"><span class="stat-label">生命</span><span class="stat-value hp" id="statHp">--</span></div>
-                    <div class="stat-row"><span class="stat-label">灵力</span><span class="stat-value mp" id="statMp">--</span></div>
-                    <div class="stat-row"><span class="stat-label">攻击</span><span class="stat-value atk" id="statAtk">--</span></div>
-                    <div class="stat-row"><span class="stat-label">防御</span><span class="stat-value def" id="statDef">--</span></div>
-                    <div class="stat-row"><span class="stat-label">神识</span><span class="stat-value spirit" id="statSpirit">--</span></div>
-                </div>
-
-                <div class="panel-section">
-                    <h3 class="panel-title">资源</h3>
-                    <div class="stat-row"><span class="stat-label">灵石</span><span class="stat-value" id="statGold">0</span></div>
-                    <div class="stat-row"><span class="stat-label">位置</span><span class="stat-value" id="statArea">--</span></div>
-                    <div class="stat-row"><span class="stat-label">击杀</span><span class="stat-value" id="statKills">0</span></div>
-                    <div class="stat-row"><span class="stat-label">战力</span><span class="stat-value" id="statPower">0</span></div>
-                </div>
-            </aside>
-
-            <main class="main-panel">
-                <div class="log-area" id="logArea">
-                    <div class="log-content" id="logContent">
-                        <p class="log-welcome">欢迎来到灵界，修仙之路由此开始...</p>
-                    </div>
-                </div>
-
-                <div class="action-bar" id="actionBar">
-                    <button class="btn-action primary" id="meditateBtn" onclick="handleMeditate()">🧘 冥想修炼</button>
-                    <button class="btn-action" id="exploreBtn" onclick="handleExplore()">🗺️ 探索(-1神识)</button>
-                    <button class="btn-action" onclick="togglePanel('inventory')">🎒 储物</button>
-                    <button class="btn-action" onclick="togglePanel('crafting')">⚗️ 炼造</button>
-                    <button class="btn-action" onclick="togglePanel('map')">🗺️ 地图</button>
-                </div>
-
-                <div class="meditation-bar" id="meditationBar">
-                    <span class="meditating">🧘 冥想修炼中...</span>
-                    <span id="meditationTime" style="color: var(--text-muted);">0秒</span>
-                    <span>预计修为: <em id="meditationCultivation" style="color: var(--text-gold);">0</em></span>
-                    <button class="btn-action danger" onclick="handleStopMeditate()">收功</button>
-                </div>
-            </main>
-
-            <aside class="side-panel" id="sidePanel">
-                <div class="side-panel-header">
-                    <h3 class="side-panel-title" id="sidePanelTitle">面板</h3>
-                    <button class="btn-close" onclick="closePanel()">×</button>
-                </div>
-                <div class="side-panel-content" id="sidePanelContent"></div>
-            </aside>
-        </div>
+    <!-- Song info -->
+    <div class="panel-song-info">
+      <div class="panel-title" id="panelTitle">等待播放</div>
+      <div class="panel-artist" id="panelArtist">点击播放音乐</div>
     </div>
-
-    <!-- Encounter Modal -->
-    <div class="modal-overlay" id="encounterModal">
-        <div class="modal-content">
-            <h2 class="modal-title">-- 遭遇妖兽 --</h2>
-            <div class="monster-info">
-                <div class="monster-name" id="monsterName">荒野灵兔</div>
-                <div class="monster-realm" id="monsterRealm">锻体期一重</div>
-                <div class="monster-stats">
-                    <div class="monster-stat"><div class="monster-stat-value" id="monsterHp">100</div><div class="monster-stat-label">生命</div></div>
-                    <div class="monster-stat"><div class="monster-stat-value" id="monsterAtk">10</div><div class="monster-stat-label">攻击</div></div>
-                    <div class="monster-stat"><div class="monster-stat-value" id="monsterDef">5</div><div class="monster-stat-label">防御</div></div>
-                </div>
-            </div>
-            <div class="combat-log" id="combatLog"></div>
-            <div class="modal-actions">
-                <button class="btn-action danger" onclick="handleCombatChoice('fight')">⚔️ 迎战</button>
-                <button class="btn-action" onclick="handleCombatChoice('flee')">🏃 逃跑</button>
-            </div>
-        </div>
+    <!-- Progress -->
+    <div class="panel-progress-wrap">
+      <div class="panel-progress-bar" id="panelProgressBar">
+        <div class="panel-progress-fill" id="panelProgressFill"></div>
+      </div>
+      <div class="panel-time">
+        <span id="panelTimeCurrent">0:00</span>
+        <span id="panelTimeTotal">0:00</span>
+      </div>
     </div>
-
-    <!-- Dungeon Modal -->
-    <div class="modal-overlay" id="dungeonModal">
-        <div class="modal-content">
-            <h2 class="modal-title" id="dungeonTitle">秘境挑战</h2>
-            <div id="dungeonContent"></div>
-            <div class="modal-actions" style="margin-top: 16px;">
-                <button class="btn-action danger" onclick="closeDungeonModal()">关闭</button>
-            </div>
-        </div>
+    <!-- Lyrics -->
+    <div class="panel-lyrics-container" id="panelLyrics">
     </div>
+    <div class="panel-lyrics-glow" id="panelLyricsGlow"></div>
+    <!-- Controls -->
+    <div class="panel-controls">
+      <button class="panel-btn" id="panelPrevBtn" title="上一首">&#9198;</button>
+      <button class="panel-btn play" id="panelPlayBtn" title="播放">&#9654;</button>
+      <button class="panel-btn" id="panelNextBtn" title="下一首">&#9197;</button>
+    </div>
+  </div>
+<
+<!-- Left panel: Main content -->
+<div class="main-container">
+  <div class="top-bar">
+    <div class="theme-toggle" id="themeToggle" title="&#20999;&#25442;&#26126;&#26263;&#20027;&#39064; (D)" role="button" aria-label="&#20999;&#25442;&#20027;&#39064;">
+      <span class="toggle-label" id="themeLabel">&#20142;&#33394;</span>
+      <div class="toggle-switch"><div class="toggle-knob"></div></div>
+      <span class="toggle-key">D</span>
+    </div>
+    <div class="page-views-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span id="viewCount">--</span> views
+    </div>
+  </div>
 
-    <script>
-        // ==================== 游戏数据 ====================
-        const REALMS = [
-            { name: '锻体期', stages: ['一重','二重','三重','四重','五重','六重','七重','八重','九重'], hpBase: 100, atkBase: 10, defBase: 5 },
-            { name: '练气期', stages: ['一层','二层','三层','四层','五层','六层','七层','八层','九层'], hpBase: 250, atkBase: 25, defBase: 12 },
-            { name: '筑基期', stages: ['前期','中期','后期','大圆满'], hpBase: 600, atkBase: 50, defBase: 25 },
-            { name: '金丹期', stages: ['前期','中期','后期','大圆满'], hpBase: 1500, atkBase: 100, defBase: 50 },
-            { name: '元婴期', stages: ['前期','中期','后期','大圆满'], hpBase: 4000, atkBase: 200, defBase: 100 },
-            { name: '化神期', stages: ['前期','中期','后期','大圆满'], hpBase: 10000, atkBase: 400, defBase: 200 },
-            { name: '炼虚期', stages: ['前期','中期','后期','大圆满'], hpBase: 25000, atkBase: 800, defBase: 400 },
-            { name: '合道期', stages: ['前期','中期','后期','大圆满'], hpBase: 60000, atkBase: 1600, defBase: 800 },
-            { name: '大乘期', stages: ['前期','中期','后期','大圆满'], hpBase: 150000, atkBase: 3200, defBase: 1600 },
-            { name: '渡劫期', stages: ['一重','二重','三重','四重','五重','六重','七重','八重','九重'], hpBase: 400000, atkBase: 6400, defBase: 3200 },
-            { name: '真仙', stages: ['初入'], hpBase: 1000000, atkBase: 12800, defBase: 6400 }
-        ];
+  <div class="profile-card">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar"
+      <img src="https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
+      <span class="avatar-emoji">&#128187;</span>
+    </div>
+    <h1 class="name">leeyolo</h1>
+    <p class="bio">&#22312;&#36825;&#37324;&#35760;&#24453;&#25105;&#30340;&#25104;&#38271; &#10024;<br>Developer &middot; Creator &middot; Dreamer</p>
+    <div class="tags">
+      <span class="tag">&#21069;&#31471;&#24320;&#21457;</span>
+      <span class="tag">&#24320;&#28304;&#29233;&#22909;&#32773;</span>
+      <span class="tag">&#25345;&#32493;&#23398;&#20064;</span>
+    </div>
+  </div>
 
-        const ROOT_BONUSES = {
-            '金': { name: '金灵根', atk: 0.1, def: 0, hp: 0, mp: 0, cultivation: 0 },
-            '木': { name: '木灵根', atk: 0, def: 0, hp: 0, mp: 0, cultivation: 0.15 },
-            '水': { name: '水灵根', atk: 0, def: 0, hp: 0, mp: 0.2, cultivation: 0.1 },
-            '火': { name: '火灵根', atk: 0.15, def: 0, hp: 0, mp: 0, cultivation: 0 },
-            '土': { name: '土灵根', atk: 0, def: 0.15, hp: 0.1, mp: 0, cultivation: 0 }
-        };
+  <div class="links">
+    <a href="https://github.com/leeyoloo" target="_blank" class="link-card">
+      <div class="link-icon icon-github">&#128021;</div>
+      <div class="link-info"><div class="link-title">GitHub</div><div class="link-desc">leeyoloo &middot; &#24320;&#28304;&#39033;&#30446;&#19982;&#20195;&#30721;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://space.bilibili.com/your-id" target="_blank" class="link-card">
+      <div class="link-icon icon-bilibili">&#128250;</div>
+      <div class="link-info"><div class="link-title">B站</div><div class="link-desc">&#25216;&#26415;&#35270;&#39057;&#19982;&#26085;&#24120;&#20998;&#20139;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://twitter.com/your-handle" target="_blank" class="link-card">
+      <div class="link-icon icon-twitter">&#128038;</div>
+      <div class="link-info"><div class="link-title">Twitter / X</div><div class="link-desc">&#26085;&#24120;&#30862;&#30862;&#24565;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="https://t.me/your-handle" target="_blank" class="link-card">
+      <div class="link-icon icon-telegram">&#9992;</div>
+      <div class="link-info"><div class="link-title">Telegram</div><div class="link-desc">&#21363;&#26102;&#32852;&#31995; &middot; &#38394;&#32842;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+    <a href="mailto:your@email.com" target="_blank" class="link-card">
+      <div class="link-icon icon-email">&#128231;</div>
+      <div class="link-info"><div class="link-title">&#37038;&#31665;</div><div class="link-desc">&#21830;&#21153;&#21512;&#20304; &middot; &#32852;&#31995;&#25105;</div></div>
+      <span class="link-arrow">&#8594;</span>
+    </a>
+  </div>
 
-        const AREAS = {
-            '青云郡': [
-                { name: '灵溪村', level: 1, danger: '安全' },
-                { name: '灵溪河畔', level: 1, danger: '低危' },
-                { name: '翠竹小径', level: 2, danger: '低危' },
-                { name: '落霞崖', level: 3, danger: '中危' },
-                { name: '雾隐村', level: 4, danger: '中危' },
-                { name: '青云城', level: 1, danger: '安全', hub: true }
-            ],
-            '沧海郡': [
-                { name: '碧波渡', level: 5, danger: '中危' },
-                { name: '青松林', level: 6, danger: '中危' },
-                { name: '沧海城', level: 5, danger: '安全', hub: true }
-            ],
-            '北荒郡': [
-                { name: '北荒前哨', level: 7, danger: '高危' },
-                { name: '寒渊冰原', level: 8, danger: '高危' },
-                { name: '龙骸荒漠', level: 9, danger: '高危' }
-            ]
-        };
+  <div class="keyboard-hint">
+    <span class="kbd">D</span> &#20999;&#25442;&#20027;&#39064; &nbsp;&middot;&nbsp; <span class="kbd">M</span> &#38899;&#20048;
+  </div>
 
-        const MONSTERS = [
-            { name: '荒野灵兔', hpMult: 0.8, atkMult: 0.8, defMult: 0.8 },
-            { name: '铁甲野猪', hpMult: 1.3, atkMult: 0.9, defMult: 1.4 },
-            { name: '青鳞蛇妖', hpMult: 1.0, atkMult: 1.2, defMult: 0.9 },
-            { name: '烈焰狼王', hpMult: 1.2, atkMult: 1.4, defMult: 1.0 },
-            { name: '寒冰巨猿', hpMult: 1.5, atkMult: 1.1, defMult: 1.5 },
-            { name: '飞天蜈蚣', hpMult: 0.9, atkMult: 1.5, defMult: 0.8 }
-        ];
+  <div class="footer">
+    <p>Made with &#10084;&#65039; &middot; <a href="https://github.com/leeyoloo" target="_blank">@leeyolo</a></p>
+  </div>
+</div>
 
-        const ITEMS = {
-            '灵草': { type: 'material', icon: '🌿', desc: '初级炼丹材料' },
-            '灵矿石': { type: 'material', icon: '💎', desc: '初级锻造材料' },
-            '低阶妖核': { type: 'material', icon: '🔮', desc: '妖兽精华' },
-            '中阶妖核': { type: 'material', icon: '🔮', desc: '中级妖兽精华' },
-            '高阶妖核': { type: 'material', icon: '🔮', desc: '高级妖兽精华' },
-            '回气丹': { type: 'pill', icon: '💊', desc: '恢复100点灵力', effect: { mp: 100 } },
-            '疗伤丹': { type: 'pill', icon: '💉', desc: '恢复200点生命', effect: { hp: 200 } },
-            '聚灵丹': { type: 'pill', icon: '✨', desc: '增加1000修为', effect: { cultivation: 1000 } },
-            '突破丹': { type: 'pill', icon: '🌟', desc: '突破成功率+20%', effect: { breakthrough: 0.2 } },
-            '灵芝': { type: 'material', icon: '🍄', desc: '中级炼丹材料' },
-            '精金矿': { type: 'material', icon: '⚙️', desc: '中级锻造材料' }
-        };
+<button class="music-toggle-btn" id="musicToggleBtn" title="&#38899;&#20048;&#25773;&#25918;&#22120; (M)">&#127925;<span class="kbd-hint">M</span></button>
+<div class="music-player" id="musicPlayer">
+  <button class="music-close" id="musicCloseBtn" title="&#20851;&#38381;">&#10006;</button>
+  <div class="music-player-inner">
+    <div class="music-cover" id="musicCover">&#127925;</div>
+    <div class="music-info">
+      <div class="music-title" id="musicTitle">&#31561;&#24453;&#25773;&#25918;</div>
+      <div class="music-artist" id="musicArtist">&#28857;&#20987;&#25773;&#25918;&#38899;&#20048;</div>
+      <div class="music-progress-bar" id="musicProgressBar"><div class="music-progress-fill" id="musicProgressFill"></div></div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="musicPrevBtn">&#9198;</button>
+      <button class="music-btn play-btn" id="musicPlayBtn">&#9654;</button>
+      <button class="music-btn" id="musicNextBtn">&#9197;</button>
+    </div>
+  </div>
+</div>
 
-        const DUNGEONS = [
-            { name: '灵溪洞府', level: 1, stages: 3, rewards: ['灵草', '回气丹'], bossRewards: ['疗伤丹', '聚灵丹'] },
-            { name: '青竹迷阵', level: 3, stages: 5, rewards: ['灵芝', '灵矿石'], bossRewards: ['突破丹', '中阶妖核'] },
-            { name: '落霞秘境', level: 5, stages: 7, rewards: ['精金矿', '中阶妖核'], bossRewards: ['突破丹', '高阶妖核'] },
-            { name: '碧波龙宫', level: 7, stages: 10, rewards: ['高阶妖核', '精金矿'], bossRewards: ['突破丹', '聚灵丹'] }
-        ];
+<div class="toast" id="toast"></div>
 
-        const RECIPES = [
-            { name: '回气丹', type: 'pill', materials: { '灵草': 2 }, result: { '回气丹': 1 } },
-            { name: '疗伤丹', type: 'pill', materials: { '灵草': 3, '灵芝': 1 }, result: { '疗伤丹': 1 } },
-            { name: '聚灵丹', type: 'pill', materials: { '灵芝': 2, '低阶妖核': 1 }, result: { '聚灵丹': 1 } },
-            { name: '突破丹', type: 'pill', materials: { '灵芝': 3, '中阶妖核': 2 }, result: { '突破丹': 1 } }
-        ];
+<script>
+(function(){
+  var entrance=document.getElementById("pageEntrance");
+  setTimeout(function(){entrance.classList.add("done");},2200);
+  setTimeout(function(){entrance.style.display="none";},3000);
 
-        const SECT_BONUSES = {
-            1: { name: '九霄宗', cultivation: 0.05, atk: 0, def: 0 },
-            2: { name: '九霄宗', cultivation: 0.08, atk: 0.03, def: 0 },
-            3: { name: '九霄宗', cultivation: 0.12, atk: 0.05, def: 0.03 },
-            4: { name: '九霄宗', cultivation: 0.15, atk: 0.08, def: 0.05 },
-            5: { name: '九霄宗', cultivation: 0.20, atk: 0.10, def: 0.08 }
-        };
+  var canvas=document.getElementById("particles");
+  var ctx=canvas.getContext("2d");
+  var W,H,particles=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  function createParticles(){
+    particles=[];
+    for(var i=0;i<Math.min(Math.floor(W*H/12000),100);i++){
+      particles.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.5,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,alpha:Math.random()*0.5+0.2});
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var isDark=document.documentElement.dataset.theme==="dark";
+    var color=isDark?"99,179,237":"49,130,206";
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<140){ctx.beginPath();ctx.strokeStyle="rgba("+color+","+(0.12*(1-dist/140))+")";ctx.lineWidth=0.5;ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();}
+      }
+    }
+    particles.forEach(function(p){
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba("+color+","+p.alpha+")";ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();createParticles();draw();
+  window.addEventListener("resize",function(){resize();createParticles();});
 
-        // ==================== 游戏状态 ====================
-        let gameState = null;
-        let meditationInterval = null;
-        let meditationStartTime = null;
-        let onlinePlayers = [];
-        let chatMessages = [];
+  var toggle=document.getElementById("themeToggle");
+  var label=document.getElementById("themeLabel");
+  function syncLabel(){label.textContent=document.documentElement.dataset.theme==="dark"?"\u6697\u8272":"\u4eae\u8272";}
+  toggle.addEventListener("click",function(){
+    var isDark=document.documentElement.dataset.theme==="dark";
+    document.documentElement.dataset.theme=isDark?"light":"dark";
+    syncLabel();localStorage.setItem("theme",document.documentElement.dataset.theme);
+  });
+  var saved=localStorage.getItem("theme");
+  if(saved){document.documentElement.dataset.theme=saved;}
+  syncLabel();
 
-        // 模拟在线玩家
-        function generateOnlinePlayers() {
-            const names = ['清风子', '明月道人', '云中鹤', '紫霞仙子', '剑痴', '药灵子', '龙傲天', '凤舞九天', '天机子', '玄机道人'];
-            onlinePlayers = names.map((name, i) => ({
-                name: name,
-                realm: Math.floor(Math.random() * 5),
-                stage: Math.floor(Math.random() * 9),
-                power: Math.floor(Math.random() * 10000) + 1000
-            }));
-            
-            // 添加自己
-            if (gameState && gameState.player) {
-                onlinePlayers.push({
-                    name: gameState.player.name,
-                    realm: gameState.player.realmIndex,
-                    stage: gameState.player.stageIndex,
-                    power: getPower(gameState.player)
-                });
-            }
+  var el=document.getElementById("viewCount");
+  var key="leeyolo_views_v7";
+  var today=new Date().toDateString();
+  var count=parseInt(localStorage.getItem(key)||"0");
+  if(!localStorage.getItem(key+"_"+today)){count=count+1;localStorage.setItem(key,count);localStorage.setItem(key+"_"+today,"1");}
+  el.textContent=count;
+
+  var toast=document.getElementById("toast");
+  var toastTimer;
+  window.showToast=function(msg,dur){dur=dur||2000;toast.textContent=msg;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){toast.classList.remove("show");},dur);};
+
+  document.querySelectorAll(".link-card").forEach(function(card){
+    card.addEventListener("click",function(e){
+      var rect=card.getBoundingClientRect();
+      var ripple=document.createElement("span");
+      ripple.className="ripple";
+      var size=Math.max(rect.width,rect.height);
+      ripple.style.width=ripple.style.height=size+"px";
+      ripple.style.left=(e.clientX-rect.left-size/2)+"px";
+      ripple.style.top=(e.clientY-rect.top-size/2)+"px";
+      card.appendChild(ripple);
+      setTimeout(function(){ripple.remove();},600);
+    });
+  });
+
+  /* ===== MUSIC + SPLIT LAYOUT ===== */
+  var coverBg=document.getElementById("coverBg");
+  var coverBgImg=document.getElementById("coverBgImg");
+  var coverGlow1=document.getElementById("coverGlow1");
+  var coverGlow2=document.getElementById("coverGlow2");
+  var particlesEl=document.getElementById("particles");
+  var musicPanel=document.getElementById("musicPanel");
+  var panelCover=document.getElementById("panelCover");
+  var panelCoverEmoji=document.getElementById("panelCoverEmoji");
+  var panelCoverImg=document.getElementById("panelCoverImg");
+  var panelTitle=document.getElementById("panelTitle");
+  var panelArtist=document.getElementById("panelArtist");
+  var panelProgressFill=document.getElementById("panelProgressFill");
+  var panelProgressBar=document.getElementById("panelProgressBar");
+  var panelLyrics=document.getElementById("panelLyrics");
+  var panelLyricsGlow=document.getElementById("panelLyricsGlow");
+  var panelPlayBtn=document.getElementById("panelPlayBtn");
+  var panelPrevBtn=document.getElementById("panelPrevBtn");
+  var panelNextBtn=document.getElementById("panelNextBtn");
+  var panelTimeCurrent=document.getElementById("panelTimeCurrent");
+  var panelTimeTotal=document.getElementById("panelTimeTotal");
+
+  var LYRICS=[[0.86,"那天下雨了"],[2.28,"词：周杰伦"],[2.88,"曲：周杰伦"],[29.14,"车子缓缓的开 你慢慢走来"],[32.38,"我竟然看着你发呆"],[35.59,"你尴尬Say个Hi 没位坐下来"],[38.9,"我想叫旁边的离开"],[41.97,"我车票都还在 心却在窗外"],[45.4,"因为你已下了站台"],[48.54,"远远的看着你点点头车已开"],[51.77,"你一句话我爬窗离开"],[55.03,"你证件掉了出来 我才明白"],[58.37,"是那隔壁班的女孩"],[61.53,"这么多年彼此竟然没认出来"],[64.69,"是你变美还是我变帅"],[67.95,"你经过花就开 离开雨就来"],[71.3,"这里适合谈个恋爱"],[74.35,"如果我要一个梦幻的开场白"],[77.64,"没有比你更美的对白"],[81.42,"雪白的天空等待彩虹出现"],[86.36,"（彩虹出现）"],[87.96,"你我的遇见是谁许的愿"],[92.79,"（谁许的愿）"],[94.51,"黑黑的夜空繁星变得耀眼"],[99.37,"（变得耀眼）"],[100.65,"因为你出现在我身边"],[106.83,"你老家有点远 但我有点闲"],[110.27,"也许能陪你走一圈"],[113.29,"把你的父母都见 吃几口麻酱面"],[116.68,"也许还能打个几圈 （我胡了）"],[120.01,"乡间的麦芽田 害羞的脸"],[123.19,"你提到多年前的暗恋"],[126.27,"妳剪下校园毕业册的那一页"],[129.53,"是因为我在照片里面"],[133.39,"雪白的天空等待彩虹出现"],[138.22,"（彩虹出现）"],[139.88,"你我的遇见是谁许的愿"],[144.68,"（谁许的愿）"],[146.41,"黑黑的夜空繁星变得耀眼"],[151.22,"（变得耀眼）"],[152.55,"因为你出现在我身边"],[159,"原来多年前在那个书店"],[162.24,"借我课本的是你"],[165.34,"原来看我被雨淋的那天"],[168.62,"帮我撑伞也是你"],[178.24,"翘课的那一天 花落那一天"],[181.6,"教室那间我已看见"],[184.63,"消失的下雨天 我想再淋一遍"],[188,"我应该对你唱着晴天"],[191.24,"送你到家门外 我才明白"],[194.52,"原来你早已有人疼爱"],[197.58,"如果回到过去那一个下雨天"],[200.88,"我会为了你把伞撑开"],[204.22,"如果回到过去那一个下雨天"],[207.39,"我绝不再 转身离开"]];
+
+  function renderLyrics(){
+    panelLyrics.innerHTML="";
+    LYRICS.forEach(function(item){
+      var div=document.createElement("div");
+      div.className="panel-lyric-line";
+      div.textContent=item[1]||"\u00a0";
+      div.dataset.time=item[0];
+      panelLyrics.appendChild(div);
+    });
+  }
+  renderLyrics();
+
+  function extractColor(img){
+    try{
+      var c=document.createElement("canvas");c.width=1;c.height=1;
+      var ctx=c.getContext("2d");
+      ctx.drawImage(img,0,0,1,1);
+      var d=ctx.getImageData(0,0,1,1).data;
+      var r=d[0],g=d[1],b=d[2];
+      coverGlow1.style.background="radial-gradient(ellipse 80% 60% at 30% 40%,rgba("+r+","+g+","+b+",0.55),transparent 70%)";
+      coverGlow2.style.background="radial-gradient(ellipse 70% 80% at 70% 65%,rgba("+(r-20)+","+(g-30)+","+(b+40)+",0.45),rgba(40,20,80,0.2),transparent 75%)";
+    }catch(e){}
+  }
+
+  var coverImgLoaded=false;
+  var currentLyricIdx=-1;
+  var lyricsVisible=false;
+
+  function formatTime(s){
+    if(!s||isNaN(s))return"0:00";
+    var m=Math.floor(s/60);
+    var sec=Math.floor(s%60);
+    return m+":"+(sec<10?"0":"")+sec;
+  }
+
+  function showMusicMode(){
+    coverBg.classList.add("active");
+    particlesEl.classList.add("dimmed");
+    musicPanel.classList.add("active");
+    document.body.classList.add("music-mode");
+    if(!coverImgLoaded){
+      coverBgImg.onload=function(){extractColor(coverBgImg);coverImgLoaded=true;};
+      coverBgImg.onerror=function(){
+        coverGlow1.style.background="radial-gradient(ellipse 80% 60% at 30% 40%,rgba(200,80,100,0.55),transparent 70%)";
+        coverGlow2.style.background="radial-gradient(ellipse 70% 80% at 70% 65%,rgba(80,50,160,0.45),transparent 75%)";
+      };
+    }
+  }
+
+  function hideMusicMode(){
+    coverBg.classList.remove("active");
+    particlesEl.classList.remove("dimmed");
+    musicPanel.classList.remove("active");
+    document.body.classList.remove("music-mode");
+    currentLyricIdx=-1;
+    renderLyrics();
+  }
+
+  function updateLyrics(currentTime){
+    var idx=LYRICS.length-1;
+    for(var i=0;i<LYRICS.length;i++){if(currentTime>=LYRICS[i][0])idx=i;}
+    if(idx!==currentLyricIdx){
+      currentLyricIdx=idx;
+      var lines=panelLyrics.querySelectorAll(".panel-lyric-line");
+      lines.forEach(function(line,i){
+        if(i===idx){
+          line.classList.add("active");
+          setTimeout(function(){line.scrollIntoView({behavior:"smooth",block:"center"});},50);
+        } else {
+          line.classList.remove("active");
         }
-
-        // ==================== 工具函数 ====================
-        function saveGame() {
-            if (gameState) {
-                localStorage.setItem('lingverse_save', JSON.stringify(gameState));
-            }
-        }
-
-        function loadGame() {
-            const saved = localStorage.getItem('lingverse_save');
-            return saved ? JSON.parse(saved) : null;
-        }
-
-        function formatNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return Math.floor(num).toString();
-        }
-
-        function getTimestamp() {
-            const now = new Date();
-            return `[${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}]`;
-        }
-
-        function addLog(message, type = 'event') {
-            const logContent = document.getElementById('logContent');
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${type}`;
-            entry.innerHTML = `<span class="log-time">${getTimestamp()}</span>${message}`;
-            logContent.appendChild(entry);
-            logContent.scrollTop = logContent.scrollHeight;
-            while (logContent.children.length > 150) logContent.removeChild(logContent.firstChild);
-        }
-
-        // ==================== 属性计算 ====================
-        function getRealmIndex(p) { return p.realmIndex || 0; }
-        function getStageIndex(p) { return p.stageIndex || 0; }
-
-        function getRealmName(p) {
-            const ri = getRealmIndex(p);
-            const si = getStageIndex(p);
-            if (ri >= REALMS.length) return '真仙';
-            return `${REALMS[ri].name}${REALMS[ri].stages[Math.min(si, REALMS[ri].stages.length - 1)]}`;
-        }
-
-        function getCultivationRequired(p) {
-            const ri = getRealmIndex(p);
-            const si = getStageIndex(p);
-            if (ri >= REALMS.length - 1) return Infinity;
-            const baseExp = [100, 500, 2000, 8000, 30000, 100000, 400000, 1500000, 5000000, 20000000];
-            const base = baseExp[Math.min(ri, baseExp.length - 1)];
-            return Math.floor(base * (1 + si * 0.5));
-        }
-
-        function getMaxHp(p) {
-            const realm = REALMS[Math.min(getRealmIndex(p), REALMS.length - 1)];
-            const rootBonus = ROOT_BONUSES[p.root] || { hp: 0 };
-            const sectBonus = p.sectLevel ? (SECT_BONUSES[p.sectLevel] || { cultivation: 0 }) : { cultivation: 0 };
-            const base = realm.hpBase * (1 + getStageIndex(p) * 0.3);
-            return Math.floor(base * (1 + rootBonus.hp) * (1 + (sectBonus.cultivation || 0) * 0.2));
-        }
-
-        function getMaxMp(p) {
-            const base = 50 + getRealmIndex(p) * 50;
-            const rootBonus = ROOT_BONUSES[p.root] || { mp: 0 };
-            return Math.floor(base * (1 + getStageIndex(p) * 0.2) * (1 + rootBonus.mp));
-        }
-
-        function getAtk(p) {
-            const realm = REALMS[Math.min(getRealmIndex(p), REALMS.length - 1)];
-            const rootBonus = ROOT_BONUSES[p.root] || { atk: 0 };
-            const sectBonus = p.sectLevel ? (SECT_BONUSES[p.sectLevel] || { atk: 0 }) : { atk: 0 };
-            const base = realm.atkBase * (1 + getStageIndex(p) * 0.2);
-            return Math.floor(base * (1 + rootBonus.atk + (sectBonus.atk || 0)));
-        }
-
-        function getDef(p) {
-            const realm = REALMS[Math.min(getRealmIndex(p), REALMS.length - 1)];
-            const rootBonus = ROOT_BONUSES[p.root] || { def: 0 };
-            const sectBonus = p.sectLevel ? (SECT_BONUSES[p.sectLevel] || { def: 0 }) : { def: 0 };
-            const base = realm.defBase * (1 + getStageIndex(p) * 0.2);
-            return Math.floor(base * (1 + rootBonus.def + (sectBonus.def || 0)));
-        }
-
-        function getMaxSpirit(p) { return 10 + getRealmIndex(p) * 5; }
-        function getPower(p) { return Math.floor(getAtk(p) * 2 + getDef(p) + getMaxHp(p) / 10); }
-        function getCultivationRate(p) {
-            const rootBonus = ROOT_BONUSES[p.root] || { cultivation: 0 };
-            const sectBonus = p.sectLevel ? (SECT_BONUSES[p.sectLevel] || { cultivation: 0 }) : { cultivation: 0 };
-            return (1 + getRealmIndex(p) * 0.5) * (1 + rootBonus.cultivation) * (1 + (sectBonus.cultivation || 0));
-        }
-
-        // ==================== UI更新 ====================
-        function updateUI() {
-            if (!gameState || !gameState.player) return;
-            const p = gameState.player;
-
-            document.getElementById('headerPlayerName').textContent = p.name;
-            document.getElementById('headerRealm').textContent = getRealmName(p);
-            document.getElementById('headerTime').textContent = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
-
-            document.getElementById('statName').textContent = p.name;
-            document.getElementById('statRealm').textContent = getRealmName(p);
-            document.getElementById('statRoot').textContent = ROOT_BONUSES[p.root]?.name || p.root;
-            document.getElementById('statCultivation').textContent = `${formatNumber(p.cultivation)} / ${formatNumber(getCultivationRequired(p))}`;
-
-            const progress = Math.min(100, (p.cultivation / getCultivationRequired(p)) * 100);
-            document.getElementById('cultivationProgress').style.width = progress + '%';
-            document.getElementById('cultivationProgressText').textContent = progress.toFixed(1) + '%';
-
-            document.getElementById('statHp').textContent = `${Math.floor(p.hp)} / ${getMaxHp(p)}`;
-            document.getElementById('statMp').textContent = `${Math.floor(p.mp)} / ${getMaxMp(p)}`;
-            document.getElementById('statAtk').textContent = getAtk(p);
-            document.getElementById('statDef').textContent = getDef(p);
-            document.getElementById('statSpirit').textContent = `${Math.floor(p.spirit)} / ${getMaxSpirit(p)}`;
-            document.getElementById('statGold').textContent = formatNumber(p.gold);
-            document.getElementById('statArea').textContent = p.currentArea;
-            document.getElementById('statKills').textContent = p.kills || 0;
-            document.getElementById('statPower').textContent = formatNumber(getPower(p));
-
-            // 突破按钮
-            const btArea = document.getElementById('breakthroughArea');
-            if (p.cultivation >= getCultivationRequired(p)) {
-                btArea.innerHTML = `<button class="btn-action primary" style="width:100%;padding:6px;font-size:11px;" onclick="handleBreakthrough()">⚡ 尝试突破</button>`;
-            } else {
-                btArea.innerHTML = '';
-            }
-
-            generateOnlinePlayers();
-        }
-
-        // 更新时间
-        setInterval(() => {
-            if (gameState) {
-                document.getElementById('headerTime').textContent = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
-            }
-        }, 1000);
-
-        // ==================== 登录系统 ====================
-        function switchLoginTab(tab) {
-            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-        }
-
-        function handleLogin() {
-            const name = document.getElementById('loginName').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            if (!name || !password) { alert('请输入道号和密码'); return; }
-            const saved = loadGame();
-            if (saved && saved.player && saved.player.name === name) {
-                gameState = saved;
-                startGame();
-            } else {
-                alert('角色不存在，请先创建角色');
-            }
-        }
-
-        function handleRegister() {
-            const name = document.getElementById('regName').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const root = document.getElementById('regRoot').value;
-            if (name.length < 2 || name.length > 8) { alert('道号需要2-8个字'); return; }
-            if (password.length < 6) { alert('密码至少6位'); return; }
-
-            gameState = {
-                player: {
-                    name, root, password,
-                    realmIndex: 0, stageIndex: 0,
-                    cultivation: 0,
-                    hp: 100, mp: 50, spirit: 10,
-                    gold: 100, kills: 0,
-                    currentArea: '灵溪村',
-                    inventory: [
-                        { name: '灵草', count: 5 },
-                        { name: '回气丹', count: 3 },
-                        { name: '疗伤丹', count: 2 }
-                    ],
-                    sectLevel: 0,
-                    sectContribution: 0,
-                    completedDungeons: []
-                },
-                chatMessages: []
-            };
-            saveGame();
-            startGame();
-            addLog(`🎉 ${name}踏入仙途，开始了修仙之旅！`, 'level');
-        }
-
-        function handleLogout() {
-            saveGame();
-            gameState = null;
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('gameWrapper').classList.remove('active');
-        }
-
-        function startGame() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('gameWrapper').classList.add('active');
-            updateUI();
-            generateOnlinePlayers();
-        }
-
-        // ==================== 游戏功能 ====================
-        function handleMeditate() {
-            if (gameState.player.hp <= 0) { addLog('❌ 你已重伤，无法修炼！', 'error'); return; }
-            document.getElementById('actionBar').style.display = 'none';
-            document.getElementById('meditationBar').classList.add('active');
-            meditationStartTime = Date.now();
-            meditationInterval = setInterval(() => {
-                const elapsed = Math.floor((Date.now() - meditationStartTime) / 1000);
-                document.getElementById('meditationTime').textContent = elapsed + '秒';
-                document.getElementById('meditationCultivation').textContent = formatNumber(Math.floor(elapsed * getCultivationRate(gameState.player)));
-            }, 1000);
-        }
-
-        function handleStopMeditate() {
-            if (!meditationInterval) return;
-            clearInterval(meditationInterval);
-            meditationInterval = null;
-
-            const elapsed = (Date.now() - meditationStartTime) / 1000;
-            const cultivation = Math.floor(elapsed * getCultivationRate(gameState.player));
-
-            gameState.player.cultivation += cultivation;
-
-            const hpRegen = Math.floor(getMaxHp(gameState.player) * elapsed / 480);
-            const mpRegen = Math.floor(getMaxMp(gameState.player) * elapsed / 300);
-            const spiritRegen = Math.floor(getMaxSpirit(gameState.player) * elapsed / 300);
-
-            gameState.player.hp = Math.min(getMaxHp(gameState.player), gameState.player.hp + hpRegen);
-            gameState.player.mp = Math.min(getMaxMp(gameState.player), gameState.player.mp + mpRegen);
-            gameState.player.spirit = Math.min(getMaxSpirit(gameState.player), gameState.player.spirit + spiritRegen);
-
-            addLog(`🧘 冥想${Math.floor(elapsed)}秒，获得 <span style="color:var(--text-purple)">${formatNumber(cultivation)}</span> 修为，恢复 ${hpRegen}血 ${mpRegen}灵 ${spiritRegen}识`, 'event');
-
-            document.getElementById('actionBar').style.display = 'flex';
-            document.getElementById('meditationBar').classList.remove('active');
-
-            updateUI();
-            saveGame();
-        }
-
-        function handleExplore() {
-            if (gameState.player.spirit < 1) { addLog('❌ 神识不足，无法探索！', 'error'); return; }
-            if (gameState.player.hp <= 0) { addLog('❌ 你已重伤，无法探索！', 'error'); return; }
-
-            gameState.player.spirit -= 1;
-            const roll = Math.random();
-
-            if (roll < 0.35) {
-                startCombat();
-            } else if (roll < 0.55) {
-                const materials = getRealmIndex(gameState.player) < 2 ? ['灵草', '灵矿石', '低阶妖核'] : ['灵芝', '精金矿', '中阶妖核'];
-                const item = materials[Math.floor(Math.random() * materials.length)];
-                const count = Math.floor(Math.random() * 3) + 1;
-                addItem(item, count);
-                addLog(`🌿 在${gameState.player.currentArea}发现 <span style="color:var(--text-green)">${item} x${count}</span>`, 'loot');
-            } else if (roll < 0.75) {
-                const cultivation = Math.floor(Math.random() * 100 + 50) * (getRealmIndex(gameState.player) + 1);
-                gameState.player.cultivation += cultivation;
-                addLog(`💫 悟道心得，获得 <span style="color:var(--text-purple)">${cultivation}</span> 修为`, 'event');
-            } else if (roll < 0.9) {
-                const gold = Math.floor(Math.random() * 50 + 20) * (getRealmIndex(gameState.player) + 1);
-                gameState.player.gold += gold;
-                addLog(`💰 发现灵石 <span style="color:var(--text-gold)">${gold}</span>`, 'loot');
-            } else {
-                // 稀有事件 - 丹药
-                if (Math.random() < 0.3) {
-                    const pills = ['聚灵丹', '突破丹'];
-                    const pill = pills[Math.floor(Math.random() * pills.length)];
-                    addItem(pill, 1);
-                    addLog(`✨ 奇遇！发现 <span style="color:var(--text-cyan)">${pill} x1</span>`, 'loot');
-                } else {
-                    addLog(`🍃 平安无事，四处闲逛了一番...`, 'event');
-                }
-            }
-
-            updateUI();
-            saveGame();
-        }
-
-        function handleBreakthrough() {
-            const p = gameState.player;
-            const required = getCultivationRequired(p);
-            if (p.cultivation < required) { addLog('❌ 修为不足！', 'error'); return; }
-
-            let baseRate = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.1][Math.min(getRealmIndex(p), 9)];
-            const stageCount = REALMS[getRealmIndex(p)].stages.length;
-            baseRate -= (stageCount > 4 ? getStageIndex(p) * 0.05 : getStageIndex(p) * 0.08);
-            baseRate = Math.max(0.1, baseRate);
-
-            const overflow = (p.cultivation - required) / required;
-            baseRate += overflow * 0.2;
-            baseRate = Math.min(0.98, baseRate);
-
-            const success = Math.random() < baseRate;
-
-            if (success) {
-                p.cultivation -= required;
-                p.stageIndex++;
-                if (p.stageIndex >= REALMS[getRealmIndex(p)].stages.length) {
-                    p.realmIndex++;
-                    p.stageIndex = 0;
-                    if (p.realmIndex >= REALMS.length) {
-                        p.realmIndex = REALMS.length - 1;
-                        addLog(`🏆 ${p.name}已证得真仙，永生不灭！`, 'level');
-                    }
-                }
-                p.hp = getMaxHp(p);
-                p.mp = getMaxMp(p);
-                p.spirit = getMaxSpirit(p);
-                addLog(`⚡ 突破成功！${getRealmName(p)} (${(baseRate * 100).toFixed(0)}%成功率)`, 'level');
-            } else {
-                p.cultivation = Math.floor(p.cultivation * 0.8);
-                addLog(`💔 突破失败，损失20%修为 (${(baseRate * 100).toFixed(0)}%成功率)`, 'error');
-            }
-
-            updateUI();
-            saveGame();
-        }
-
-        // ==================== 战斗系统 ====================
-        function startCombat() {
-            const p = gameState.player;
-            const realmIdx = Math.min(getRealmIndex(p), REALMS.length - 1);
-            const stageIdx = getStageIndex(p);
-            const realm = REALMS[realmIdx];
-            const monster = MONSTERS[Math.floor(Math.random() * MONSTERS.length)];
-
-            const monsterHp = Math.floor(realm.hpBase * monster.hpMult * (1 + stageIdx * 0.25) * 1.2);
-            const monsterAtk = Math.floor(realm.atkBase * monster.atkMult * (1 + stageIdx * 0.2) * 1.1);
-            const monsterDef = Math.floor(realm.defBase * monster.defMult * (1 + stageIdx * 0.2) * 1.1);
-
-            gameState.currentCombat = {
-                monster: {
-                    name: monster.name,
-                    realm: getRealmName({ realmIndex: realmIdx, stageIndex: stageIdx }),
-                    hp: monsterHp, maxHp: monsterHp,
-                    atk: monsterAtk, def: monsterDef
-                }
-            };
-
-            document.getElementById('monsterName').textContent = monster.name;
-            document.getElementById('monsterRealm').textContent = getRealmName({ realmIndex: realmIdx, stageIndex: stageIdx });
-            document.getElementById('monsterHp').textContent = monsterHp;
-            document.getElementById('monsterAtk').textContent = monsterAtk;
-            document.getElementById('monsterDef').textContent = monsterDef;
-            document.getElementById('combatLog').innerHTML = '';
-
-            document.getElementById('encounterModal').classList.add('active');
-        }
-
-        function handleCombatChoice(choice) {
-            if (choice === 'flee') {
-                if (Math.random() < 0.6) {
-                    addLog(`🏃 成功逃离战斗！`, 'event');
-                } else {
-                    addLog(`❌ 逃跑失败，被迫战斗！`, 'error');
-                    doCombat();
-                }
-            } else {
-                doCombat();
-            }
-            document.getElementById('encounterModal').classList.remove('active');
-            updateUI();
-            saveGame();
-        }
-
-        function doCombat() {
-            const combat = gameState.currentCombat;
-            const p = gameState.player;
-            const m = combat.monster;
-            let log = '';
-
-            const playerDmg = Math.max(1, getAtk(p) - m.def + Math.floor(Math.random() * 15));
-            m.hp -= playerDmg;
-            log += `<div class="combat-entry damage">你攻击${m.name}，造成 ${playerDmg} 伤害</div>`;
-
-            if (m.hp <= 0) {
-                const goldReward = Math.floor(Math.random() * 80 + 30) * (getRealmIndex(p) + 1);
-                const expReward = Math.floor(Math.random() * 150 + 80) * (getRealmIndex(p) + 1);
-                p.gold += goldReward;
-                p.cultivation += expReward;
-                p.kills = (p.kills || 0) + 1;
-
-                if (Math.random() < 0.4) {
-                    const drops = getRealmIndex(p) < 2 ? ['低阶妖核', '灵草'] : ['中阶妖核', '灵芝'];
-                    const drop = drops[Math.floor(Math.random() * drops.length)];
-                    addItem(drop, 1);
-                    addLog(`⚔️ 击败${m.name}！获得 <span style="color:var(--text-gold)">${goldReward}灵石</span>、<span style="color:var(--text-purple)">${expReward}修为</span>，掉落 <span style="color:var(--text-cyan)">${drop}</span>`, 'combat');
-                } else {
-                    addLog(`⚔️ 击败${m.name}！获得 <span style="color:var(--text-gold)">${goldReward}灵石</span>、<span style="color:var(--text-purple)">${expReward}修为</span>`, 'combat');
-                }
-                return;
-            }
-
-            const monsterDmg = Math.max(1, m.atk - getDef(p) + Math.floor(Math.random() * 10));
-            p.hp -= monsterDmg;
-            log += `<div class="combat-entry damage">${m.name}攻击你，造成 ${monsterDmg} 伤害</div>`;
-
-            document.getElementById('combatLog').innerHTML = log;
-
-            if (p.hp <= 0) {
-                p.hp = 0;
-                addLog(`💀 被${m.name}击败，重伤倒地...`, 'error');
-            }
-        }
-
-        // ==================== 物品系统 ====================
-        function addItem(name, count) {
-            const inv = gameState.player.inventory;
-            const existing = inv.find(i => i.name === name);
-            if (existing) existing.count += count;
-            else inv.push({ name, count });
-        }
-
-        function hasItem(name, count = 1) {
-            const item = gameState.player.inventory.find(i => i.name === name);
-            return item && item.count >= count;
-        }
-
-        function removeItem(name, count = 1) {
-            const idx = gameState.player.inventory.findIndex(i => i.name === name);
-            if (idx === -1) return false;
-            gameState.player.inventory[idx].count -= count;
-            if (gameState.player.inventory[idx].count <= 0) gameState.player.inventory.splice(idx, 1);
-            return true;
-        }
-
-        function useItem(idx) {
-            const item = gameState.player.inventory[idx];
-            if (!item || item.count <= 0) return;
-
-            const data = ITEMS[item.name];
-            if (!data || data.type !== 'pill') { addLog('❌ 该物品无法使用', 'error'); return; }
-
-            const effect = data.effect;
-            if (effect.hp) {
-                gameState.player.hp = Math.min(getMaxHp(gameState.player), gameState.player.hp + effect.hp);
-                addLog(`💉 使用${item.name}，恢复 ${effect.hp} 生命`, 'event');
-            }
-            if (effect.mp) {
-                gameState.player.mp = Math.min(getMaxMp(gameState.player), gameState.player.mp + effect.mp);
-                addLog(`💊 使用${item.name}，恢复 ${effect.mp} 灵力`, 'event');
-            }
-            if (effect.cultivation) {
-                gameState.player.cultivation += effect.cultivation;
-                addLog(`✨ 使用${item.name}，获得 ${effect.cultivation} 修为`, 'event');
-            }
-            if (effect.breakthrough) {
-                gameState.player.breakthroughBonus = (gameState.player.breakthroughBonus || 0) + effect.breakthrough;
-                addLog(`🌟 使用${item.name}，突破率永久+${effect.breakthrough * 100}%`, 'event');
-            }
-
-            item.count--;
-            if (item.count <= 0) gameState.player.inventory.splice(idx, 1);
-
-            updateUI();
-            saveGame();
-            renderInventory();
-        }
-
-        // ==================== 面板系统 ====================
-        function togglePlayerPanel() {
-            document.getElementById('playerPanel').classList.toggle('mobile-active');
-        }
-
-        function togglePanel(panelName) {
-            const sp = document.getElementById('sidePanel');
-            if (sp.classList.contains('active') && document.getElementById('sidePanelTitle').textContent === getPanelTitle(panelName)) {
-                closePanel();
-                return;
-            }
-            document.getElementById('sidePanelTitle').textContent = getPanelTitle(panelName);
-            sp.classList.add('active');
-            renderPanel(panelName);
-        }
-
-        function getPanelTitle(n) {
-            return { inventory: '储物袋', map: '九霄大陆', guide: '游戏说明', chat: '传音筒', ranking: '排行榜', market: '坊市', sect: '宗门', crafting: '炼造阁', dungeon: '秘境' }[n] || n;
-        }
-
-        function renderPanel(n) {
-            const f = { inventory: renderInventory, map: renderMap, guide: renderGuide, chat: renderChat, ranking: renderRanking, market: renderMarket, sect: renderSect, crafting: renderCrafting, dungeon: renderDungeon };
-            if (f[n]) f[n]();
-        }
-
-        function renderInventory() {
-            let html = '<div class="inventory-grid">';
-            gameState.player.inventory.forEach((item, idx) => {
-                const data = ITEMS[item.name] || { icon: '📦', type: 'misc' };
-                html += `<div class="inventory-slot" onclick="useItem(${idx})" title="${data.desc || ''}"><span class="item-icon">${data.icon}</span><span class="item-name">${item.name}</span><span class="item-count">x${item.count}</span></div>`;
-            });
-            if (gameState.player.inventory.length === 0) html += '<div class="inventory-slot empty">空空如也</div>';
-            html += '</div>';
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function renderMap() {
-            let html = '<div class="map-container">';
-            Object.entries(AREAS).forEach(([region, areas]) => {
-                html += `<div class="map-region"><div class="map-region-title">${region}</div>`;
-                areas.forEach(area => {
-                    const isCurrent = gameState.player.currentArea === area.name;
-                    html += `<div class="map-area ${isCurrent ? 'current' : ''}" onclick="travelTo('${area.name}')"><span class="map-area-name">${area.name}</span><span class="map-area-level">${area.danger}</span></div>`;
-                });
-                html += '</div>';
-            });
-            html += '</div>';
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function renderGuide() {
-            document.getElementById('sidePanelContent').innerHTML = `
-<div style="font-size:12px;line-height:1.8;">
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">修炼系统</h4>
-<p>点击「冥想修炼」打坐，获得修为并恢复状态。</p>
-
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">探索系统</h4>
-<p>消耗神识探索区域，触发随机事件。</p>
-
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">境界体系</h4>
-<p>锻体→练气→筑基→金丹→元婴→化神→炼虚→合道→大乘→渡劫→真仙</p>
-
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">宗门系统</h4>
-<p>加入宗门获得修炼加成和战力加成。</p>
-
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">秘境系统</h4>
-<p>挑战秘境Boss获取稀有奖励。</p>
-
-<h4 style="color:var(--text-gold);margin:12px 0 6px;">炼造系统</h4>
-<p>使用材料炼制丹药，辅助修炼。</p>
-</div>`;
-        }
-
-        function renderChat() {
-            const msgs = gameState.chatMessages || [];
-            let html = `<div class="chat-messages">`;
-            msgs.slice(-20).forEach(m => {
-                html += `<div class="chat-msg"><span class="chat-msg-name">${m.name}</span> <span class="chat-msg-time">${m.time}</span><br><span class="chat-msg-text">${m.text}</span></div>`;
-            });
-            html += `</div><div class="chat-input-bar"><input class="chat-input" id="chatInput" placeholder="说点什么..." onkeydown="if(event.key==='Enter')sendChat()"><button class="btn-send" onclick="sendChat()">发送</button></div>`;
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function sendChat() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-            
-            gameState.chatMessages = gameState.chatMessages || [];
-            gameState.chatMessages.push({
-                name: gameState.player.name,
-                text: text,
-                time: getTimestamp()
-            });
-            
-            // 模拟其他玩家回复
-            if (Math.random() < 0.3) {
-                const replies = ['道友修为精进！', '吾辈当共勉之', '仙途漫漫，道阻且长', '佩服佩服', '有朝一日必证大道'];
-                setTimeout(() => {
-                    gameState.chatMessages.push({
-                        name: onlinePlayers[Math.floor(Math.random() * onlinePlayers.length)]?.name || '路人甲',
-                        text: replies[Math.floor(Math.random() * replies.length)],
-                        time: getTimestamp()
-                    });
-                    saveGame();
-                }, 2000);
-            }
-            
-            input.value = '';
-            saveGame();
-            renderChat();
-            addLog(`💬 ${gameState.player.name}: ${text}`, 'chat');
-        }
-
-        function renderRanking() {
-            const players = [...onlinePlayers].sort((a, b) => b.power - a.power);
-            let html = `<div class="panel-tabs"><button class="panel-tab active">战力榜</button></div><div class="ranking-list">`;
-            players.forEach((p, i) => {
-                const ri = Math.min(p.realm, REALMS.length - 1);
-                const realmName = `${REALMS[ri].name}${REALMS[ri].stages[Math.min(p.stage, REALMS[ri].stages.length - 1)]}`;
-                html += `<div class="ranking-item"><span class="ranking-pos ${i < 3 ? 'gold' : ''}">${i + 1}</span><span class="ranking-name">${p.name}<br><span style="font-size:10px;color:var(--text-muted)">${realmName}</span></span><span class="ranking-value">${formatNumber(p.power)}</span></div>`;
-            });
-            html += '</div>';
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function renderMarket() {
-            const listings = [
-                { name: '回气丹', price: 50, seller: '药灵子' },
-                { name: '疗伤丹', price: 80, seller: '药灵子' },
-                { name: '聚灵丹', price: 200, seller: '天机子' },
-                { name: '突破丹', price: 500, seller: '剑痴' },
-                { name: '灵芝', price: 30, seller: '采药道人' }
-            ];
-            
-            let html = `<div class="panel-tabs"><button class="panel-tab active">市场</button><button class="panel-tab" onclick="renderMarketSell()">出售</button></div>`;
-            listings.forEach(l => {
-                const canBuy = gameState.player.gold >= l.price;
-                html += `<div class="market-listing"><span class="market-item-name">${l.name}<br><span style="font-size:10px;color:var(--text-muted)">卖家: ${l.seller}</span></span><span class="market-item-price">💎${l.price}</span><button class="btn-buy" ${canBuy ? '' : 'disabled'} onclick="buyItem('${l.name}',${l.price})">购买</button></div>`;
-            });
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function buyItem(name, price) {
-            if (gameState.player.gold < price) { addLog('❌ 灵石不足！', 'error'); return; }
-            gameState.player.gold -= price;
-            addItem(name, 1);
-            addLog(`🛒 购买 ${name}，花费 ${price} 灵石`, 'event');
-            updateUI();
-            saveGame();
-            renderMarket();
-        }
-
-        function renderSect() {
-            const p = gameState.player;
-            const level = p.sectLevel || 0;
-            
-            if (level === 0) {
-                document.getElementById('sidePanelContent').innerHTML = `
-<div class="sect-info" style="text-align:center;">
-<h4 style="color:var(--text-gold)">九霄宗</h4>
-<p style="font-size:11px;color:var(--text-muted);margin:8px 0;">加入宗门可获得修炼加成和战力加成</p>
-<button class="btn-action primary" style="width:100%" onclick="joinSect()">申请加入九霄宗</button>
-</div>`;
-            } else {
-                const bonus = SECT_BONUSES[level] || SECT_BONUSES[5];
-                document.getElementById('sidePanelContent').innerHTML = `
-<div class="sect-info">
-<div class="sect-name">${bonus.name} · ${['外门弟子','内门弟子','核心弟子','长老','掌门'][level - 1]}</div>
-<div class="sect-level">宗门等级: Lv.${level}</div>
-<div class="sect-bonus">修炼加成: +${(bonus.cultivation * 100).toFixed(0)}%</div>
-<div class="sect-bonus">战力加成: +${((bonus.atk + bonus.def) * 100).toFixed(0)}%</div>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">贡献: ${p.sectContribution || 0}</div>
-${level < 5 ? `<button class="btn-action" style="width:100%;margin-top:8px" onclick="upgradeSect()">晋升职位 (需${level * 200}贡献)</button>` : ''}
-</div>`;
-            }
-        }
-
-        function joinSect() {
-            gameState.player.sectLevel = 1;
-            gameState.player.sectContribution = 0;
-            addLog(`🏛️ 加入九霄宗，成为外门弟子！`, 'sect');
-            updateUI();
-            saveGame();
-            renderSect();
-        }
-
-        function upgradeSect() {
-            const p = gameState.player;
-            const cost = p.sectLevel * 200;
-            if ((p.sectContribution || 0) < cost) { addLog('❌ 贡献不足！', 'error'); return; }
-            p.sectContribution -= cost;
-            p.sectLevel++;
-            const titles = ['外门弟子','内门弟子','核心弟子','长老','掌门'];
-            addLog(`🏆 晋升为${titles[p.sectLevel - 1]}！`, 'level');
-            updateUI();
-            saveGame();
-            renderSect();
-        }
-
-        function renderCrafting() {
-            let html = '<div class="panel-tabs"><button class="panel-tab active">炼丹</button></div>';
-            RECIPES.forEach((r, idx) => {
-                const canCraft = Object.entries(r.materials).every(([m, c]) => hasItem(m, c));
-                html += `<div class="crafting-recipe"><div class="craft-result"><span style="font-weight:600">${r.name}</span><br><span class="craft-materials">${Object.entries(r.materials).map(([m,c]) => `${m}x${c}`).join(', ')}</span></div><button class="btn-craft" ${canCraft ? '' : 'disabled'} onclick="craftItem(${idx})">炼制</button></div>`;
-            });
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function craftItem(idx) {
-            const recipe = RECIPES[idx];
-            if (!Object.entries(recipe.materials).every(([m, c]) => hasItem(m, c))) {
-                addLog('❌ 材料不足！', 'error');
-                return;
-            }
-            Object.entries(recipe.materials).forEach(([m, c]) => removeItem(m, c));
-            Object.entries(recipe.result).forEach(([m, c]) => addItem(m, c));
-            addLog(`⚗️ 炼制成功：${Object.keys(recipe.result)[0]} x${Object.values(recipe.result)[0]}`, 'event');
-            updateUI();
-            saveGame();
-            renderCrafting();
-        }
-
-        function renderDungeon() {
-            let html = '<div class="dungeon-list">';
-            DUNGEONS.forEach((d, idx) => {
-                const canEnter = getRealmIndex(gameState.player) >= d.level - 1;
-                html += `<div class="dungeon-card" style="${canEnter ? '' : 'opacity:0.5'}" onclick="${canEnter ? `enterDungeon(${idx})` : ''}">
-<div class="dungeon-name">${d.name}</div>
-<div class="dungeon-level">难度: Lv.${d.level} | ${d.stages}层</div>
-<div class="dungeon-rewards">奖励: ${d.bossRewards.join(', ')}</div>
-</div>`;
-            });
-            html += '</div>';
-            document.getElementById('sidePanelContent').innerHTML = html;
-        }
-
-        function enterDungeon(idx) {
-            const dungeon = DUNGEONS[idx];
-            const p = gameState.player;
-            
-            // 简化Boss战
-            const bossHp = REALMS[Math.min(dungeon.level, REALMS.length - 1)].hpBase * 2;
-            const bossAtk = REALMS[Math.min(dungeon.level, REALMS.length - 1)].atkBase * 1.5;
-            
-            // 模拟战斗
-            let playerHp = p.hp;
-            let bossHpRemaining = bossHp;
-            let rounds = 0;
-            let log = '';
-            
-            while (playerHp > 0 && bossHpRemaining > 0 && rounds < 20) {
-                rounds++;
-                const playerDmg = Math.max(1, getAtk(p) - Math.floor(bossAtk * 0.3) + Math.floor(Math.random() * 20));
-                bossHpRemaining -= playerDmg;
-                log += `<div class="combat-entry damage">回合${rounds}: 你造成 ${playerDmg} 伤害，Boss剩余 ${Math.max(0, bossHpRemaining)} HP</div>`;
-                
-                if (bossHpRemaining <= 0) break;
-                
-                const bossDmg = Math.max(1, bossAtk - getDef(p) + Math.floor(Math.random() * 15));
-                playerHp -= bossDmg;
-                log += `<div class="combat-entry damage">Boss反击 ${bossDmg} 伤害，你剩余 ${Math.max(0, playerHp)} HP</div>`;
-            }
-            
-            document.getElementById('dungeonTitle').textContent = `${dungeon.name} - Boss战`;
-            
-            if (bossHpRemaining <= 0) {
-                // 胜利奖励
-                const goldReward = dungeon.level * 100;
-                const expReward = dungeon.level * 500;
-                p.gold += goldReward;
-                p.cultivation += expReward;
-                p.sectContribution = (p.sectContribution || 0) + dungeon.level * 10;
-                
-                // 随机掉落
-                const drop = dungeon.bossRewards[Math.floor(Math.random() * dungeon.bossRewards.length)];
-                addItem(drop, 1);
-                
-                log += `<div class="combat-event info" style="color:var(--text-green);font-weight:600">🎉 挑战成功！获得 ${goldReward}灵石 ${expReward}修为 ${drop}x1 贡献+${dungeon.level * 10}</div>`;
-            } else {
-                log += `<div class="combat-event damage" style="color:var(--text-red);font-weight:600">💀 挑战失败...请提升实力后再试</div>`;
-            }
-            
-            document.getElementById('dungeonContent').innerHTML = log;
-            document.getElementById('dungeonModal').classList.add('active');
-            
-            updateUI();
-            saveGame();
-        }
-
-        function closeDungeonModal() {
-            document.getElementById('dungeonModal').classList.remove('active');
-        }
-
-        function travelTo(name) {
-            gameState.player.currentArea = name;
-            addLog(`🗺️ 前往 ${name}`, 'event');
-            updateUI();
-            saveGame();
-            renderMap();
-        }
-
-        function closePanel() {
-            document.getElementById('sidePanel').classList.remove('active');
-        }
-
-        // ==================== 初始化 ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = loadGame();
-            if (saved && saved.player) {
-                gameState = saved;
-                startGame();
-            }
-        });
-    </script>
+      });
+    }
+  }
+
+  var PLAYLIST=[
+    {
+      title:"\u90a3\u5929\u4e0b\u96e8\u4e86",
+      artist:"\u5468\u6770\u4f26",
+      coverEmoji:"\u2614",
+      coverImg:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/cover.jpg",
+      url:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/audio/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E9%82%A3%E5%A4%A9%E4%B8%8B%E9%9B%A8%E4%BA%86.mp3"
+    }
+  ];
+
+  var currentAudio=new Audio();
+  var isPlaying=false;
+  var currentSongIndex=0;
+
+  /* Bottom bar elements */
+  var btn=document.getElementById("musicToggleBtn");
+  var panel=document.getElementById("musicPlayer");
+  var closeBtn=document.getElementById("musicCloseBtn");
+  var playBtn=document.getElementById("musicPlayBtn");
+  var prevBtn=document.getElementById("musicPrevBtn");
+  var nextBtn=document.getElementById("musicNextBtn");
+  var miniCover=document.getElementById("musicCover");
+  var miniTitle=document.getElementById("musicTitle");
+  var miniArtist=document.getElementById("musicArtist");
+  var miniProgressFill=document.getElementById("musicProgressFill");
+  var miniProgressBar=document.getElementById("musicProgressBar");
+
+  function showPanel(){panel.classList.add("visible");btn.classList.add("hidden");}
+  function hidePanel(){
+    panel.classList.remove("visible");btn.classList.remove("hidden");
+    if(currentAudio){currentAudio.pause();}
+    isPlaying=false;
+    playBtn.innerHTML="\u25b6";
+    panelPlayBtn.innerHTML="\u25b6";
+    miniCover.classList.remove("playing");btn.classList.remove("playing");
+    panelCover.classList.remove("playing");
+    panelLyricsGlow.classList.remove("playing");
+    hideMusicMode();
+  }
+
+  function loadSong(index){
+    var song=PLAYLIST[index];
+    miniTitle.textContent=song.title;
+    miniArtist.textContent=song.artist;
+    panelTitle.textContent=song.title;
+    panelArtist.textContent=song.artist;
+    panelCoverEmoji.textContent=song.coverEmoji;
+    panelCoverEmoji.style.display="block";
+    panelCoverImg.style.display="none";
+    var img=new Image();
+    img.crossOrigin="anonymous";
+    img.src=song.coverImg;
+    img.onload=function(){
+      panelCoverEmoji.style.display="none";
+      panelCoverImg.src=song.coverImg;
+      panelCoverImg.style.display="block";
+      extractColor(img);
+      coverBgImg.src=song.coverImg;
+      coverImgLoaded=true;
+    };
+    img.onerror=function(){
+      panelCoverEmoji.style.display="block";
+      panelCoverImg.style.display="none";
+    };
+    coverBgImg.src=song.coverImg;
+    coverImgLoaded=false;
+    miniCover.textContent=song.coverEmoji;
+    if(song.url){currentAudio.src=song.url;currentAudio.load();}
+    currentLyricIdx=-1;
+    renderLyrics();
+    miniProgressFill.style.width="0%";
+    panelProgressFill.style.width="0%";
+    panelTimeCurrent.textContent="0:00";
+    panelTimeTotal.textContent="0:00";
+  }
+
+  function togglePlay(){
+    if(isPlaying){
+      currentAudio.pause();
+      playBtn.innerHTML="\u25b6";
+      panelPlayBtn.innerHTML="\u25b6";
+      miniCover.classList.remove("playing");
+      panelCover.classList.remove("playing");
+      panelLyricsGlow.classList.remove("playing");
+    } else {
+      currentAudio.play().catch(function(){});
+      playBtn.innerHTML="\u23f8";
+      panelPlayBtn.innerHTML="\u23f8";
+      miniCover.classList.add("playing");
+      panelCover.classList.add("playing");
+      panelLyricsGlow.classList.add("playing");
+      btn.classList.add("playing");
+      showMusicMode();
+      lyricsVisible=true;
+    }
+    isPlaying=!isPlaying;
+  }
+
+  btn.addEventListener("click",function(){
+    showPanel();
+    loadSong(currentSongIndex);
+    if(!isPlaying)togglePlay();
+  });
+  closeBtn.addEventListener("click",hidePanel);
+  playBtn.addEventListener("click",togglePlay);
+  panelPlayBtn.addEventListener("click",togglePlay);
+
+  currentAudio.addEventListener("timeupdate",function(){
+    var dur=currentAudio.duration||0;
+    var cur=currentAudio.currentTime||0;
+    var pct=dur?((cur/dur)*100):0;
+    miniProgressFill.style.width=pct+"%";
+    panelProgressFill.style.width=pct+"%";
+    panelTimeCurrent.textContent=formatTime(cur);
+    panelTimeTotal.textContent=formatTime(dur);
+    if(lyricsVisible){updateLyrics(cur);}
+  });
+
+  currentAudio.addEventListener("ended",function(){
+    currentSongIndex=(currentSongIndex+1)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+
+  prevBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex-1+PLAYLIST.length)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  nextBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex+1)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  panelPrevBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex-1+PLAYLIST.length)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+  panelNextBtn.addEventListener("click",function(){
+    currentSongIndex=(currentSongIndex+1)%PLAYLIST.length;
+    loadSong(currentSongIndex);
+    if(isPlaying)currentAudio.play().catch(function(){});
+  });
+
+  function seekAudio(e,bar,fill){
+    if(!currentAudio.src)return;
+    var rect=bar.getBoundingClientRect();
+    var pct=(e.clientX-rect.left)/rect.width;
+    currentAudio.currentTime=pct*currentAudio.duration;
+  }
+  miniProgressBar.addEventListener("click",function(e){seekAudio(e,this,miniProgressFill);});
+  panelProgressBar.addEventListener("click",function(e){seekAudio(e,this,panelProgressFill);});
+
+  document.addEventListener("keydown",function(e){
+    var tag=e.target.tagName;
+    if(tag==="INPUT"||tag==="TEXTAREA")return;
+    var key=e.key.toUpperCase();
+    if(key==="D"){
+      toggle.click();
+      showToast(document.documentElement.dataset.theme==="dark"?"\u5df2\u5207\u6362\u4e3a\u6697\u8272":"\u5df2\u5207\u6362\u4e3a\u4eae\u8272",1500);
+    }
+    if(key==="M"){
+      if(panel.classList.contains("visible")){hidePanel();}else{btn.click();}
+    }
+  });
+
+})();
+</script>
 </body>
 </html>
+
+</div>
