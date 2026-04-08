@@ -31,7 +31,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased}
-body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 120px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
+body{font-family:"DM Sans","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 120px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
 
 /* MUSIC MODE: split layout */
 body.music-mode{display:flex;flex-direction:row;padding:40px 60px;gap:60px;align-items:center;justify-content:center;min-height:100vh}
@@ -347,7 +347,7 @@ body:not(.music-mode) .music-panel{display:none!important}
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
       <div class="avatar"
-      <img src="https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
+      <img src="images/avatar.png" alt="" onload="this.parentElement.classList.add('ready')" onerror="this.parentElement.classList.remove('ready')">
       <span class="avatar-emoji">&#128187;</span>
     </div>
     <h1 class="name">leeyolo</h1>
@@ -595,8 +595,8 @@ body:not(.music-mode) .music-panel{display:none!important}
       title:"\u90a3\u5929\u4e0b\u96e8\u4e86",
       artist:"\u5468\u6770\u4f26",
       coverEmoji:"\u2614",
-      coverImg:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/images/cover.jpg",
-      url:"https://raw.githubusercontent.com/leeyoloo/my-linkstack/main/audio/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E9%82%A3%E5%A4%A9%E4%B8%8B%E9%9B%A8%E4%BA%86.mp3"
+      coverImg:"images/cover.jpg",
+      url:"audio/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E9%82%A3%E5%A4%A9%E4%B8%8B%E9%9B%A8%E4%BA%86.mp3"
     }
   ];
 
