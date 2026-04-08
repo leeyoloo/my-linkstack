@@ -37,12 +37,15 @@ html{-webkit-font-smoothing:antialiased}
 body{font-family:"DM Sans","Noto Sans SC",sans-serif;min-height:100vh;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 120px;overflow-x:hidden;transition:background .5s,color .4s;position:relative}
 
 /* MUSIC MODE: split layout */
-body.music-mode{display:flex;flex-direction:row;padding:40px;gap:60px;align-items:flex-start;justify-content:center}
-body.music-mode .main-container{width:420px;flex-shrink:0}
-body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
-
-/* COVER BACKGROUND */
-#coverBg{position:fixed;inset:0;z-index:0;opacity:0;transition:opacity 1.2s ease;pointer-events:none;overflow:hidden}
+body.music-mode{display:flex;flex-direction:row;padding:40px 60px;gap:60px;align-items:center;justify-content:center;min-height:100vh}
+body.music-mode .main-container{width:400px;max-width:45vw;flex-shrink:0;position:relative;z-index:10}
+body.music-mode .music-panel{
+  width:380px;max-width:50vw;
+  display:flex;flex-direction:column;align-items:center;gap:28px;
+  z-index:60;opacity:0;transform:translateX(30px);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;flex-shrink:0;
+}
 #coverBg.active{opacity:1}
 #coverBgImg{position:absolute;inset:-15%;width:130%;height:130%;object-fit:cover;filter:blur(60px) brightness(0.4) saturate(1.4);transform:scale(1.1)}
 #coverGlow1,#coverGlow2{position:absolute;inset:0;transition:background 2s ease}
@@ -260,7 +263,12 @@ body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
 @media(max-width:480px){body{padding:16px 12px 120px}.profile-card{padding:32px 24px 28px}.avatar{width:76px;height:76px;font-size:32px}.name{font-size:22px}.top-bar{margin-bottom:24px}}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-glass);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 ::selection{background:var(--accent-glow);color:var(--text-primary)}
-  </style>
+  
+/* Content wrapper for split layout */
+.content-wrapper{display:flex;flex-direction:row;align-items:flex-start;justify-content:center;gap:60px;width:100%;max-width:1100px;margin:0 auto;position:relative;z-index:10}
+body:not(.music-mode) .content-wrapper{flex-direction:column;align-items:center;gap:0}
+body:not(.music-mode) .music-panel{display:none!important}
+</style>
 </head>
 <body>
 
@@ -282,7 +290,10 @@ body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
 <canvas id="particles"></canvas>
 <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
 
-<!-- Music panel (right side, shown when music plays) -->
+
+<!-- Content wrapper for split layout -->
+<div class="content-wrapper">
+<!-- Right panel: Music player -->
 <div class="music-panel" id="musicPanel">
   <div class="music-panel-inner">
     <!-- Album cover -->
@@ -320,9 +331,8 @@ body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
       <button class="panel-btn" id="panelNextBtn" title="下一首">&#9197;</button>
     </div>
   </div>
-</div>
-
-<!-- Main content (left side) -->
+<
+<!-- Left panel: Main content -->
 <div class="main-container">
   <div class="top-bar">
     <div class="theme-toggle" id="themeToggle" title="&#20999;&#25442;&#26126;&#26263;&#20027;&#39064; (D)" role="button" aria-label="&#20999;&#25442;&#20027;&#39064;">
@@ -754,3 +764,5 @@ body.music-mode .music-panel{opacity:1;transform:none;pointer-events:auto}
 </script>
 </body>
 </html>
+
+</div>
