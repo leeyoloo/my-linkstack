@@ -1,0 +1,28 @@
+import * as _base_ui_react from '@base-ui/react';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Tooltip as Tooltip$2 } from '@base-ui/react/tooltip';
+
+declare function Provider(props: React.ComponentPropsWithoutRef<typeof Tooltip$2.Provider>): react_jsx_runtime.JSX.Element;
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Tooltip$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Trigger(props: React.ComponentPropsWithoutRef<typeof Tooltip$2.Trigger>): react_jsx_runtime.JSX.Element;
+declare function Portal(props: React.ComponentPropsWithoutRef<typeof Tooltip$2.Portal>): react_jsx_runtime.JSX.Element;
+declare const Tooltip$1: {
+    Provider: typeof Provider;
+    Root: typeof Root;
+    Trigger: typeof Trigger;
+    Portal: typeof Portal;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.TooltipPositionerProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "className" | "children"> & Pick<Omit<Omit<_base_ui_react.TooltipPopupProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "children"> & {
+        className?: string;
+    } & React.RefAttributes<HTMLDivElement>>;
+};
+
+declare function Content({ className, sideOffset, ...props }: React.ComponentPropsWithoutRef<typeof Tooltip$1.Content>): react_jsx_runtime.JSX.Element;
+declare const Tooltip: {
+    Provider: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.TooltipProvider>) => react_jsx_runtime.JSX.Element;
+    Root: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.TooltipRoot>) => react_jsx_runtime.JSX.Element;
+    Trigger: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.TooltipTrigger>) => react_jsx_runtime.JSX.Element;
+    Content: typeof Content;
+};
+
+export { Tooltip };

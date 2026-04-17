@@ -1,0 +1,115 @@
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/tooltip.ts
+var tooltip_exports = {};
+__export(tooltip_exports, {
+  Tooltip: () => Tooltip2
+});
+module.exports = __toCommonJS(tooltip_exports);
+
+// ../primitives/src/overlay/tooltip.tsx
+var React = __toESM(require("react"), 1);
+var import_tooltip = require("@base-ui/react/tooltip");
+var import_jsx_runtime = require("react/jsx-runtime");
+function Provider(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_tooltip.Tooltip.Provider, { "data-scope": "tooltip", "data-part": "provider", ...props });
+}
+function Root(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_tooltip.Tooltip.Root, { "data-scope": "tooltip", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_tooltip.Tooltip.Trigger, { "data-scope": "tooltip", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_tooltip.Tooltip.Portal, { "data-scope": "tooltip", "data-part": "portal", ...props });
+}
+var Content = React.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_tooltip.Tooltip.Positioner,
+    {
+      "data-scope": "tooltip",
+      "data-part": "positioner",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        import_tooltip.Tooltip.Popup,
+        {
+          ref,
+          "data-scope": "tooltip",
+          "data-part": "content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+var Tooltip = {
+  Provider,
+  Root,
+  Trigger,
+  Portal,
+  Content
+};
+
+// src/shared/cx.ts
+var import_clsx = require("clsx");
+function cx(...values) {
+  return (0, import_clsx.clsx)(values);
+}
+
+// src/overlay/tooltip.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var Provider2 = Tooltip.Provider;
+var Root2 = Tooltip.Root;
+var Trigger2 = Tooltip.Trigger;
+function Content2({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Tooltip.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Tooltip.Content,
+    {
+      className: cx("mui-tooltip__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+var Tooltip2 = {
+  Provider: Provider2,
+  Root: Root2,
+  Trigger: Trigger2,
+  Content: Content2
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Tooltip
+});

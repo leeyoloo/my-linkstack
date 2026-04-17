@@ -1,0 +1,997 @@
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/index.ts
+var src_exports = {};
+__export(src_exports, {
+  Button: () => Button,
+  Checkbox: () => Checkbox2,
+  Dialog: () => Dialog2,
+  DropdownMenu: () => DropdownMenu2,
+  Popover: () => Popover2,
+  RadioGroup: () => RadioGroup,
+  Select: () => Select2,
+  Separator: () => Separator2,
+  Switch: () => Switch2,
+  Tooltip: () => Tooltip2
+});
+module.exports = __toCommonJS(src_exports);
+
+// src/foundation/button.tsx
+var React = __toESM(require("react"), 1);
+
+// src/shared/cx.ts
+var import_clsx = require("clsx");
+function cx(...values) {
+  return (0, import_clsx.clsx)(values);
+}
+
+// src/foundation/button.tsx
+var import_jsx_runtime = require("react/jsx-runtime");
+var Button = React.forwardRef(
+  ({
+    className,
+    variant = "solid",
+    size = "md",
+    disabled,
+    ...props
+  }, ref) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "button",
+      {
+        ref,
+        className: cx("mui-button", className),
+        "data-size": size,
+        "data-variant": variant,
+        "data-disabled": disabled ? "" : void 0,
+        disabled,
+        ...props
+      }
+    );
+  }
+);
+Button.displayName = "Button";
+
+// src/foundation/checkbox.tsx
+var import_lucide_react = require("lucide-react");
+
+// ../primitives/src/foundation/checkbox.tsx
+var import_checkbox = require("@base-ui/react/checkbox");
+var import_jsx_runtime2 = require("react/jsx-runtime");
+function Root(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    import_checkbox.Checkbox.Root,
+    {
+      "data-scope": "checkbox",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Indicator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    import_checkbox.Checkbox.Indicator,
+    {
+      "data-scope": "checkbox",
+      "data-part": "indicator",
+      ...props
+    }
+  );
+}
+var Checkbox = {
+  Root,
+  Indicator
+};
+
+// src/foundation/checkbox.tsx
+var import_jsx_runtime3 = require("react/jsx-runtime");
+function Checkbox2({ className, children, ...props }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+    Checkbox.Root,
+    {
+      className: cx("mui-checkbox", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Checkbox.Indicator, { className: "mui-checkbox__indicator", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_lucide_react.CheckIcon, { size: 14 }) }),
+        children
+      ]
+    }
+  );
+}
+
+// ../primitives/src/foundation/radio-group.tsx
+var import_radio = require("@base-ui/react/radio");
+var import_radio_group = require("@base-ui/react/radio-group");
+var import_jsx_runtime4 = require("react/jsx-runtime");
+function Root2(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+    import_radio_group.RadioGroup,
+    {
+      "data-scope": "radio-group",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Item(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+    import_radio.Radio.Root,
+    {
+      "data-scope": "radio-group",
+      "data-part": "item",
+      ...props
+    }
+  );
+}
+function Indicator2(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+    import_radio.Radio.Indicator,
+    {
+      "data-scope": "radio-group",
+      "data-part": "indicator",
+      ...props
+    }
+  );
+}
+var RadioGroupPrimitiveParts = {
+  Root: Root2,
+  Item,
+  Indicator: Indicator2
+};
+
+// src/foundation/radio-group.tsx
+var import_jsx_runtime5 = require("react/jsx-runtime");
+function Root3({ className, ...props }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+    RadioGroupPrimitiveParts.Root,
+    {
+      className: cx("mui-radio-group", className),
+      ...props
+    }
+  );
+}
+function Item2({ className, children, ...props }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+    RadioGroupPrimitiveParts.Item,
+    {
+      className: cx("mui-radio-group__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(RadioGroupPrimitiveParts.Indicator, { className: "mui-radio-group__indicator" }),
+        children
+      ]
+    }
+  );
+}
+var RadioGroup = {
+  Root: Root3,
+  Item: Item2
+};
+
+// ../primitives/src/foundation/separator.tsx
+var import_separator = require("@base-ui/react/separator");
+var import_jsx_runtime6 = require("react/jsx-runtime");
+function Root4(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    import_separator.Separator,
+    {
+      "data-scope": "separator",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+var Separator = {
+  Root: Root4
+};
+
+// src/foundation/separator.tsx
+var import_jsx_runtime7 = require("react/jsx-runtime");
+function Separator2({
+  className,
+  orientation = "horizontal",
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+    Separator.Root,
+    {
+      className: cx("mui-separator", className),
+      orientation,
+      ...props
+    }
+  );
+}
+
+// ../primitives/src/foundation/switch.tsx
+var import_switch = require("@base-ui/react/switch");
+var import_jsx_runtime8 = require("react/jsx-runtime");
+function Root5(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+    import_switch.Switch.Root,
+    {
+      "data-scope": "switch",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Thumb(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+    import_switch.Switch.Thumb,
+    {
+      "data-scope": "switch",
+      "data-part": "thumb",
+      ...props
+    }
+  );
+}
+var Switch = {
+  Root: Root5,
+  Thumb
+};
+
+// src/foundation/switch.tsx
+var import_jsx_runtime9 = require("react/jsx-runtime");
+function Switch2({ className, ...props }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+    Switch.Root,
+    {
+      className: cx("mui-switch", className),
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Switch.Thumb, { className: "mui-switch__thumb" })
+    }
+  );
+}
+
+// src/overlay/dialog.tsx
+var import_lucide_react2 = require("lucide-react");
+var React3 = __toESM(require("react"), 1);
+
+// ../primitives/src/overlay/dialog.tsx
+var import_dialog = require("@base-ui/react/dialog");
+var React2 = __toESM(require("react"), 1);
+var import_jsx_runtime10 = require("react/jsx-runtime");
+function Root6(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Root, { "data-scope": "dialog", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Trigger, { "data-scope": "dialog", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Portal, { "data-scope": "dialog", "data-part": "portal", ...props });
+}
+var Overlay = React2.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Backdrop, { ref, "data-scope": "dialog", "data-part": "overlay", ...props });
+});
+var Content = React2.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Popup, { ref, "data-scope": "dialog", "data-part": "content", ...props });
+});
+var Close = React2.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Close, { ref, "data-scope": "dialog", "data-part": "close", ...props });
+});
+var Title = React2.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Title, { ref, "data-scope": "dialog", "data-part": "title", ...props });
+});
+var Description = React2.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dialog.Dialog.Description, { ref, "data-scope": "dialog", "data-part": "description", ...props });
+});
+var Dialog = {
+  Root: Root6,
+  Trigger,
+  Portal,
+  Overlay,
+  Content,
+  Close,
+  Title,
+  Description
+};
+
+// src/overlay/dialog.tsx
+var import_jsx_runtime11 = require("react/jsx-runtime");
+var Root7 = Dialog.Root;
+var Trigger2 = Dialog.Trigger;
+var Portal2 = Dialog.Portal;
+var Overlay2 = React3.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    Dialog.Overlay,
+    {
+      ref,
+      className: cx("mui-dialog__overlay", className),
+      ...props
+    }
+  );
+});
+var Close2 = React3.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+    Dialog.Close,
+    {
+      ref,
+      className: cx("mui-dialog__close", className),
+      ...props,
+      children: [
+        children ?? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(import_lucide_react2.XIcon, { size: 16, "aria-hidden": "true" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "sr-only", children: "Close" })
+      ]
+    }
+  );
+});
+var Content2 = React3.forwardRef(({ className, children, showCloseButton = true, slotProps, ...props }, ref) => {
+  const closeProps = {
+    "aria-label": "Close dialog",
+    ...slotProps?.close
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(Portal2, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(Overlay2, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+      Dialog.Content,
+      {
+        ref,
+        className: cx("mui-dialog__content", className),
+        ...props,
+        children: [
+          children,
+          showCloseButton ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(Close2, { ...closeProps }) : null
+        ]
+      }
+    )
+  ] });
+});
+var Header = React3.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { ref, className: cx("mui-dialog__header", className), ...props })
+);
+var Footer = React3.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { ref, className: cx("mui-dialog__footer", className), ...props })
+);
+var Title2 = React3.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    Dialog.Title,
+    {
+      ref,
+      className: cx("mui-dialog__title", className),
+      ...props
+    }
+  );
+});
+var Description2 = React3.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    Dialog.Description,
+    {
+      ref,
+      className: cx("mui-dialog__description", className),
+      ...props
+    }
+  );
+});
+Header.displayName = "Dialog.Header";
+Footer.displayName = "Dialog.Footer";
+var Dialog2 = {
+  Root: Root7,
+  Trigger: Trigger2,
+  Portal: Portal2,
+  Overlay: Overlay2,
+  Content: Content2,
+  Close: Close2,
+  Header,
+  Footer,
+  Title: Title2,
+  Description: Description2
+};
+
+// src/overlay/dropdown-menu.tsx
+var import_lucide_react3 = require("lucide-react");
+
+// ../primitives/src/overlay/dropdown-menu.tsx
+var import_menu = require("@base-ui/react/menu");
+var React4 = __toESM(require("react"), 1);
+var import_jsx_runtime12 = require("react/jsx-runtime");
+function Root8(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Root, { "data-scope": "dropdown-menu", "data-part": "root", ...props });
+}
+function Trigger3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Trigger, { "data-scope": "dropdown-menu", "data-part": "trigger", ...props });
+}
+function Portal3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Portal, { "data-scope": "dropdown-menu", "data-part": "portal", ...props });
+}
+var Content3 = React4.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    import_menu.Menu.Positioner,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "positioner",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        import_menu.Menu.Popup,
+        {
+          ref,
+          "data-scope": "dropdown-menu",
+          "data-part": "content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+function Item3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Item, { "data-scope": "dropdown-menu", "data-part": "item", ...props });
+}
+function CheckboxItem(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.CheckboxItem, { "data-scope": "dropdown-menu", "data-part": "checkbox-item", ...props });
+}
+function CheckboxItemIndicator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    import_menu.Menu.CheckboxItemIndicator,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "checkbox-item-indicator",
+      ...props
+    }
+  );
+}
+function RadioItem(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.RadioItem, { "data-scope": "dropdown-menu", "data-part": "radio-item", ...props });
+}
+function RadioItemIndicator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    import_menu.Menu.RadioItemIndicator,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "radio-item-indicator",
+      ...props
+    }
+  );
+}
+function Label(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.GroupLabel, { "data-scope": "dropdown-menu", "data-part": "label", ...props });
+}
+function Separator3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Separator, { "data-scope": "dropdown-menu", "data-part": "separator", ...props });
+}
+function Group(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.Group, { "data-scope": "dropdown-menu", "data-part": "group", ...props });
+}
+function Sub(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.SubmenuRoot, { "data-scope": "dropdown-menu", "data-part": "sub", ...props });
+}
+function SubTrigger(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.SubmenuTrigger, { "data-scope": "dropdown-menu", "data-part": "sub-trigger", ...props });
+}
+var SubContent = React4.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    import_menu.Menu.Positioner,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "sub-positioner",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        import_menu.Menu.Popup,
+        {
+          ref,
+          "data-scope": "dropdown-menu",
+          "data-part": "sub-content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+function RadioGroup2(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_menu.Menu.RadioGroup, { "data-scope": "dropdown-menu", "data-part": "radio-group", ...props });
+}
+var DropdownMenu = {
+  Root: Root8,
+  Trigger: Trigger3,
+  Portal: Portal3,
+  Content: Content3,
+  Item: Item3,
+  CheckboxItem,
+  CheckboxItemIndicator,
+  RadioItem,
+  RadioItemIndicator,
+  Label,
+  Separator: Separator3,
+  Group,
+  Sub,
+  SubTrigger,
+  SubContent,
+  RadioGroup: RadioGroup2
+};
+
+// src/overlay/dropdown-menu.tsx
+var import_jsx_runtime13 = require("react/jsx-runtime");
+var Root9 = DropdownMenu.Root;
+var Trigger4 = DropdownMenu.Trigger;
+var Portal4 = DropdownMenu.Portal;
+var Group2 = DropdownMenu.Group;
+var Sub2 = DropdownMenu.Sub;
+var RadioGroup3 = DropdownMenu.RadioGroup;
+function Content4({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(DropdownMenu.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    DropdownMenu.Content,
+    {
+      className: cx("mui-dropdown-menu__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+function Item4({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    DropdownMenu.Item,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props
+    }
+  );
+}
+function CheckboxItem2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+    DropdownMenu.CheckboxItem,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "mui-dropdown-menu__item-indicator", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(DropdownMenu.CheckboxItemIndicator, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_lucide_react3.CheckIcon, { size: 14 }) }) }),
+        children
+      ]
+    }
+  );
+}
+function RadioItem2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+    DropdownMenu.RadioItem,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "mui-dropdown-menu__item-indicator", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(DropdownMenu.RadioItemIndicator, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_lucide_react3.CircleIcon, { size: 10, fill: "currentColor" }) }) }),
+        children
+      ]
+    }
+  );
+}
+function Label2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    DropdownMenu.Label,
+    {
+      className: cx("mui-dropdown-menu__label", className),
+      ...props
+    }
+  );
+}
+function Separator4({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    DropdownMenu.Separator,
+    {
+      className: cx("mui-dropdown-menu__separator", className),
+      ...props
+    }
+  );
+}
+function SubTrigger2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+    DropdownMenu.SubTrigger,
+    {
+      className: cx("mui-dropdown-menu__sub-trigger", className),
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_lucide_react3.ChevronRightIcon, { size: 14 })
+      ]
+    }
+  );
+}
+function SubContent2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    DropdownMenu.SubContent,
+    {
+      className: cx("mui-dropdown-menu__content", className),
+      ...props
+    }
+  );
+}
+var DropdownMenu2 = {
+  Root: Root9,
+  Trigger: Trigger4,
+  Portal: Portal4,
+  Group: Group2,
+  Sub: Sub2,
+  RadioGroup: RadioGroup3,
+  Content: Content4,
+  Item: Item4,
+  CheckboxItem: CheckboxItem2,
+  RadioItem: RadioItem2,
+  Label: Label2,
+  Separator: Separator4,
+  SubTrigger: SubTrigger2,
+  SubContent: SubContent2
+};
+
+// ../primitives/src/overlay/popover.tsx
+var import_popover = require("@base-ui/react/popover");
+var React5 = __toESM(require("react"), 1);
+var import_jsx_runtime14 = require("react/jsx-runtime");
+function Root10(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_popover.Popover.Root, { "data-scope": "popover", "data-part": "root", ...props });
+}
+function Trigger5(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_popover.Popover.Trigger, { "data-scope": "popover", "data-part": "trigger", ...props });
+}
+function Portal5(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_popover.Popover.Portal, { "data-scope": "popover", "data-part": "portal", ...props });
+}
+var Content5 = React5.forwardRef(
+  ({ className, children, finalFocus, initialFocus, ...props }, ref) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+      import_popover.Popover.Positioner,
+      {
+        "data-scope": "popover",
+        "data-part": "positioner",
+        ...props,
+        children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          import_popover.Popover.Popup,
+          {
+            ref,
+            "data-scope": "popover",
+            "data-part": "content",
+            className,
+            finalFocus,
+            initialFocus,
+            children
+          }
+        )
+      }
+    );
+  }
+);
+var Popover = {
+  Root: Root10,
+  Trigger: Trigger5,
+  Portal: Portal5,
+  Content: Content5
+};
+
+// src/overlay/popover.tsx
+var import_jsx_runtime15 = require("react/jsx-runtime");
+var Root11 = Popover.Root;
+var Trigger6 = Popover.Trigger;
+var Portal6 = Popover.Portal;
+function Content6({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Popover.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    Popover.Content,
+    {
+      className: cx("mui-popover__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+var Popover2 = {
+  Root: Root11,
+  Trigger: Trigger6,
+  Portal: Portal6,
+  Content: Content6
+};
+
+// ../primitives/src/overlay/tooltip.tsx
+var React6 = __toESM(require("react"), 1);
+var import_tooltip = require("@base-ui/react/tooltip");
+var import_jsx_runtime16 = require("react/jsx-runtime");
+function Provider(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_tooltip.Tooltip.Provider, { "data-scope": "tooltip", "data-part": "provider", ...props });
+}
+function Root12(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_tooltip.Tooltip.Root, { "data-scope": "tooltip", "data-part": "root", ...props });
+}
+function Trigger7(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_tooltip.Tooltip.Trigger, { "data-scope": "tooltip", "data-part": "trigger", ...props });
+}
+function Portal7(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_tooltip.Tooltip.Portal, { "data-scope": "tooltip", "data-part": "portal", ...props });
+}
+var Content7 = React6.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    import_tooltip.Tooltip.Positioner,
+    {
+      "data-scope": "tooltip",
+      "data-part": "positioner",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+        import_tooltip.Tooltip.Popup,
+        {
+          ref,
+          "data-scope": "tooltip",
+          "data-part": "content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+var Tooltip = {
+  Provider,
+  Root: Root12,
+  Trigger: Trigger7,
+  Portal: Portal7,
+  Content: Content7
+};
+
+// src/overlay/tooltip.tsx
+var import_jsx_runtime17 = require("react/jsx-runtime");
+var Provider2 = Tooltip.Provider;
+var Root13 = Tooltip.Root;
+var Trigger8 = Tooltip.Trigger;
+function Content8({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Tooltip.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+    Tooltip.Content,
+    {
+      className: cx("mui-tooltip__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+var Tooltip2 = {
+  Provider: Provider2,
+  Root: Root13,
+  Trigger: Trigger8,
+  Content: Content8
+};
+
+// src/selection/select.tsx
+var import_lucide_react4 = require("lucide-react");
+
+// ../primitives/src/selection/select.tsx
+var React7 = __toESM(require("react"), 1);
+var import_select = require("@base-ui/react/select");
+var import_jsx_runtime18 = require("react/jsx-runtime");
+function Root14(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Root, { "data-scope": "select", "data-part": "root", ...props });
+}
+function Group3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Group, { "data-scope": "select", "data-part": "group", ...props });
+}
+function Value(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Value, { "data-scope": "select", "data-part": "value", ...props });
+}
+function Trigger9(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Trigger, { "data-scope": "select", "data-part": "trigger", ...props });
+}
+function Portal8(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Portal, { "data-scope": "select", "data-part": "portal", ...props });
+}
+var Content9 = React7.forwardRef(
+  ({ className, children, finalFocus, ...props }, ref) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+      import_select.Select.Positioner,
+      {
+        "data-scope": "select",
+        "data-part": "positioner",
+        ...props,
+        children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+          import_select.Select.Popup,
+          {
+            ref,
+            "data-scope": "select",
+            "data-part": "content",
+            className,
+            finalFocus,
+            children
+          }
+        )
+      }
+    );
+  }
+);
+function Viewport(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.List, { "data-scope": "select", "data-part": "viewport", ...props });
+}
+function Label3(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.GroupLabel, { "data-scope": "select", "data-part": "label", ...props });
+}
+function Item5(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Item, { "data-scope": "select", "data-part": "item", ...props });
+}
+function ItemText(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.ItemText, { "data-scope": "select", "data-part": "item-text", ...props });
+}
+function ItemIndicator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.ItemIndicator, { "data-scope": "select", "data-part": "item-indicator", ...props });
+}
+function Separator5(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.Separator, { "data-scope": "select", "data-part": "separator", ...props });
+}
+function ScrollUpButton(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.ScrollUpArrow, { "data-scope": "select", "data-part": "scroll-up-button", ...props });
+}
+function ScrollDownButton(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_select.Select.ScrollDownArrow, { "data-scope": "select", "data-part": "scroll-down-button", ...props });
+}
+var Select = {
+  Root: Root14,
+  Group: Group3,
+  Value,
+  Trigger: Trigger9,
+  Portal: Portal8,
+  Content: Content9,
+  Viewport,
+  Label: Label3,
+  Item: Item5,
+  ItemText,
+  ItemIndicator,
+  Separator: Separator5,
+  ScrollUpButton,
+  ScrollDownButton
+};
+
+// src/selection/select.tsx
+var import_jsx_runtime19 = require("react/jsx-runtime");
+var Root15 = Select.Root;
+var Group4 = Select.Group;
+var Value2 = Select.Value;
+function Trigger10({
+  className,
+  children,
+  size = "md",
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+    Select.Trigger,
+    {
+      className: cx("mui-select__trigger", className),
+      "data-size": size,
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react4.ChevronDownIcon, { className: "mui-select__icon", size: 16, "aria-hidden": "true" })
+      ]
+    }
+  );
+}
+function Content10({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+    Select.Content,
+    {
+      className: cx("mui-select__content", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.ScrollUpButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react4.ChevronUpIcon, { size: 16 }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.Viewport, { className: "mui-select__viewport", children }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.ScrollDownButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react4.ChevronDownIcon, { size: 16 }) })
+      ]
+    }
+  ) });
+}
+function Label4({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    Select.Label,
+    {
+      className: cx("mui-select__label", className),
+      ...props
+    }
+  );
+}
+function Item6({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+    Select.Item,
+    {
+      className: cx("mui-select__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.ItemText, { children }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Select.ItemIndicator, { className: "mui-select__item-indicator", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react4.CheckIcon, { size: 14 }) })
+      ]
+    }
+  );
+}
+function Separator6({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    Select.Separator,
+    {
+      className: cx("mui-select__separator", className),
+      ...props
+    }
+  );
+}
+var Select2 = {
+  Root: Root15,
+  Group: Group4,
+  Value: Value2,
+  Trigger: Trigger10,
+  Content: Content10,
+  Label: Label4,
+  Item: Item6,
+  Separator: Separator6
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Button,
+  Checkbox,
+  Dialog,
+  DropdownMenu,
+  Popover,
+  RadioGroup,
+  Select,
+  Separator,
+  Switch,
+  Tooltip
+});

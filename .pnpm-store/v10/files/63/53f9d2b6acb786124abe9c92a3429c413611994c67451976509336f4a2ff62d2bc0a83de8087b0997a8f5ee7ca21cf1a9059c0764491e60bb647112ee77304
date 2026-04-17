@@ -1,0 +1,15 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Switch as Switch$2 } from '@base-ui/react/switch';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Switch$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Thumb(props: React.ComponentPropsWithoutRef<typeof Switch$2.Thumb>): react_jsx_runtime.JSX.Element;
+declare const Switch$1: {
+    Root: typeof Root;
+    Thumb: typeof Thumb;
+};
+
+type SwitchProps = React.ComponentPropsWithoutRef<typeof Switch$1.Root>;
+declare function Switch({ className, ...props }: SwitchProps): react_jsx_runtime.JSX.Element;
+
+export { Switch, type SwitchProps };

@@ -1,0 +1,41 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// ../primitives/src/foundation/separator.tsx
+import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(
+    SeparatorPrimitive,
+    {
+      "data-scope": "separator",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+var Separator = {
+  Root
+};
+
+// src/foundation/separator.tsx
+import { jsx as jsx2 } from "react/jsx-runtime";
+function Separator2({
+  className,
+  orientation = "horizontal",
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    Separator.Root,
+    {
+      className: cx("mui-separator", className),
+      orientation,
+      ...props
+    }
+  );
+}
+
+export {
+  Separator2 as Separator
+};

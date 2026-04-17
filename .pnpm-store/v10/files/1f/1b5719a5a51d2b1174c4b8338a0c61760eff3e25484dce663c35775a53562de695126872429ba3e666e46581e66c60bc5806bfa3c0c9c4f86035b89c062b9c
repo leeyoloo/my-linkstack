@@ -1,0 +1,48 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// ../primitives/src/foundation/switch.tsx
+import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(
+    SwitchPrimitive.Root,
+    {
+      "data-scope": "switch",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Thumb(props) {
+  return /* @__PURE__ */ jsx(
+    SwitchPrimitive.Thumb,
+    {
+      "data-scope": "switch",
+      "data-part": "thumb",
+      ...props
+    }
+  );
+}
+var Switch = {
+  Root,
+  Thumb
+};
+
+// src/foundation/switch.tsx
+import { jsx as jsx2 } from "react/jsx-runtime";
+function Switch2({ className, ...props }) {
+  return /* @__PURE__ */ jsx2(
+    Switch.Root,
+    {
+      className: cx("mui-switch", className),
+      ...props,
+      children: /* @__PURE__ */ jsx2(Switch.Thumb, { className: "mui-switch__thumb" })
+    }
+  );
+}
+
+export {
+  Switch2 as Switch
+};

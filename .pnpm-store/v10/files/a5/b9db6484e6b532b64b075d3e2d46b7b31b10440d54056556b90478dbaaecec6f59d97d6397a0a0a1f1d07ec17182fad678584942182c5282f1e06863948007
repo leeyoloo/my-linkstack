@@ -1,0 +1,38 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as _base_ui_react from '@base-ui/react';
+import * as React from 'react';
+import { Dialog as Dialog$2 } from '@base-ui/react/dialog';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Dialog$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Trigger(props: React.ComponentPropsWithoutRef<typeof Dialog$2.Trigger>): react_jsx_runtime.JSX.Element;
+declare function Portal(props: React.ComponentPropsWithoutRef<typeof Dialog$2.Portal>): react_jsx_runtime.JSX.Element;
+declare const Dialog$1: {
+    Root: typeof Root;
+    Trigger: typeof Trigger;
+    Portal: typeof Portal;
+    Overlay: React.ForwardRefExoticComponent<Omit<Omit<_base_ui_react.DialogBackdropProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<_base_ui_react.DialogPopupProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+    Close: React.ForwardRefExoticComponent<Omit<Omit<_base_ui_react.DialogCloseProps, "ref"> & React.RefAttributes<HTMLButtonElement>, "ref"> & React.RefAttributes<HTMLButtonElement>>;
+    Title: React.ForwardRefExoticComponent<Omit<Omit<_base_ui_react.DialogTitleProps, "ref"> & React.RefAttributes<HTMLHeadingElement>, "ref"> & React.RefAttributes<HTMLHeadingElement>>;
+    Description: React.ForwardRefExoticComponent<Omit<Omit<_base_ui_react.DialogDescriptionProps, "ref"> & React.RefAttributes<HTMLParagraphElement>, "ref"> & React.RefAttributes<HTMLParagraphElement>>;
+};
+
+declare const Dialog: {
+    Root: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.DialogRoot>) => react_jsx_runtime.JSX.Element;
+    Trigger: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.DialogTrigger>) => react_jsx_runtime.JSX.Element;
+    Portal: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.DialogPortal>) => react_jsx_runtime.JSX.Element;
+    Overlay: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.DialogBackdropProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.DialogPopupProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>, "ref"> & {
+        showCloseButton?: boolean;
+        slotProps?: {
+            close?: React.ComponentPropsWithoutRef<typeof Dialog$1.Close>;
+        };
+    } & React.RefAttributes<HTMLDivElement>>;
+    Close: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.DialogCloseProps, "ref"> & React.RefAttributes<HTMLButtonElement>, "ref"> & React.RefAttributes<HTMLButtonElement>, "ref"> & React.RefAttributes<HTMLButtonElement>>;
+    Header: React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+    Footer: React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+    Title: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.DialogTitleProps, "ref"> & React.RefAttributes<HTMLHeadingElement>, "ref"> & React.RefAttributes<HTMLHeadingElement>, "ref"> & React.RefAttributes<HTMLHeadingElement>>;
+    Description: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.DialogDescriptionProps, "ref"> & React.RefAttributes<HTMLParagraphElement>, "ref"> & React.RefAttributes<HTMLParagraphElement>, "ref"> & React.RefAttributes<HTMLParagraphElement>>;
+};
+
+export { Dialog };

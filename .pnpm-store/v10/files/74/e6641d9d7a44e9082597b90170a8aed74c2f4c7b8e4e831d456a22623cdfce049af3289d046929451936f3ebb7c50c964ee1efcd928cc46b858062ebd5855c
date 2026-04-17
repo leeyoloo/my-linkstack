@@ -1,0 +1,187 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// src/selection/select.tsx
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+
+// ../primitives/src/selection/select.tsx
+import * as React from "react";
+import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Root, { "data-scope": "select", "data-part": "root", ...props });
+}
+function Group(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Group, { "data-scope": "select", "data-part": "group", ...props });
+}
+function Value(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Value, { "data-scope": "select", "data-part": "value", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Trigger, { "data-scope": "select", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Portal, { "data-scope": "select", "data-part": "portal", ...props });
+}
+var Content = React.forwardRef(
+  ({ className, children, finalFocus, ...props }, ref) => {
+    return /* @__PURE__ */ jsx(
+      SelectPrimitive.Positioner,
+      {
+        "data-scope": "select",
+        "data-part": "positioner",
+        ...props,
+        children: /* @__PURE__ */ jsx(
+          SelectPrimitive.Popup,
+          {
+            ref,
+            "data-scope": "select",
+            "data-part": "content",
+            className,
+            finalFocus,
+            children
+          }
+        )
+      }
+    );
+  }
+);
+function Viewport(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.List, { "data-scope": "select", "data-part": "viewport", ...props });
+}
+function Label(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.GroupLabel, { "data-scope": "select", "data-part": "label", ...props });
+}
+function Item(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Item, { "data-scope": "select", "data-part": "item", ...props });
+}
+function ItemText(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.ItemText, { "data-scope": "select", "data-part": "item-text", ...props });
+}
+function ItemIndicator(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.ItemIndicator, { "data-scope": "select", "data-part": "item-indicator", ...props });
+}
+function Separator(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.Separator, { "data-scope": "select", "data-part": "separator", ...props });
+}
+function ScrollUpButton(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.ScrollUpArrow, { "data-scope": "select", "data-part": "scroll-up-button", ...props });
+}
+function ScrollDownButton(props) {
+  return /* @__PURE__ */ jsx(SelectPrimitive.ScrollDownArrow, { "data-scope": "select", "data-part": "scroll-down-button", ...props });
+}
+var Select = {
+  Root,
+  Group,
+  Value,
+  Trigger,
+  Portal,
+  Content,
+  Viewport,
+  Label,
+  Item,
+  ItemText,
+  ItemIndicator,
+  Separator,
+  ScrollUpButton,
+  ScrollDownButton
+};
+
+// src/selection/select.tsx
+import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+var Root2 = Select.Root;
+var Group2 = Select.Group;
+var Value2 = Select.Value;
+function Trigger2({
+  className,
+  children,
+  size = "md",
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs(
+    Select.Trigger,
+    {
+      className: cx("mui-select__trigger", className),
+      "data-size": size,
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ jsx2(ChevronDownIcon, { className: "mui-select__icon", size: 16, "aria-hidden": "true" })
+      ]
+    }
+  );
+}
+function Content2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(Select.Portal, { children: /* @__PURE__ */ jsxs(
+    Select.Content,
+    {
+      className: cx("mui-select__content", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2(Select.ScrollUpButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ jsx2(ChevronUpIcon, { size: 16 }) }),
+        /* @__PURE__ */ jsx2(Select.Viewport, { className: "mui-select__viewport", children }),
+        /* @__PURE__ */ jsx2(Select.ScrollDownButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ jsx2(ChevronDownIcon, { size: 16 }) })
+      ]
+    }
+  ) });
+}
+function Label2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    Select.Label,
+    {
+      className: cx("mui-select__label", className),
+      ...props
+    }
+  );
+}
+function Item2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs(
+    Select.Item,
+    {
+      className: cx("mui-select__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2(Select.ItemText, { children }),
+        /* @__PURE__ */ jsx2(Select.ItemIndicator, { className: "mui-select__item-indicator", children: /* @__PURE__ */ jsx2(CheckIcon, { size: 14 }) })
+      ]
+    }
+  );
+}
+function Separator2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    Select.Separator,
+    {
+      className: cx("mui-select__separator", className),
+      ...props
+    }
+  );
+}
+var Select2 = {
+  Root: Root2,
+  Group: Group2,
+  Value: Value2,
+  Trigger: Trigger2,
+  Content: Content2,
+  Label: Label2,
+  Item: Item2,
+  Separator: Separator2
+};
+
+export {
+  Select2 as Select
+};

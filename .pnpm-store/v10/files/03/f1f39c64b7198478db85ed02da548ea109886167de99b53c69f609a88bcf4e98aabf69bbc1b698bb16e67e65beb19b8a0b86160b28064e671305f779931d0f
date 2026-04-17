@@ -1,0 +1,54 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// src/foundation/checkbox.tsx
+import { CheckIcon } from "lucide-react";
+
+// ../primitives/src/foundation/checkbox.tsx
+import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(
+    CheckboxPrimitive.Root,
+    {
+      "data-scope": "checkbox",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Indicator(props) {
+  return /* @__PURE__ */ jsx(
+    CheckboxPrimitive.Indicator,
+    {
+      "data-scope": "checkbox",
+      "data-part": "indicator",
+      ...props
+    }
+  );
+}
+var Checkbox = {
+  Root,
+  Indicator
+};
+
+// src/foundation/checkbox.tsx
+import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+function Checkbox2({ className, children, ...props }) {
+  return /* @__PURE__ */ jsxs(
+    Checkbox.Root,
+    {
+      className: cx("mui-checkbox", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2(Checkbox.Indicator, { className: "mui-checkbox__indicator", children: /* @__PURE__ */ jsx2(CheckIcon, { size: 14 }) }),
+        children
+      ]
+    }
+  );
+}
+
+export {
+  Checkbox2 as Checkbox
+};

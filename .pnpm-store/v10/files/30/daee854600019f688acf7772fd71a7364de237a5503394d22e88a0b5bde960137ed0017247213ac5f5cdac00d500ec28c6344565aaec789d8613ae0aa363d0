@@ -1,0 +1,77 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// ../primitives/src/overlay/tooltip.tsx
+import * as React from "react";
+import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
+import { jsx } from "react/jsx-runtime";
+function Provider(props) {
+  return /* @__PURE__ */ jsx(TooltipPrimitive.Provider, { "data-scope": "tooltip", "data-part": "provider", ...props });
+}
+function Root(props) {
+  return /* @__PURE__ */ jsx(TooltipPrimitive.Root, { "data-scope": "tooltip", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ jsx(TooltipPrimitive.Trigger, { "data-scope": "tooltip", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ jsx(TooltipPrimitive.Portal, { "data-scope": "tooltip", "data-part": "portal", ...props });
+}
+var Content = React.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ jsx(
+    TooltipPrimitive.Positioner,
+    {
+      "data-scope": "tooltip",
+      "data-part": "positioner",
+      ...props,
+      children: /* @__PURE__ */ jsx(
+        TooltipPrimitive.Popup,
+        {
+          ref,
+          "data-scope": "tooltip",
+          "data-part": "content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+var Tooltip = {
+  Provider,
+  Root,
+  Trigger,
+  Portal,
+  Content
+};
+
+// src/overlay/tooltip.tsx
+import { jsx as jsx2 } from "react/jsx-runtime";
+var Provider2 = Tooltip.Provider;
+var Root2 = Tooltip.Root;
+var Trigger2 = Tooltip.Trigger;
+function Content2({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(Tooltip.Portal, { children: /* @__PURE__ */ jsx2(
+    Tooltip.Content,
+    {
+      className: cx("mui-tooltip__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+var Tooltip2 = {
+  Provider: Provider2,
+  Root: Root2,
+  Trigger: Trigger2,
+  Content: Content2
+};
+
+export {
+  Tooltip2 as Tooltip
+};

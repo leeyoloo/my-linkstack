@@ -1,0 +1,141 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// src/overlay/dialog.tsx
+import { XIcon } from "lucide-react";
+import * as React2 from "react";
+
+// ../primitives/src/overlay/dialog.tsx
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import * as React from "react";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Root, { "data-scope": "dialog", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Trigger, { "data-scope": "dialog", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Portal, { "data-scope": "dialog", "data-part": "portal", ...props });
+}
+var Overlay = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Backdrop, { ref, "data-scope": "dialog", "data-part": "overlay", ...props });
+});
+var Content = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Popup, { ref, "data-scope": "dialog", "data-part": "content", ...props });
+});
+var Close = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Close, { ref, "data-scope": "dialog", "data-part": "close", ...props });
+});
+var Title = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Title, { ref, "data-scope": "dialog", "data-part": "title", ...props });
+});
+var Description = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ jsx(DialogPrimitive.Description, { ref, "data-scope": "dialog", "data-part": "description", ...props });
+});
+var Dialog = {
+  Root,
+  Trigger,
+  Portal,
+  Overlay,
+  Content,
+  Close,
+  Title,
+  Description
+};
+
+// src/overlay/dialog.tsx
+import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+var Root2 = Dialog.Root;
+var Trigger2 = Dialog.Trigger;
+var Portal2 = Dialog.Portal;
+var Overlay2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ jsx2(
+    Dialog.Overlay,
+    {
+      ref,
+      className: cx("mui-dialog__overlay", className),
+      ...props
+    }
+  );
+});
+var Close2 = React2.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ jsxs(
+    Dialog.Close,
+    {
+      ref,
+      className: cx("mui-dialog__close", className),
+      ...props,
+      children: [
+        children ?? /* @__PURE__ */ jsx2(XIcon, { size: 16, "aria-hidden": "true" }),
+        /* @__PURE__ */ jsx2("span", { className: "sr-only", children: "Close" })
+      ]
+    }
+  );
+});
+var Content2 = React2.forwardRef(({ className, children, showCloseButton = true, slotProps, ...props }, ref) => {
+  const closeProps = {
+    "aria-label": "Close dialog",
+    ...slotProps?.close
+  };
+  return /* @__PURE__ */ jsxs(Portal2, { children: [
+    /* @__PURE__ */ jsx2(Overlay2, {}),
+    /* @__PURE__ */ jsxs(
+      Dialog.Content,
+      {
+        ref,
+        className: cx("mui-dialog__content", className),
+        ...props,
+        children: [
+          children,
+          showCloseButton ? /* @__PURE__ */ jsx2(Close2, { ...closeProps }) : null
+        ]
+      }
+    )
+  ] });
+});
+var Header = React2.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx2("div", { ref, className: cx("mui-dialog__header", className), ...props })
+);
+var Footer = React2.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx2("div", { ref, className: cx("mui-dialog__footer", className), ...props })
+);
+var Title2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ jsx2(
+    Dialog.Title,
+    {
+      ref,
+      className: cx("mui-dialog__title", className),
+      ...props
+    }
+  );
+});
+var Description2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ jsx2(
+    Dialog.Description,
+    {
+      ref,
+      className: cx("mui-dialog__description", className),
+      ...props
+    }
+  );
+});
+Header.displayName = "Dialog.Header";
+Footer.displayName = "Dialog.Footer";
+var Dialog2 = {
+  Root: Root2,
+  Trigger: Trigger2,
+  Portal: Portal2,
+  Overlay: Overlay2,
+  Content: Content2,
+  Close: Close2,
+  Header,
+  Footer,
+  Title: Title2,
+  Description: Description2
+};
+
+export {
+  Dialog2 as Dialog
+};

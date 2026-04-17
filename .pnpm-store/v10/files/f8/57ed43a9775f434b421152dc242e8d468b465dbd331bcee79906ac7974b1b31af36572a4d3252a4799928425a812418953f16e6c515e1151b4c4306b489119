@@ -1,0 +1,13 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Separator as Separator$2 } from '@base-ui/react/separator';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Separator$2>): react_jsx_runtime.JSX.Element;
+declare const Separator$1: {
+    Root: typeof Root;
+};
+
+type SeparatorProps = React.ComponentPropsWithoutRef<typeof Separator$1.Root>;
+declare function Separator({ className, orientation, ...props }: SeparatorProps): react_jsx_runtime.JSX.Element;
+
+export { Separator, type SeparatorProps };

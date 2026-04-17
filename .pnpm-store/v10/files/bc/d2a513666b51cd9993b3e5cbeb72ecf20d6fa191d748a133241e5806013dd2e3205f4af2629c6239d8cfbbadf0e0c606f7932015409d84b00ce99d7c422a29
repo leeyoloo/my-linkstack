@@ -1,0 +1,76 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// ../primitives/src/foundation/radio-group.tsx
+import { Radio } from "@base-ui/react/radio";
+import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(
+    RadioGroupPrimitive,
+    {
+      "data-scope": "radio-group",
+      "data-part": "root",
+      ...props
+    }
+  );
+}
+function Item(props) {
+  return /* @__PURE__ */ jsx(
+    Radio.Root,
+    {
+      "data-scope": "radio-group",
+      "data-part": "item",
+      ...props
+    }
+  );
+}
+function Indicator(props) {
+  return /* @__PURE__ */ jsx(
+    Radio.Indicator,
+    {
+      "data-scope": "radio-group",
+      "data-part": "indicator",
+      ...props
+    }
+  );
+}
+var RadioGroupPrimitiveParts = {
+  Root,
+  Item,
+  Indicator
+};
+
+// src/foundation/radio-group.tsx
+import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+function Root2({ className, ...props }) {
+  return /* @__PURE__ */ jsx2(
+    RadioGroupPrimitiveParts.Root,
+    {
+      className: cx("mui-radio-group", className),
+      ...props
+    }
+  );
+}
+function Item2({ className, children, ...props }) {
+  return /* @__PURE__ */ jsxs(
+    RadioGroupPrimitiveParts.Item,
+    {
+      className: cx("mui-radio-group__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2(RadioGroupPrimitiveParts.Indicator, { className: "mui-radio-group__indicator" }),
+        children
+      ]
+    }
+  );
+}
+var RadioGroup = {
+  Root: Root2,
+  Item: Item2
+};
+
+export {
+  RadioGroup
+};

@@ -1,0 +1,267 @@
+import {
+  cx
+} from "./chunk-6TNEFWVX.js";
+
+// src/overlay/dropdown-menu.tsx
+import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
+
+// ../primitives/src/overlay/dropdown-menu.tsx
+import { Menu as DropdownMenuPrimitive } from "@base-ui/react/menu";
+import * as React from "react";
+import { jsx } from "react/jsx-runtime";
+function Root(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Root, { "data-scope": "dropdown-menu", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Trigger, { "data-scope": "dropdown-menu", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { "data-scope": "dropdown-menu", "data-part": "portal", ...props });
+}
+var Content = React.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ jsx(
+    DropdownMenuPrimitive.Positioner,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "positioner",
+      ...props,
+      children: /* @__PURE__ */ jsx(
+        DropdownMenuPrimitive.Popup,
+        {
+          ref,
+          "data-scope": "dropdown-menu",
+          "data-part": "content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+function Item(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Item, { "data-scope": "dropdown-menu", "data-part": "item", ...props });
+}
+function CheckboxItem(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.CheckboxItem, { "data-scope": "dropdown-menu", "data-part": "checkbox-item", ...props });
+}
+function CheckboxItemIndicator(props) {
+  return /* @__PURE__ */ jsx(
+    DropdownMenuPrimitive.CheckboxItemIndicator,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "checkbox-item-indicator",
+      ...props
+    }
+  );
+}
+function RadioItem(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.RadioItem, { "data-scope": "dropdown-menu", "data-part": "radio-item", ...props });
+}
+function RadioItemIndicator(props) {
+  return /* @__PURE__ */ jsx(
+    DropdownMenuPrimitive.RadioItemIndicator,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "radio-item-indicator",
+      ...props
+    }
+  );
+}
+function Label(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.GroupLabel, { "data-scope": "dropdown-menu", "data-part": "label", ...props });
+}
+function Separator(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Separator, { "data-scope": "dropdown-menu", "data-part": "separator", ...props });
+}
+function Group(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.Group, { "data-scope": "dropdown-menu", "data-part": "group", ...props });
+}
+function Sub(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.SubmenuRoot, { "data-scope": "dropdown-menu", "data-part": "sub", ...props });
+}
+function SubTrigger(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.SubmenuTrigger, { "data-scope": "dropdown-menu", "data-part": "sub-trigger", ...props });
+}
+var SubContent = React.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ jsx(
+    DropdownMenuPrimitive.Positioner,
+    {
+      "data-scope": "dropdown-menu",
+      "data-part": "sub-positioner",
+      ...props,
+      children: /* @__PURE__ */ jsx(
+        DropdownMenuPrimitive.Popup,
+        {
+          ref,
+          "data-scope": "dropdown-menu",
+          "data-part": "sub-content",
+          className,
+          children
+        }
+      )
+    }
+  );
+});
+function RadioGroup(props) {
+  return /* @__PURE__ */ jsx(DropdownMenuPrimitive.RadioGroup, { "data-scope": "dropdown-menu", "data-part": "radio-group", ...props });
+}
+var DropdownMenu = {
+  Root,
+  Trigger,
+  Portal,
+  Content,
+  Item,
+  CheckboxItem,
+  CheckboxItemIndicator,
+  RadioItem,
+  RadioItemIndicator,
+  Label,
+  Separator,
+  Group,
+  Sub,
+  SubTrigger,
+  SubContent,
+  RadioGroup
+};
+
+// src/overlay/dropdown-menu.tsx
+import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+var Root2 = DropdownMenu.Root;
+var Trigger2 = DropdownMenu.Trigger;
+var Portal2 = DropdownMenu.Portal;
+var Group2 = DropdownMenu.Group;
+var Sub2 = DropdownMenu.Sub;
+var RadioGroup2 = DropdownMenu.RadioGroup;
+function Content2({
+  className,
+  sideOffset = 8,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(DropdownMenu.Portal, { children: /* @__PURE__ */ jsx2(
+    DropdownMenu.Content,
+    {
+      className: cx("mui-dropdown-menu__content", className),
+      sideOffset,
+      ...props
+    }
+  ) });
+}
+function Item2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    DropdownMenu.Item,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props
+    }
+  );
+}
+function CheckboxItem2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs(
+    DropdownMenu.CheckboxItem,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2("span", { className: "mui-dropdown-menu__item-indicator", children: /* @__PURE__ */ jsx2(DropdownMenu.CheckboxItemIndicator, { children: /* @__PURE__ */ jsx2(CheckIcon, { size: 14 }) }) }),
+        children
+      ]
+    }
+  );
+}
+function RadioItem2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs(
+    DropdownMenu.RadioItem,
+    {
+      className: cx("mui-dropdown-menu__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx2("span", { className: "mui-dropdown-menu__item-indicator", children: /* @__PURE__ */ jsx2(DropdownMenu.RadioItemIndicator, { children: /* @__PURE__ */ jsx2(CircleIcon, { size: 10, fill: "currentColor" }) }) }),
+        children
+      ]
+    }
+  );
+}
+function Label2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    DropdownMenu.Label,
+    {
+      className: cx("mui-dropdown-menu__label", className),
+      ...props
+    }
+  );
+}
+function Separator2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    DropdownMenu.Separator,
+    {
+      className: cx("mui-dropdown-menu__separator", className),
+      ...props
+    }
+  );
+}
+function SubTrigger2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs(
+    DropdownMenu.SubTrigger,
+    {
+      className: cx("mui-dropdown-menu__sub-trigger", className),
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ jsx2(ChevronRightIcon, { size: 14 })
+      ]
+    }
+  );
+}
+function SubContent2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    DropdownMenu.SubContent,
+    {
+      className: cx("mui-dropdown-menu__content", className),
+      ...props
+    }
+  );
+}
+var DropdownMenu2 = {
+  Root: Root2,
+  Trigger: Trigger2,
+  Portal: Portal2,
+  Group: Group2,
+  Sub: Sub2,
+  RadioGroup: RadioGroup2,
+  Content: Content2,
+  Item: Item2,
+  CheckboxItem: CheckboxItem2,
+  RadioItem: RadioItem2,
+  Label: Label2,
+  Separator: Separator2,
+  SubTrigger: SubTrigger2,
+  SubContent: SubContent2
+};
+
+export {
+  DropdownMenu2 as DropdownMenu
+};

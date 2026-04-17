@@ -1,0 +1,57 @@
+import * as _base_ui_react from '@base-ui/react';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Select as Select$2 } from '@base-ui/react/select';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Select$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Group(props: React.ComponentPropsWithoutRef<typeof Select$2.Group>): react_jsx_runtime.JSX.Element;
+declare function Value(props: React.ComponentPropsWithoutRef<typeof Select$2.Value>): react_jsx_runtime.JSX.Element;
+declare function Trigger$1(props: React.ComponentPropsWithoutRef<typeof Select$2.Trigger>): react_jsx_runtime.JSX.Element;
+declare function Portal(props: React.ComponentPropsWithoutRef<typeof Select$2.Portal>): react_jsx_runtime.JSX.Element;
+declare function Viewport(props: React.ComponentPropsWithoutRef<typeof Select$2.List>): react_jsx_runtime.JSX.Element;
+declare function Label$1(props: React.ComponentPropsWithoutRef<typeof Select$2.GroupLabel>): react_jsx_runtime.JSX.Element;
+declare function Item$1(props: React.ComponentPropsWithoutRef<typeof Select$2.Item>): react_jsx_runtime.JSX.Element;
+declare function ItemText(props: React.ComponentPropsWithoutRef<typeof Select$2.ItemText>): react_jsx_runtime.JSX.Element;
+declare function ItemIndicator(props: React.ComponentPropsWithoutRef<typeof Select$2.ItemIndicator>): react_jsx_runtime.JSX.Element;
+declare function Separator$1(props: React.ComponentPropsWithoutRef<typeof Select$2.Separator>): react_jsx_runtime.JSX.Element;
+declare function ScrollUpButton(props: React.ComponentPropsWithoutRef<typeof Select$2.ScrollUpArrow>): react_jsx_runtime.JSX.Element;
+declare function ScrollDownButton(props: React.ComponentPropsWithoutRef<typeof Select$2.ScrollDownArrow>): react_jsx_runtime.JSX.Element;
+declare const Select$1: {
+    Root: typeof Root;
+    Group: typeof Group;
+    Value: typeof Value;
+    Trigger: typeof Trigger$1;
+    Portal: typeof Portal;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.SelectPositionerProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "className" | "children"> & Pick<Omit<Omit<_base_ui_react.SelectPopupProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "children" | "finalFocus"> & {
+        className?: string;
+    } & React.RefAttributes<HTMLDivElement>>;
+    Viewport: typeof Viewport;
+    Label: typeof Label$1;
+    Item: typeof Item$1;
+    ItemText: typeof ItemText;
+    ItemIndicator: typeof ItemIndicator;
+    Separator: typeof Separator$1;
+    ScrollUpButton: typeof ScrollUpButton;
+    ScrollDownButton: typeof ScrollDownButton;
+};
+
+type SelectTriggerProps = React.ComponentPropsWithoutRef<typeof Select$1.Trigger> & {
+    size?: "sm" | "md" | "lg";
+};
+declare function Trigger({ className, children, size, ...props }: SelectTriggerProps): react_jsx_runtime.JSX.Element;
+declare function Content({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof Select$1.Content>): react_jsx_runtime.JSX.Element;
+declare function Label({ className, ...props }: React.ComponentPropsWithoutRef<typeof Select$1.Label>): react_jsx_runtime.JSX.Element;
+declare function Item({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof Select$1.Item>): react_jsx_runtime.JSX.Element;
+declare function Separator({ className, ...props }: React.ComponentPropsWithoutRef<typeof Select$1.Separator>): react_jsx_runtime.JSX.Element;
+declare const Select: {
+    Root: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.SelectRoot>) => react_jsx_runtime.JSX.Element;
+    Group: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.SelectGroup>) => react_jsx_runtime.JSX.Element;
+    Value: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.SelectValue>) => react_jsx_runtime.JSX.Element;
+    Trigger: typeof Trigger;
+    Content: typeof Content;
+    Label: typeof Label;
+    Item: typeof Item;
+    Separator: typeof Separator;
+};
+
+export { Select };

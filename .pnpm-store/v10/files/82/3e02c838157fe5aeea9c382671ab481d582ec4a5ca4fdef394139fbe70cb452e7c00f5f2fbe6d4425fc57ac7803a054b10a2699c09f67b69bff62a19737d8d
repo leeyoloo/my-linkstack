@@ -1,0 +1,24 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Radio } from '@base-ui/react/radio';
+import { RadioGroup as RadioGroup$1 } from '@base-ui/react/radio-group';
+
+declare function Root$1(props: React.ComponentPropsWithoutRef<typeof RadioGroup$1>): react_jsx_runtime.JSX.Element;
+declare function Item$1(props: React.ComponentPropsWithoutRef<typeof Radio.Root>): react_jsx_runtime.JSX.Element;
+declare function Indicator(props: React.ComponentPropsWithoutRef<typeof Radio.Indicator>): react_jsx_runtime.JSX.Element;
+declare const RadioGroupPrimitiveParts: {
+    Root: typeof Root$1;
+    Item: typeof Item$1;
+    Indicator: typeof Indicator;
+};
+
+type RootProps = React.ComponentPropsWithoutRef<typeof RadioGroupPrimitiveParts.Root>;
+type ItemProps = React.ComponentPropsWithoutRef<typeof RadioGroupPrimitiveParts.Item>;
+declare function Root({ className, ...props }: RootProps): react_jsx_runtime.JSX.Element;
+declare function Item({ className, children, ...props }: ItemProps): react_jsx_runtime.JSX.Element;
+declare const RadioGroup: {
+    Root: typeof Root;
+    Item: typeof Item;
+};
+
+export { RadioGroup };

@@ -1,0 +1,225 @@
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/select.ts
+var select_exports = {};
+__export(select_exports, {
+  Select: () => Select2
+});
+module.exports = __toCommonJS(select_exports);
+
+// src/selection/select.tsx
+var import_lucide_react = require("lucide-react");
+
+// ../primitives/src/selection/select.tsx
+var React = __toESM(require("react"), 1);
+var import_select = require("@base-ui/react/select");
+var import_jsx_runtime = require("react/jsx-runtime");
+function Root(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Root, { "data-scope": "select", "data-part": "root", ...props });
+}
+function Group(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Group, { "data-scope": "select", "data-part": "group", ...props });
+}
+function Value(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Value, { "data-scope": "select", "data-part": "value", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Trigger, { "data-scope": "select", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Portal, { "data-scope": "select", "data-part": "portal", ...props });
+}
+var Content = React.forwardRef(
+  ({ className, children, finalFocus, ...props }, ref) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      import_select.Select.Positioner,
+      {
+        "data-scope": "select",
+        "data-part": "positioner",
+        ...props,
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          import_select.Select.Popup,
+          {
+            ref,
+            "data-scope": "select",
+            "data-part": "content",
+            className,
+            finalFocus,
+            children
+          }
+        )
+      }
+    );
+  }
+);
+function Viewport(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.List, { "data-scope": "select", "data-part": "viewport", ...props });
+}
+function Label(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.GroupLabel, { "data-scope": "select", "data-part": "label", ...props });
+}
+function Item(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Item, { "data-scope": "select", "data-part": "item", ...props });
+}
+function ItemText(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.ItemText, { "data-scope": "select", "data-part": "item-text", ...props });
+}
+function ItemIndicator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.ItemIndicator, { "data-scope": "select", "data-part": "item-indicator", ...props });
+}
+function Separator(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.Separator, { "data-scope": "select", "data-part": "separator", ...props });
+}
+function ScrollUpButton(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.ScrollUpArrow, { "data-scope": "select", "data-part": "scroll-up-button", ...props });
+}
+function ScrollDownButton(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_select.Select.ScrollDownArrow, { "data-scope": "select", "data-part": "scroll-down-button", ...props });
+}
+var Select = {
+  Root,
+  Group,
+  Value,
+  Trigger,
+  Portal,
+  Content,
+  Viewport,
+  Label,
+  Item,
+  ItemText,
+  ItemIndicator,
+  Separator,
+  ScrollUpButton,
+  ScrollDownButton
+};
+
+// src/shared/cx.ts
+var import_clsx = require("clsx");
+function cx(...values) {
+  return (0, import_clsx.clsx)(values);
+}
+
+// src/selection/select.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var Root2 = Select.Root;
+var Group2 = Select.Group;
+var Value2 = Select.Value;
+function Trigger2({
+  className,
+  children,
+  size = "md",
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    Select.Trigger,
+    {
+      className: cx("mui-select__trigger", className),
+      "data-size": size,
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.ChevronDownIcon, { className: "mui-select__icon", size: 16, "aria-hidden": "true" })
+      ]
+    }
+  );
+}
+function Content2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    Select.Content,
+    {
+      className: cx("mui-select__content", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.ScrollUpButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.ChevronUpIcon, { size: 16 }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.Viewport, { className: "mui-select__viewport", children }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.ScrollDownButton, { className: "mui-select__scroll-button", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.ChevronDownIcon, { size: 16 }) })
+      ]
+    }
+  ) });
+}
+function Label2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Select.Label,
+    {
+      className: cx("mui-select__label", className),
+      ...props
+    }
+  );
+}
+function Item2({
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    Select.Item,
+    {
+      className: cx("mui-select__item", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.ItemText, { children }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select.ItemIndicator, { className: "mui-select__item-indicator", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.CheckIcon, { size: 14 }) })
+      ]
+    }
+  );
+}
+function Separator2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Select.Separator,
+    {
+      className: cx("mui-select__separator", className),
+      ...props
+    }
+  );
+}
+var Select2 = {
+  Root: Root2,
+  Group: Group2,
+  Value: Value2,
+  Trigger: Trigger2,
+  Content: Content2,
+  Label: Label2,
+  Item: Item2,
+  Separator: Separator2
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Select
+});

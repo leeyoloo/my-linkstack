@@ -1,0 +1,15 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Checkbox as Checkbox$2 } from '@base-ui/react/checkbox';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Checkbox$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Indicator(props: React.ComponentPropsWithoutRef<typeof Checkbox$2.Indicator>): react_jsx_runtime.JSX.Element;
+declare const Checkbox$1: {
+    Root: typeof Root;
+    Indicator: typeof Indicator;
+};
+
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox$1.Root>;
+declare function Checkbox({ className, children, ...props }: CheckboxProps): react_jsx_runtime.JSX.Element;
+
+export { Checkbox, type CheckboxProps };

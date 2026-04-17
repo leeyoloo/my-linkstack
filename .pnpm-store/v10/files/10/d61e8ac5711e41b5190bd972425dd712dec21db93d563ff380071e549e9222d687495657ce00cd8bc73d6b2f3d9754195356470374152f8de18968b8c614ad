@@ -1,0 +1,179 @@
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/dialog.ts
+var dialog_exports = {};
+__export(dialog_exports, {
+  Dialog: () => Dialog2
+});
+module.exports = __toCommonJS(dialog_exports);
+
+// src/overlay/dialog.tsx
+var import_lucide_react = require("lucide-react");
+var React2 = __toESM(require("react"), 1);
+
+// ../primitives/src/overlay/dialog.tsx
+var import_dialog = require("@base-ui/react/dialog");
+var React = __toESM(require("react"), 1);
+var import_jsx_runtime = require("react/jsx-runtime");
+function Root(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Root, { "data-scope": "dialog", "data-part": "root", ...props });
+}
+function Trigger(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Trigger, { "data-scope": "dialog", "data-part": "trigger", ...props });
+}
+function Portal(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Portal, { "data-scope": "dialog", "data-part": "portal", ...props });
+}
+var Overlay = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Backdrop, { ref, "data-scope": "dialog", "data-part": "overlay", ...props });
+});
+var Content = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Popup, { ref, "data-scope": "dialog", "data-part": "content", ...props });
+});
+var Close = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Close, { ref, "data-scope": "dialog", "data-part": "close", ...props });
+});
+var Title = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Title, { ref, "data-scope": "dialog", "data-part": "title", ...props });
+});
+var Description = React.forwardRef((props, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dialog.Dialog.Description, { ref, "data-scope": "dialog", "data-part": "description", ...props });
+});
+var Dialog = {
+  Root,
+  Trigger,
+  Portal,
+  Overlay,
+  Content,
+  Close,
+  Title,
+  Description
+};
+
+// src/shared/cx.ts
+var import_clsx = require("clsx");
+function cx(...values) {
+  return (0, import_clsx.clsx)(values);
+}
+
+// src/overlay/dialog.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var Root2 = Dialog.Root;
+var Trigger2 = Dialog.Trigger;
+var Portal2 = Dialog.Portal;
+var Overlay2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Dialog.Overlay,
+    {
+      ref,
+      className: cx("mui-dialog__overlay", className),
+      ...props
+    }
+  );
+});
+var Close2 = React2.forwardRef(({ className, children, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    Dialog.Close,
+    {
+      ref,
+      className: cx("mui-dialog__close", className),
+      ...props,
+      children: [
+        children ?? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.XIcon, { size: 16, "aria-hidden": "true" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "sr-only", children: "Close" })
+      ]
+    }
+  );
+});
+var Content2 = React2.forwardRef(({ className, children, showCloseButton = true, slotProps, ...props }, ref) => {
+  const closeProps = {
+    "aria-label": "Close dialog",
+    ...slotProps?.close
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Portal2, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Overlay2, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+      Dialog.Content,
+      {
+        ref,
+        className: cx("mui-dialog__content", className),
+        ...props,
+        children: [
+          children,
+          showCloseButton ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Close2, { ...closeProps }) : null
+        ]
+      }
+    )
+  ] });
+});
+var Header = React2.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { ref, className: cx("mui-dialog__header", className), ...props })
+);
+var Footer = React2.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { ref, className: cx("mui-dialog__footer", className), ...props })
+);
+var Title2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Dialog.Title,
+    {
+      ref,
+      className: cx("mui-dialog__title", className),
+      ...props
+    }
+  );
+});
+var Description2 = React2.forwardRef(({ className, ...props }, ref) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    Dialog.Description,
+    {
+      ref,
+      className: cx("mui-dialog__description", className),
+      ...props
+    }
+  );
+});
+Header.displayName = "Dialog.Header";
+Footer.displayName = "Dialog.Footer";
+var Dialog2 = {
+  Root: Root2,
+  Trigger: Trigger2,
+  Portal: Portal2,
+  Overlay: Overlay2,
+  Content: Content2,
+  Close: Close2,
+  Header,
+  Footer,
+  Title: Title2,
+  Description: Description2
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Dialog
+});

@@ -1,0 +1,70 @@
+import * as _base_ui_react from '@base-ui/react';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Menu } from '@base-ui/react/menu';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Menu.Root>): react_jsx_runtime.JSX.Element;
+declare function Trigger(props: React.ComponentPropsWithoutRef<typeof Menu.Trigger>): react_jsx_runtime.JSX.Element;
+declare function Portal(props: React.ComponentPropsWithoutRef<typeof Menu.Portal>): react_jsx_runtime.JSX.Element;
+declare function Item$1(props: React.ComponentPropsWithoutRef<typeof Menu.Item>): react_jsx_runtime.JSX.Element;
+declare function CheckboxItem$1(props: React.ComponentPropsWithoutRef<typeof Menu.CheckboxItem>): react_jsx_runtime.JSX.Element;
+declare function CheckboxItemIndicator(props: React.ComponentPropsWithoutRef<typeof Menu.CheckboxItemIndicator>): react_jsx_runtime.JSX.Element;
+declare function RadioItem$1(props: React.ComponentPropsWithoutRef<typeof Menu.RadioItem>): react_jsx_runtime.JSX.Element;
+declare function RadioItemIndicator(props: React.ComponentPropsWithoutRef<typeof Menu.RadioItemIndicator>): react_jsx_runtime.JSX.Element;
+declare function Label$1(props: React.ComponentPropsWithoutRef<typeof Menu.GroupLabel>): react_jsx_runtime.JSX.Element;
+declare function Separator$1(props: React.ComponentPropsWithoutRef<typeof Menu.Separator>): react_jsx_runtime.JSX.Element;
+declare function Group(props: React.ComponentPropsWithoutRef<typeof Menu.Group>): react_jsx_runtime.JSX.Element;
+declare function Sub(props: React.ComponentPropsWithoutRef<typeof Menu.SubmenuRoot>): react_jsx_runtime.JSX.Element;
+declare function SubTrigger$1(props: React.ComponentPropsWithoutRef<typeof Menu.SubmenuTrigger>): react_jsx_runtime.JSX.Element;
+declare function RadioGroup(props: React.ComponentPropsWithoutRef<typeof Menu.RadioGroup>): react_jsx_runtime.JSX.Element;
+declare const DropdownMenu$1: {
+    Root: typeof Root;
+    Trigger: typeof Trigger;
+    Portal: typeof Portal;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.ContextMenuPositionerProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "className" | "children"> & {
+        children?: React.ReactNode;
+        className?: string;
+    } & React.RefAttributes<HTMLDivElement>>;
+    Item: typeof Item$1;
+    CheckboxItem: typeof CheckboxItem$1;
+    CheckboxItemIndicator: typeof CheckboxItemIndicator;
+    RadioItem: typeof RadioItem$1;
+    RadioItemIndicator: typeof RadioItemIndicator;
+    Label: typeof Label$1;
+    Separator: typeof Separator$1;
+    Group: typeof Group;
+    Sub: typeof Sub;
+    SubTrigger: typeof SubTrigger$1;
+    SubContent: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.ContextMenuPositionerProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "className" | "children"> & {
+        children?: React.ReactNode;
+        className?: string;
+    } & React.RefAttributes<HTMLDivElement>>;
+    RadioGroup: typeof RadioGroup;
+};
+
+declare function Content({ className, sideOffset, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.Content>): react_jsx_runtime.JSX.Element;
+declare function Item({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.Item>): react_jsx_runtime.JSX.Element;
+declare function CheckboxItem({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.CheckboxItem>): react_jsx_runtime.JSX.Element;
+declare function RadioItem({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.RadioItem>): react_jsx_runtime.JSX.Element;
+declare function Label({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.Label>): react_jsx_runtime.JSX.Element;
+declare function Separator({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.Separator>): react_jsx_runtime.JSX.Element;
+declare function SubTrigger({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.SubTrigger>): react_jsx_runtime.JSX.Element;
+declare function SubContent({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenu$1.SubContent>): react_jsx_runtime.JSX.Element;
+declare const DropdownMenu: {
+    Root: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuRoot>) => react_jsx_runtime.JSX.Element;
+    Trigger: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuTrigger>) => react_jsx_runtime.JSX.Element;
+    Portal: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuPortal>) => react_jsx_runtime.JSX.Element;
+    Group: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuGroup>) => react_jsx_runtime.JSX.Element;
+    Sub: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuSubmenuRoot>) => react_jsx_runtime.JSX.Element;
+    RadioGroup: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.MenuRadioGroup>) => react_jsx_runtime.JSX.Element;
+    Content: typeof Content;
+    Item: typeof Item;
+    CheckboxItem: typeof CheckboxItem;
+    RadioItem: typeof RadioItem;
+    Label: typeof Label;
+    Separator: typeof Separator;
+    SubTrigger: typeof SubTrigger;
+    SubContent: typeof SubContent;
+};
+
+export { DropdownMenu };

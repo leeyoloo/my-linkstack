@@ -1,0 +1,26 @@
+import * as _base_ui_react from '@base-ui/react';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as React from 'react';
+import { Popover as Popover$2 } from '@base-ui/react/popover';
+
+declare function Root(props: React.ComponentPropsWithoutRef<typeof Popover$2.Root>): react_jsx_runtime.JSX.Element;
+declare function Trigger(props: React.ComponentPropsWithoutRef<typeof Popover$2.Trigger>): react_jsx_runtime.JSX.Element;
+declare function Portal(props: React.ComponentPropsWithoutRef<typeof Popover$2.Portal>): react_jsx_runtime.JSX.Element;
+declare const Popover$1: {
+    Root: typeof Root;
+    Trigger: typeof Trigger;
+    Portal: typeof Portal;
+    Content: React.ForwardRefExoticComponent<Omit<Omit<Omit<_base_ui_react.PopoverPositionerProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "className" | "children"> & Pick<Omit<Omit<_base_ui_react.PopoverPopupProps, "ref"> & React.RefAttributes<HTMLDivElement>, "ref">, "children" | "initialFocus" | "finalFocus"> & {
+        className?: string;
+    } & React.RefAttributes<HTMLDivElement>>;
+};
+
+declare function Content({ className, sideOffset, ...props }: React.ComponentPropsWithoutRef<typeof Popover$1.Content>): react_jsx_runtime.JSX.Element;
+declare const Popover: {
+    Root: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.PopoverRoot>) => react_jsx_runtime.JSX.Element;
+    Trigger: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.PopoverTrigger>) => react_jsx_runtime.JSX.Element;
+    Portal: (props: React.ComponentPropsWithoutRef<typeof _base_ui_react.PopoverPortal>) => react_jsx_runtime.JSX.Element;
+    Content: typeof Content;
+};
+
+export { Popover };

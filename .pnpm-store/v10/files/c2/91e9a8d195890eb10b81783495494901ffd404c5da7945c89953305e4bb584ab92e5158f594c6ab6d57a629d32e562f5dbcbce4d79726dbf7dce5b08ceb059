@@ -1,0 +1,14 @@
+import * as React from 'react';
+
+type ButtonVariant = "solid" | "outline" | "ghost" | "destructive";
+type ButtonSize = "sm" | "md" | "lg" | "icon";
+type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+};
+declare const Button: React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+} & React.RefAttributes<HTMLButtonElement>>;
+
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant };
